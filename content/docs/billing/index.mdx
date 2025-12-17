@@ -1,0 +1,45 @@
+---
+title: Billing Components
+description: A collection of composable components for building billing and pricing interfaces
+---
+
+BillUI provides a set of composable, accessible, and customizable components for building billing and pricing interfaces. All components are compatible with shadcn/ui and can be installed via the shadcn CLI.
+
+## Installation
+
+You can install BillUI components using the shadcn CLI:
+
+```bash
+npx shadcn@latest add pricing-card --from https://billui.com/api/registry
+```
+
+Or for local development:
+
+```bash
+npx shadcn@latest add pricing-card --from http://localhost:3000/api/registry
+```
+
+## Available Components
+
+<Cards>
+  <Card title="Pricing Card" href="/docs/billing/pricing-card" />
+</Cards>
+
+## Philosophy
+
+BillUI components follow these principles:
+
+1. **Composable** - Components are built using a compound component pattern, giving you full control over structure and styling.
+
+2. **Accessible** - All components follow WAI-ARIA guidelines and support keyboard navigation.
+
+3. **Customizable** - Built with Tailwind CSS and CVA (class-variance-authority) for easy customization.
+
+4. **Type-safe** - Full TypeScript support with exported types for all component props.
+
+## Requirements
+
+- React 18+
+- Tailwind CSS 3.4+ or 4.x
+- A project with shadcn/ui CSS variables configured (or equivalent)
+

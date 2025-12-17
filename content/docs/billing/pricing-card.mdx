@@ -1,0 +1,243 @@
+---
+title: Pricing Card
+description: A composable pricing card component for displaying subscription plans and pricing tiers
+---
+
+import {
+  PricingCard,
+  PricingCardHeader,
+  PricingCardBadge,
+  PricingCardTitle,
+  PricingCardDescription,
+  PricingCardPrice,
+  PricingCardFeatures,
+  PricingCardFeature,
+  PricingCardAction,
+} from "@/components/billing/pricing-card";
+
+A composable pricing card component built with compound components pattern. Perfect for displaying subscription plans, pricing tiers, and feature comparisons.
+
+## Installation
+
+```bash
+npx shadcn@latest add pricing-card --from https://billui.com/api/registry
+```
+
+## Usage
+
+```tsx
+import {
+  PricingCard,
+  PricingCardHeader,
+  PricingCardBadge,
+  PricingCardTitle,
+  PricingCardDescription,
+  PricingCardPrice,
+  PricingCardFeatures,
+  PricingCardFeature,
+  PricingCardAction,
+} from "@/components/ui/pricing-card";
+```
+
+```tsx
+<PricingCard>
+  <PricingCardHeader>
+    <PricingCardTitle>Pro</PricingCardTitle>
+    <PricingCardDescription>For growing teams</PricingCardDescription>
+  </PricingCardHeader>
+  <PricingCardPrice amount={29} period="month" />
+  <PricingCardFeatures>
+    <PricingCardFeature included>Unlimited projects</PricingCardFeature>
+    <PricingCardFeature included>Priority support</PricingCardFeature>
+    <PricingCardFeature included={false}>Custom integrations</PricingCardFeature>
+  </PricingCardFeatures>
+  <PricingCardAction>Get Started</PricingCardAction>
+</PricingCard>
+```
+
+## Examples
+
+### Default Card
+
+<div className="not-prose my-8">
+  <PricingCard className="max-w-sm">
+    <PricingCardHeader>
+      <PricingCardTitle>Starter</PricingCardTitle>
+      <PricingCardDescription>Perfect for individuals</PricingCardDescription>
+    </PricingCardHeader>
+    <PricingCardPrice amount={9} period="month" />
+    <PricingCardFeatures>
+      <PricingCardFeature included>5 projects</PricingCardFeature>
+      <PricingCardFeature included>Basic analytics</PricingCardFeature>
+      <PricingCardFeature included>Email support</PricingCardFeature>
+      <PricingCardFeature included={false}>Custom domain</PricingCardFeature>
+    </PricingCardFeatures>
+    <PricingCardAction variant="outline">Get Started</PricingCardAction>
+  </PricingCard>
+</div>
+
+### Highlighted Card (Popular Plan)
+
+<div className="not-prose my-8">
+  <PricingCard variant="highlighted" className="max-w-sm">
+    <PricingCardHeader>
+      <PricingCardBadge>Most Popular</PricingCardBadge>
+      <PricingCardTitle>Pro</PricingCardTitle>
+      <PricingCardDescription>For growing teams</PricingCardDescription>
+    </PricingCardHeader>
+    <PricingCardPrice amount={29} period="month" />
+    <PricingCardFeatures>
+      <PricingCardFeature included>Unlimited projects</PricingCardFeature>
+      <PricingCardFeature included>Advanced analytics</PricingCardFeature>
+      <PricingCardFeature included>Priority support</PricingCardFeature>
+      <PricingCardFeature included>Custom domain</PricingCardFeature>
+    </PricingCardFeatures>
+    <PricingCardAction>Get Started</PricingCardAction>
+  </PricingCard>
+</div>
+
+### With Original Price (Discount)
+
+<div className="not-prose my-8">
+  <PricingCard className="max-w-sm">
+    <PricingCardHeader>
+      <PricingCardBadge variant="secondary">Save 40%</PricingCardBadge>
+      <PricingCardTitle>Enterprise</PricingCardTitle>
+      <PricingCardDescription>For large organizations</PricingCardDescription>
+    </PricingCardHeader>
+    <PricingCardPrice amount={59} originalAmount={99} period="month" />
+    <PricingCardFeatures>
+      <PricingCardFeature included>Everything in Pro</PricingCardFeature>
+      <PricingCardFeature included>SSO authentication</PricingCardFeature>
+      <PricingCardFeature included>Dedicated support</PricingCardFeature>
+      <PricingCardFeature included>SLA guarantee</PricingCardFeature>
+    </PricingCardFeatures>
+    <PricingCardAction>Contact Sales</PricingCardAction>
+  </PricingCard>
+</div>
+
+### Yearly Pricing
+
+<div className="not-prose my-8">
+  <PricingCard className="max-w-sm">
+    <PricingCardHeader>
+      <PricingCardBadge variant="outline">Best Value</PricingCardBadge>
+      <PricingCardTitle>Pro Yearly</PricingCardTitle>
+      <PricingCardDescription>Billed annually</PricingCardDescription>
+    </PricingCardHeader>
+    <PricingCardPrice amount={290} period="year" />
+    <PricingCardFeatures>
+      <PricingCardFeature included>All Pro features</PricingCardFeature>
+      <PricingCardFeature included>2 months free</PricingCardFeature>
+      <PricingCardFeature included>Priority onboarding</PricingCardFeature>
+    </PricingCardFeatures>
+    <PricingCardAction>Subscribe Yearly</PricingCardAction>
+  </PricingCard>
+</div>
+
+## API Reference
+
+### PricingCard
+
+The root container component.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "highlighted" \| "compact"` | `"default"` | Visual style variant |
+| `size` | `"default" \| "lg"` | `"default"` | Size variant |
+| `className` | `string` | - | Additional CSS classes |
+
+### PricingCardHeader
+
+Container for the title, description, and badge.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | Additional CSS classes |
+
+### PricingCardBadge
+
+Optional badge for highlighting plans.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "secondary" \| "outline"` | `"default"` | Visual style variant |
+| `className` | `string` | - | Additional CSS classes |
+
+### PricingCardTitle
+
+The plan name/title.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | Additional CSS classes |
+
+### PricingCardDescription
+
+Short description of the plan.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | Additional CSS classes |
+
+### PricingCardPrice
+
+Displays the price with optional original price for discounts.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `amount` | `number` | Required | The price amount |
+| `currency` | `string` | `"$"` | Currency symbol |
+| `period` | `"month" \| "year" \| "once"` | `"month"` | Billing period |
+| `originalAmount` | `number` | - | Original price (for showing discounts) |
+| `className` | `string` | - | Additional CSS classes |
+
+### PricingCardFeatures
+
+Container for the feature list.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | - | Additional CSS classes |
+
+### PricingCardFeature
+
+Individual feature item with included/excluded state.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `included` | `boolean` | `true` | Whether the feature is included |
+| `className` | `string` | - | Additional CSS classes |
+
+### PricingCardAction
+
+CTA button for the pricing card.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "outline" \| "secondary"` | `"default"` | Button style variant |
+| `className` | `string` | - | Additional CSS classes |
+
+## Customization
+
+### Custom Styling
+
+You can customize the component using Tailwind CSS classes:
+
+```tsx
+<PricingCard className="bg-gradient-to-br from-purple-500/10 to-pink-500/10">
+  {/* ... */}
+</PricingCard>
+```
+
+### Custom Currency
+
+```tsx
+<PricingCardPrice amount={29} currency="€" period="month" />
+```
+
+### One-time Payment
+
+```tsx
+<PricingCardPrice amount={299} period="once" />
+```
