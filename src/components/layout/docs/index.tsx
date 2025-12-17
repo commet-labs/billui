@@ -1,13 +1,35 @@
-import type * as PageTree from 'fumadocs-core/page-tree';
+import Link from "fumadocs-core/link";
+import type * as PageTree from "fumadocs-core/page-tree";
+import { TreeContextProvider } from "fumadocs-ui/contexts/tree";
+import { Languages, Sidebar as SidebarIcon } from "lucide-react";
 import {
   type ComponentProps,
   type HTMLAttributes,
   type ReactNode,
   useMemo,
-} from 'react';
-import { Languages, Sidebar as SidebarIcon } from 'lucide-react';
-import { cn } from '../../../lib/cn';
-import { buttonVariants } from '../../ui/button';
+} from "react";
+import { cn } from "../../../lib/cn";
+import { buttonVariants } from "../../ui/button";
+import { LanguageToggle, LanguageToggleText } from "../language-toggle";
+import { LinkItem } from "../link-item";
+import { LargeSearchToggle, SearchToggle } from "../search-toggle";
+import { type BaseLayoutProps, resolveLinkItems } from "../shared";
+import type { SidebarPageTreeComponents } from "../sidebar/page-tree";
+import {
+  SidebarTabsDropdown,
+  type SidebarTabWithProps,
+} from "../sidebar/tabs/dropdown";
+import {
+  type GetSidebarTabsOptions,
+  getSidebarTabs,
+} from "../sidebar/tabs/index";
+import { ThemeToggle } from "../theme-toggle";
+import {
+  LayoutBody,
+  LayoutContextProvider,
+  LayoutHeader,
+  LayoutTabs,
+} from "./client";
 import {
   Sidebar,
   SidebarCollapseTrigger,
@@ -17,42 +39,14 @@ import {
   SidebarPageTree,
   SidebarTrigger,
   SidebarViewport,
-} from './sidebar';
-import { type BaseLayoutProps, resolveLinkItems } from '../shared';
-import { LinkItem } from '../link-item';
-import {
-  LanguageToggle,
-  LanguageToggleText,
-} from '../language-toggle';
-import {
-  LayoutTabs,
-  LayoutHeader,
-  LayoutBody,
-  LayoutContextProvider,
-} from './client';
-import { TreeContextProvider } from 'fumadocs-ui/contexts/tree';
-import { ThemeToggle } from '../theme-toggle';
-import Link from 'fumadocs-core/link';
-import {
-  LargeSearchToggle,
-  SearchToggle,
-} from '../search-toggle';
-import {
-  getSidebarTabs,
-  type GetSidebarTabsOptions,
-} from '../sidebar/tabs/index';
-import type { SidebarPageTreeComponents } from '../sidebar/page-tree';
-import {
-  SidebarTabsDropdown,
-  type SidebarTabWithProps,
-} from '../sidebar/tabs/dropdown';
+} from "./sidebar";
 
 export interface DocsLayoutProps extends BaseLayoutProps {
   tree: PageTree.Root;
 
   sidebar?: SidebarOptions;
 
-  tabMode?: 'top' | 'auto';
+  tabMode?: "top" | "auto";
 
   /**
    * Props for the `div` container
@@ -61,9 +55,8 @@ export interface DocsLayoutProps extends BaseLayoutProps {
 }
 
 interface SidebarOptions
-  extends
-    ComponentProps<'aside'>,
-    Pick<ComponentProps<typeof Sidebar>, 'defaultOpenLevel' | 'prefetch'> {
+  extends ComponentProps<"aside">,
+    Pick<ComponentProps<typeof Sidebar>, "defaultOpenLevel" | "prefetch"> {
   enabled?: boolean;
   component?: ReactNode;
   components?: Partial<SidebarPageTreeComponents>;
@@ -95,7 +88,7 @@ export function DocsLayout({
   } = {},
   searchToggle = {},
   themeSwitch = {},
-  tabMode = 'auto',
+  tabMode = "auto",
   i18n = false,
   children,
   tree,
@@ -105,7 +98,7 @@ export function DocsLayout({
     if (Array.isArray(sidebarTabs)) {
       return sidebarTabs;
     }
-    if (typeof sidebarTabs === 'object') {
+    if (typeof sidebarTabs === "object") {
       return getSidebarTabs(tree, sidebarTabs);
     }
     if (sidebarTabs !== false) {
@@ -126,16 +119,16 @@ export function DocsLayout({
     } = sidebarProps;
     if (component) return component;
 
-    const iconLinks = links.filter((item) => item.type === 'icon');
+    const iconLinks = links.filter((item) => item.type === "icon");
     const viewport = (
       <SidebarViewport>
         {links
-          .filter((v) => v.type !== 'icon')
+          .filter((v) => v.type !== "icon")
           .map((item, i, list) => (
             <SidebarLinkItem
               key={i}
               item={item}
-              className={cn(i === list.length - 1 && 'mb-4')}
+              className={cn(i === list.length - 1 && "mb-4")}
             />
           ))}
         <SidebarPageTree {...components} />
@@ -148,7 +141,7 @@ export function DocsLayout({
           <div className="flex flex-col gap-3 p-4 pb-2">
             <div className="flex">
               <Link
-                href={nav.url ?? '/'}
+                href={nav.url ?? "/"}
                 className="inline-flex text-[0.9375rem] items-center gap-2.5 font-medium me-auto"
               >
                 {nav.title}
@@ -158,9 +151,9 @@ export function DocsLayout({
                 <SidebarCollapseTrigger
                   className={cn(
                     buttonVariants({
-                      color: 'ghost',
-                      size: 'icon-sm',
-                      className: 'mb-auto text-fd-muted-foreground',
+                      color: "ghost",
+                      size: "icon-sm",
+                      className: "mb-auto text-fd-muted-foreground",
                     }),
                   )}
                 >
@@ -172,7 +165,7 @@ export function DocsLayout({
               (searchToggle.components?.lg ?? (
                 <LargeSearchToggle hideIfDisabled />
               ))}
-            {tabs.length > 0 && tabMode === 'auto' && (
+            {tabs.length > 0 && tabMode === "auto" && (
               <SidebarTabsDropdown options={tabs} />
             )}
             {banner}
@@ -194,7 +187,7 @@ export function DocsLayout({
                     key={i}
                     item={item}
                     className={cn(
-                      buttonVariants({ size: 'icon-sm', color: 'ghost' }),
+                      buttonVariants({ size: "icon-sm", color: "ghost" }),
                     )}
                     aria-label={item.label}
                   >
@@ -223,9 +216,9 @@ export function DocsLayout({
                     item={item}
                     className={cn(
                       buttonVariants({
-                        size: 'icon-sm',
-                        color: 'ghost',
-                        className: 'p-2',
+                        size: "icon-sm",
+                        color: "ghost",
+                        className: "p-2",
                       }),
                     )}
                     aria-label={item.label}
@@ -247,9 +240,9 @@ export function DocsLayout({
               <SidebarTrigger
                 className={cn(
                   buttonVariants({
-                    color: 'ghost',
-                    size: 'icon-sm',
-                    className: 'p-2',
+                    color: "ghost",
+                    size: "icon-sm",
+                    className: "p-2",
                   }),
                 )}
               >
@@ -280,7 +273,7 @@ export function DocsLayout({
                   className="[grid-area:header] sticky top-(--fd-docs-row-1) z-30 flex items-center ps-4 pe-2.5 border-b transition-colors backdrop-blur-sm h-(--fd-header-height) md:hidden max-md:layout:[--fd-header-height:--spacing(14)] data-[transparent=false]:bg-fd-background/80"
                 >
                   <Link
-                    href={nav.url ?? '/'}
+                    href={nav.url ?? "/"}
                     className="inline-flex items-center gap-2.5 font-semibold"
                   >
                     {nav.title}
@@ -294,9 +287,9 @@ export function DocsLayout({
                     <SidebarTrigger
                       className={cn(
                         buttonVariants({
-                          color: 'ghost',
-                          size: 'icon-sm',
-                          className: 'p-2',
+                          color: "ghost",
+                          size: "icon-sm",
+                          className: "p-2",
                         }),
                       )}
                     >
@@ -306,7 +299,7 @@ export function DocsLayout({
                 </LayoutHeader>
               ))}
             {sidebarEnabled && sidebar()}
-            {tabMode === 'top' && tabs.length > 0 && (
+            {tabMode === "top" && tabs.length > 0 && (
               <LayoutTabs
                 options={tabs}
                 className="z-10 bg-fd-background border-b px-6 pt-3 xl:px-8 max-md:hidden"

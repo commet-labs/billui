@@ -1,14 +1,14 @@
-import { getPageImage, source } from "@/lib/source";
+import { createRelativeLink } from "fumadocs-ui/mdx";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import {
   DocsBody,
   DocsDescription,
   DocsPage,
   DocsTitle,
 } from "@/components/layout/docs/page";
-import { notFound } from "next/navigation";
+import { getPageImage, source } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
-import type { Metadata } from "next";
-import { createRelativeLink } from "fumadocs-ui/mdx";
 
 export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const params = await props.params;

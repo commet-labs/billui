@@ -1,7 +1,7 @@
-import type { ComponentProps } from 'react';
-import { cn } from '../../../lib/cn';
-import { type BaseLayoutProps, type NavOptions } from '../shared';
-import { Header } from './client';
+import type { ComponentProps } from "react";
+import { cn } from "../../../lib/cn";
+import type { BaseLayoutProps, NavOptions } from "../shared";
+import { Header } from "./client";
 
 export interface HomeLayoutProps extends BaseLayoutProps {
   nav?: Partial<
@@ -14,7 +14,7 @@ export interface HomeLayoutProps extends BaseLayoutProps {
   >;
 }
 
-export function HomeLayout(props: HomeLayoutProps & ComponentProps<'main'>) {
+export function HomeLayout(props: HomeLayoutProps & ComponentProps<"main">) {
   const {
     nav = {},
     links,
@@ -30,7 +30,7 @@ export function HomeLayout(props: HomeLayoutProps & ComponentProps<'main'>) {
       id="nd-home-layout"
       {...rest}
       className={cn(
-        'flex flex-1 flex-col [--fd-layout-width:1400px]',
+        "flex flex-1 flex-col [--fd-layout-width:1400px]",
         rest.className,
       )}
     >

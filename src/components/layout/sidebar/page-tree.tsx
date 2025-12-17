@@ -1,7 +1,7 @@
-import { useTreeContext, useTreePath } from 'fumadocs-ui/contexts/tree';
-import { type FC, type ReactNode, useMemo, Fragment } from 'react';
-import type * as PageTree from 'fumadocs-core/page-tree';
-import type * as Base from './base';
+import type * as PageTree from "fumadocs-core/page-tree";
+import { useTreeContext, useTreePath } from "fumadocs-ui/contexts/tree";
+import { type FC, Fragment, type ReactNode, useMemo } from "react";
+import type * as Base from "./base";
 
 export interface SidebarPageTreeComponents {
   Item: FC<{ item: PageTree.Item }>;
@@ -11,12 +11,12 @@ export interface SidebarPageTreeComponents {
 
 type InternalComponents = Pick<
   typeof Base,
-  | 'SidebarSeparator'
-  | 'SidebarFolder'
-  | 'SidebarFolderLink'
-  | 'SidebarFolderContent'
-  | 'SidebarFolderTrigger'
-  | 'SidebarItem'
+  | "SidebarSeparator"
+  | "SidebarFolder"
+  | "SidebarFolderLink"
+  | "SidebarFolderContent"
+  | "SidebarFolderTrigger"
+  | "SidebarItem"
 >;
 
 export function createPageTreeRenderer({
@@ -70,10 +70,11 @@ export function createPageTreeRenderer({
     const { root } = useTreeContext();
     const { Separator, Item, Folder = PageTreeFolder } = components;
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: We need to memoize the result
     return useMemo(() => {
       function renderSidebarList(items: PageTree.Node[]) {
         return items.map((item, i) => {
-          if (item.type === 'separator') {
+          if (item.type === "separator") {
             if (Separator) return <Separator key={i} item={item} />;
             return (
               <SidebarSeparator key={i}>
@@ -83,7 +84,7 @@ export function createPageTreeRenderer({
             );
           }
 
-          if (item.type === 'folder') {
+          if (item.type === "folder") {
             return (
               <Folder key={i} item={item}>
                 {renderSidebarList(item.children)}

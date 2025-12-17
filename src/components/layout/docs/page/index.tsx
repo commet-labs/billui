@@ -1,8 +1,12 @@
-import type { ComponentProps, ReactNode } from 'react';
-import { cn } from '../../../../lib/cn';
-import { buttonVariants } from '../../../ui/button';
-import { Edit, Text } from 'lucide-react';
-import { I18nLabel } from 'fumadocs-ui/contexts/i18n';
+import type { AnchorProviderProps, TOCItemType } from "fumadocs-core/toc";
+import { I18nLabel } from "fumadocs-ui/contexts/i18n";
+import { Edit, Text } from "lucide-react";
+import type { ComponentProps, ReactNode } from "react";
+import { cn } from "../../../../lib/cn";
+import * as TocClerk from "../../../toc/clerk";
+import * as TocDefault from "../../../toc/default";
+import { TOCProvider, TOCScrollArea } from "../../../toc/index";
+import { buttonVariants } from "../../../ui/button";
 import {
   type BreadcrumbProps,
   type FooterProps,
@@ -11,11 +15,7 @@ import {
   PageTOCPopover,
   PageTOCPopoverContent,
   PageTOCPopoverTrigger,
-} from './client';
-import type { AnchorProviderProps, TOCItemType } from 'fumadocs-core/toc';
-import * as TocDefault from '../../../toc/default';
-import * as TocClerk from '../../../toc/clerk';
-import { TOCProvider, TOCScrollArea } from '../../../toc/index';
+} from "./client";
 
 interface BreadcrumbOptions extends BreadcrumbProps {
   enabled: boolean;
@@ -52,7 +52,7 @@ export interface DocsPageProps {
   children?: ReactNode;
 }
 
-type TableOfContentOptions = Pick<AnchorProviderProps, 'single'> & {
+type TableOfContentOptions = Pick<AnchorProviderProps, "single"> & {
   /**
    * Custom content in TOC container, before the main TOC
    */
@@ -69,10 +69,10 @@ type TableOfContentOptions = Pick<AnchorProviderProps, 'single'> & {
   /**
    * @defaultValue 'normal'
    */
-  style?: 'normal' | 'clerk';
+  style?: "normal" | "clerk";
 };
 
-type TableOfContentPopoverOptions = Omit<TableOfContentOptions, 'single'>;
+type TableOfContentPopoverOptions = Omit<TableOfContentOptions, "single">;
 
 export function DocsPage({
   breadcrumb: {
@@ -126,7 +126,7 @@ export function DocsPage({
             <PageTOCPopoverContent>
               {tocPopoverOptions.header}
               <TOCScrollArea>
-                {tocPopoverOptions.style === 'clerk' ? (
+                {tocPopoverOptions.style === "clerk" ? (
                   <TocClerk.TOCItems />
                 ) : (
                   <TocDefault.TOCItems />
@@ -140,8 +140,8 @@ export function DocsPage({
         id="nd-page"
         data-full={full}
         className={cn(
-          'flex flex-col w-full max-w-[900px] mx-auto [grid-area:main] px-4 py-6 gap-4 md:px-6 md:pt-8 xl:px-8 xl:pt-14',
-          full ? 'max-w-[1200px]' : 'xl:layout:[--fd-toc-width:268px]',
+          "flex flex-col w-full max-w-[900px] mx-auto [grid-area:main] px-4 py-6 gap-4 md:px-6 md:pt-8 xl:px-8 xl:pt-14",
+          full ? "max-w-[1200px]" : "xl:layout:[--fd-toc-width:268px]",
         )}
       >
         {breadcrumbEnabled &&
@@ -165,7 +165,7 @@ export function DocsPage({
               <I18nLabel label="toc" />
             </h3>
             <TOCScrollArea>
-              {tocOptions.style === 'clerk' ? (
+              {tocOptions.style === "clerk" ? (
                 <TocClerk.TOCItems />
               ) : (
                 <TocDefault.TOCItems />
@@ -178,7 +178,7 @@ export function DocsPage({
   );
 }
 
-export function EditOnGitHub(props: ComponentProps<'a'>) {
+export function EditOnGitHub(props: ComponentProps<"a">) {
   return (
     <a
       target="_blank"
@@ -186,9 +186,9 @@ export function EditOnGitHub(props: ComponentProps<'a'>) {
       {...props}
       className={cn(
         buttonVariants({
-          color: 'secondary',
-          size: 'sm',
-          className: 'gap-1.5 not-prose',
+          color: "secondary",
+          size: "sm",
+          className: "gap-1.5 not-prose",
         }),
         props.className,
       )}
@@ -210,9 +210,9 @@ export function DocsBody({
   children,
   className,
   ...props
-}: ComponentProps<'div'>) {
+}: ComponentProps<"div">) {
   return (
-    <div {...props} className={cn('prose flex-1', className)}>
+    <div {...props} className={cn("prose flex-1", className)}>
       {children}
     </div>
   );
@@ -222,14 +222,14 @@ export function DocsDescription({
   children,
   className,
   ...props
-}: ComponentProps<'p'>) {
+}: ComponentProps<"p">) {
   // Don't render if no description provided
   if (children === undefined) return null;
 
   return (
     <p
       {...props}
-      className={cn('mb-8 text-lg text-fd-muted-foreground', className)}
+      className={cn("mb-8 text-lg text-fd-muted-foreground", className)}
     >
       {children}
     </p>
@@ -240,12 +240,12 @@ export function DocsTitle({
   children,
   className,
   ...props
-}: ComponentProps<'h1'>) {
+}: ComponentProps<"h1">) {
   return (
-    <h1 {...props} className={cn('text-[1.75em] font-semibold', className)}>
+    <h1 {...props} className={cn("text-[1.75em] font-semibold", className)}>
       {children}
     </h1>
   );
 }
 
-export { PageLastUpdate, PageBreadcrumb } from './client';
+export { PageBreadcrumb, PageLastUpdate } from "./client";

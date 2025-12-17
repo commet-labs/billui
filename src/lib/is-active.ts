@@ -1,7 +1,7 @@
-import type { SidebarTab } from '../components/layout/sidebar/tabs/index';
+import type { SidebarTab } from "../components/layout/sidebar/tabs/index";
 
 function normalize(url: string) {
-  if (url.length > 1 && url.endsWith('/')) return url.slice(0, -1);
+  if (url.length > 1 && url.endsWith("/")) return url.slice(0, -1);
   return url;
 }
 
