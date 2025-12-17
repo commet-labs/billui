@@ -1,10 +1,11 @@
+// Re-export from registry - single source of truth
 export type {
   PricingCardActionProps,
   PricingCardBadgeProps,
   PricingCardFeatureProps,
   PricingCardPriceProps,
   PricingCardProps,
-} from "./pricing-card";
+} from "@/registry/ui/pricing-card";
 export {
   PricingCard,
   PricingCardAction,
@@ -18,4 +19,4 @@ export {
   pricingCardActionVariants,
   pricingCardBadgeVariants,
   pricingCardVariants,
-} from "./pricing-card";
+} from "@/registry/ui/pricing-card";

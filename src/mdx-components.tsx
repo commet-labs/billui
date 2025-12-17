@@ -10,7 +10,7 @@ import {
   PricingCardHeader,
   PricingCardPrice,
   PricingCardTitle,
-} from "@/components/billing/pricing-card";
+} from "@/components/billing";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
