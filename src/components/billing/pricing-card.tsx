@@ -27,7 +27,7 @@ const pricingCardVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 interface PricingCardProps
@@ -41,7 +41,7 @@ const PricingCard = React.forwardRef<HTMLDivElement, PricingCardProps>(
       className={cn(pricingCardVariants({ variant, size, className }))}
       {...props}
     />
-  ),
+  )
 );
 PricingCard.displayName = "PricingCard";
 
@@ -56,12 +56,11 @@ PricingCardHeader.displayName = "PricingCardHeader";
 interface PricingCardBadgeProps
   extends React.ComponentPropsWithoutRef<typeof Badge> {}
 
-const PricingCardBadge = React.forwardRef<
-  HTMLDivElement,
-  PricingCardBadgeProps
->(({ className, ...props }, ref) => (
-  <Badge ref={ref} className={cn("w-fit", className)} {...props} />
-));
+const PricingCardBadge = React.forwardRef<HTMLDivElement, PricingCardBadgeProps>(
+  ({ className, ...props }, ref) => (
+    <Badge ref={ref} className={cn("w-fit", className)} {...props} />
+  )
+);
 PricingCardBadge.displayName = "PricingCardBadge";
 
 const PricingCardTitle = React.forwardRef<
@@ -95,20 +94,10 @@ interface PricingCardPriceProps extends React.HTMLAttributes<HTMLDivElement> {
   originalAmount?: number;
 }
 
-const PricingCardPrice = React.forwardRef<
-  HTMLDivElement,
-  PricingCardPriceProps
->(
+const PricingCardPrice = React.forwardRef<HTMLDivElement, PricingCardPriceProps>(
   (
-    {
-      className,
-      amount,
-      currency = "$",
-      period = "month",
-      originalAmount,
-      ...props
-    },
-    ref,
+    { className, amount, currency = "$", period = "month", originalAmount, ...props },
+    ref
   ) => {
     const periodLabel = {
       month: "/mo",
@@ -137,7 +126,7 @@ const PricingCardPrice = React.forwardRef<
         )}
       </div>
     );
-  },
+  }
 );
 PricingCardPrice.displayName = "PricingCardPrice";
 
@@ -157,38 +146,36 @@ interface PricingCardFeatureProps extends React.HTMLAttributes<HTMLLIElement> {
   included?: boolean;
 }
 
-const PricingCardFeature = React.forwardRef<
-  HTMLLIElement,
-  PricingCardFeatureProps
->(({ className, included = true, children, ...props }, ref) => (
-  <li
-    ref={ref}
-    className={cn(
-      "flex items-center gap-3",
-      !included && "text-muted-foreground",
-      className,
-    )}
-    {...props}
-  >
-    {included ? (
-      <Check className="h-4 w-4 shrink-0 text-primary" />
-    ) : (
-      <X className="h-4 w-4 shrink-0 text-muted-foreground" />
-    )}
-    <span>{children}</span>
-  </li>
-));
+const PricingCardFeature = React.forwardRef<HTMLLIElement, PricingCardFeatureProps>(
+  ({ className, included = true, children, ...props }, ref) => (
+    <li
+      ref={ref}
+      className={cn(
+        "flex items-center gap-3",
+        !included && "text-muted-foreground",
+        className
+      )}
+      {...props}
+    >
+      {included ? (
+        <Check className="h-4 w-4 shrink-0 text-primary" />
+      ) : (
+        <X className="h-4 w-4 shrink-0 text-muted-foreground" />
+      )}
+      <span>{children}</span>
+    </li>
+  )
+);
 PricingCardFeature.displayName = "PricingCardFeature";
 
 interface PricingCardActionProps
   extends React.ComponentPropsWithoutRef<typeof Button> {}
 
-const PricingCardAction = React.forwardRef<
-  HTMLButtonElement,
-  PricingCardActionProps
->(({ className, ...props }, ref) => (
-  <Button ref={ref} className={cn("mt-6 w-full", className)} {...props} />
-));
+const PricingCardAction = React.forwardRef<HTMLButtonElement, PricingCardActionProps>(
+  ({ className, ...props }, ref) => (
+    <Button ref={ref} className={cn("mt-6 w-full", className)} {...props} />
+  )
+);
 PricingCardAction.displayName = "PricingCardAction";
 
 export {
@@ -211,3 +198,4 @@ export type {
   PricingCardFeatureProps,
   PricingCardActionProps,
 };
+

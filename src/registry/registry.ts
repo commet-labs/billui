@@ -23,11 +23,8 @@ export const registry: Record<string, RegistryItem> = {
     type: "registry:ui",
     description:
       "A composable pricing card component for displaying subscription plans",
-    dependencies: [
-      "lucide-react",
-      "class-variance-authority",
-      "tailwind-merge",
-    ],
+    dependencies: ["lucide-react"],
+    registryDependencies: ["button", "badge"],
     files: [], // Will be populated dynamically from source files
   },
 };
