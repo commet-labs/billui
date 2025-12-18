@@ -28,7 +28,7 @@ import {
   PlanGroupTitle,
   PlanGroupToggle,
   PlanPrice,
-} from "@/components/billing";
+} from "@/registry/ui";
 import { ComponentPreview } from "@/components/docs/component-preview";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {

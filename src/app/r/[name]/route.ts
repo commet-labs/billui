@@ -10,11 +10,14 @@ export async function GET(
 ) {
   const { name } = await params;
 
-  const item = getRegistryItem(name);
+  // Remove .json extension if present
+  const componentName = name.replace(/\.json$/, "");
+
+  const item = getRegistryItem(componentName);
 
   if (!item) {
     return NextResponse.json(
-      { error: `Component "${name}" not found in registry` },
+      { error: `Component "${componentName}" not found in registry` },
       { status: 404 },
     );
   }
@@ -26,29 +29,36 @@ export async function GET(
       "src",
       "registry",
       "ui",
-      `${name}.tsx`,
+      `${componentName}.tsx`,
     );
 
     const content = await fs.readFile(componentPath, "utf-8");
+
+    // Transform imports for distribution:
+    // @/registry/shadcn/* -> @/components/ui/*
+    const transformedContent = content
+      .replace(/@\/registry\/shadcn\//g, "@/components/ui/")
+      .replace(/@\/registry\/ui\//g, "@/components/ui/");
 
     const registryItem: RegistryItem = {
       ...item,
       files: [
         {
-          path: `ui/${name}.tsx`,
-          content,
+          path: `ui/${componentName}.tsx`,
+          content: transformedContent,
           type: "registry:ui",
-          target: `components/ui/${name}.tsx`,
+          target: `components/ui/${componentName}.tsx`,
         },
       ],
     };
 
     return NextResponse.json(registryItem);
   } catch (error) {
-    console.error(`Error reading component file for "${name}":`, error);
+    console.error(`Error reading component file for "${componentName}":`, error);
     return NextResponse.json(
-      { error: `Failed to load component "${name}"` },
+      { error: `Failed to load component "${componentName}"` },
       { status: 500 },
     );
   }
 }
+

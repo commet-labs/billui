@@ -20,7 +20,7 @@ import {
   PlanCardFeatures,
   PlanCardFeature,
   PlanCardAction,
-} from "@/components/billing";
+} from "@/registry/ui";
 
 <ComponentPreview>
   <PlanGroup>
@@ -74,7 +74,7 @@ import {
 <Tabs items={["CLI", "Manual"]}>
   <Tab value="CLI">
 ```bash
-npx shadcn@latest add plan-group --from https://billui.com/api/registry
+npx shadcn@latest add "https://billui.com/r/plan-group.json"
 ```
   </Tab>
   <Tab value="Manual">

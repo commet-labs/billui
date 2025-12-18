@@ -14,7 +14,7 @@ import {
   InvoiceCardAmount,
   InvoiceCardActions,
   InvoiceCardAction,
-} from "@/components/billing";
+} from "@/registry/ui";
 
 <ComponentPreview>
   <div className="w-full max-w-lg space-y-3">
@@ -70,7 +70,7 @@ import {
 <Tabs items={["CLI", "Manual"]}>
   <Tab value="CLI">
 ```bash
-npx shadcn@latest add invoice-card --from https://billui.com/api/registry
+npx shadcn@latest add "https://billui.com/r/invoice-card.json"
 ```
   </Tab>
   <Tab value="Manual">

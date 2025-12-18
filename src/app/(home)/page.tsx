@@ -35,7 +35,7 @@ import {
   PlanGroupTitle,
   PlanGroupToggle,
   PlanPrice,
-} from "@/components/billing";
+} from "@/registry/ui";
 
 export default function HomePage() {
   return (
