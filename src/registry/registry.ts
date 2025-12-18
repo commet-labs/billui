@@ -82,7 +82,7 @@ export const registry: Record<string, RegistryItem> = {
     description:
       "A card for displaying usage metrics, billing cycle progress and itemized charges.",
     dependencies: ["lucide-react"],
-    registryDependencies: ["button"],
+    registryDependencies: ["button", "progress"],
     files: [], // Will be populated dynamically from source files
   },
 };

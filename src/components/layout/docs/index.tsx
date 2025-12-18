@@ -3,8 +3,8 @@ import type * as PageTree from "fumadocs-core/page-tree";
 import { TreeContextProvider } from "fumadocs-ui/contexts/tree";
 import {
   Languages,
-  Sidebar as SidebarIcon,
   Link as LinkIcon,
+  Sidebar as SidebarIcon,
 } from "lucide-react";
 import {
   type ComponentProps,

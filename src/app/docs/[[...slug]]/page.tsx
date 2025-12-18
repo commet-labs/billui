@@ -7,9 +7,9 @@ import {
   DocsPage,
   DocsTitle,
 } from "@/components/layout/docs/page";
+import { LLMCopyButton, ViewOptions } from "@/components/page-actions";
 import { getPageImage, source } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
-import { LLMCopyButton, ViewOptions } from "@/components/page-actions";
 
 export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const params = await props.params;

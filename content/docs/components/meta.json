@@ -1,4 +1,10 @@
 {
   "title": "Components",
-  "pages": ["plan-card", "plan-group", "invoice-card", "payment-method", "usage-card"]
+  "pages": [
+    "plan-card",
+    "plan-group",
+    "invoice-card",
+    "payment-method",
+    "usage-card"
+  ]
 }

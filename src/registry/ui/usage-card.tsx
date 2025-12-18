@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/shadcn/button";
+import { Progress } from "@/registry/shadcn/progress";
 
 const usageCardVariants = cva(
   "relative rounded-2xl border bg-card text-card-foreground",
@@ -164,45 +165,31 @@ const UsageCardLabel = React.forwardRef<HTMLDivElement, UsageCardLabelProps>(
 );
 UsageCardLabel.displayName = "UsageCardLabel";
 
-interface UsageCardProgressProps extends React.HTMLAttributes<HTMLDivElement> {
+interface UsageCardProgressProps
+  extends Omit<React.ComponentPropsWithoutRef<typeof Progress>, "value"> {
   value: number;
   max?: number;
   showOverage?: boolean;
 }
 
 const UsageCardProgress = React.forwardRef<
-  HTMLDivElement,
+  React.ComponentRef<typeof Progress>,
   UsageCardProgressProps
 >(({ className, value, max = 100, showOverage = false, ...props }, ref) => {
   const percentage = Math.min((value / max) * 100, 100);
   const isOverage = value > max;
-  const overagePercentage = isOverage
-    ? Math.min(((value - max) / max) * 100, 100)
-    : 0;
 
   return (
-    <div
+    <Progress
       ref={ref}
+      value={percentage}
       className={cn(
-        "relative h-2 w-full overflow-hidden rounded-full bg-muted",
+        "h-2 bg-muted",
+        isOverage && "*:data-[slot=progress-indicator]:bg-destructive",
         className,
       )}
       {...props}
-    >
-      <div
-        className={cn(
-          "h-full rounded-full transition-all duration-500 ease-out",
-          isOverage ? "bg-destructive" : "bg-primary",
-        )}
-        style={{ width: `${percentage}%` }}
-      />
-      {showOverage && isOverage && (
-        <div
-          className="absolute top-0 h-full bg-destructive/50 transition-all duration-500 ease-out"
-          style={{ left: "100%", width: `${overagePercentage}%` }}
-        />
-      )}
-    </div>
+    />
   );
 });
 UsageCardProgress.displayName = "UsageCardProgress";
