@@ -44,7 +44,8 @@ function OpenInV0Button({ url }: { url: string }) {
 }
 
 function generateV0Url(componentName: string, code: string): string {
-  const base64Code = btoa(code);
+  // Use encodeURIComponent + btoa for proper UTF-8 handling
+  const base64Code = btoa(encodeURIComponent(code));
   return `https://billui.com/r/${componentName}/demo?code=${base64Code}`;
 }
 

@@ -126,8 +126,9 @@ export async function GET(
     let demoContent: string;
     
     if (codeParam) {
-      // Decode the base64 code
-      const exampleCode = Buffer.from(codeParam, "base64").toString("utf-8");
+      // Decode the base64 code (was encoded with encodeURIComponent + btoa)
+      const decoded = Buffer.from(codeParam, "base64").toString("utf-8");
+      const exampleCode = decodeURIComponent(decoded);
       demoContent = generateDemoPage(componentName, exampleCode);
     } else {
       // Try to read the default demo file
