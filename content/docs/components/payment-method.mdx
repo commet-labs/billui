@@ -420,7 +420,29 @@ import {
 
 Each card brand displays with its official logo.
 
-<ComponentPreview>
+<ComponentPreview code={`<PaymentMethod>
+  <PaymentMethodIcon brand="visa" />
+  <PaymentMethodDetails>
+    <PaymentMethodNumber last4="4242" />
+    <PaymentMethodExpiry month={12} year={2026} />
+  </PaymentMethodDetails>
+</PaymentMethod>
+
+<PaymentMethod>
+  <PaymentMethodIcon brand="mastercard" />
+  <PaymentMethodDetails>
+    <PaymentMethodNumber last4="5555" />
+    <PaymentMethodExpiry month={8} year={2025} />
+  </PaymentMethodDetails>
+</PaymentMethod>
+
+<PaymentMethod>
+  <PaymentMethodIcon brand="amex" />
+  <PaymentMethodDetails>
+    <PaymentMethodNumber last4="0001" />
+    <PaymentMethodExpiry month={3} year={2027} />
+  </PaymentMethodDetails>
+</PaymentMethod>`}>
   <div className="flex w-full flex-col gap-4 max-w-md">
     <PaymentMethod>
       <PaymentMethodIcon brand="visa" />
