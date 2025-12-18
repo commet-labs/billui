@@ -6,7 +6,7 @@ import { Badge } from "@/registry/shadcn/badge";
 import { Button } from "@/registry/shadcn/button";
 
 const planCardVariants = cva(
-  "relative flex flex-col rounded-2xl border bg-card text-card-foreground transition-all duration-200 min-w-[280px]",
+  "relative rounded-2xl border bg-card text-card-foreground transition-all duration-200",
   {
     variants: {
       variant: {
@@ -19,10 +19,15 @@ const planCardVariants = cva(
         default: "p-6",
         lg: "p-8",
       },
+      layout: {
+        vertical: "flex flex-col min-w-[280px]",
+        horizontal: "flex flex-row items-center gap-6 w-full",
+      },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      layout: "vertical",
     },
   },
 );
@@ -32,10 +37,10 @@ interface PlanCardProps
     VariantProps<typeof planCardVariants> {}
 
 const PlanCard = React.forwardRef<HTMLDivElement, PlanCardProps>(
-  ({ className, variant, size, ...props }, ref) => (
+  ({ className, variant, size, layout, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(planCardVariants({ variant, size, className }))}
+      className={cn(planCardVariants({ variant, size, layout, className }))}
       {...props}
     />
   ),

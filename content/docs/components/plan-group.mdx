@@ -402,9 +402,9 @@ import {
 
 ## Examples
 
-### Vertical Layout
+### Horizontal Card Layout
 
-Use `layout="vertical"` to stack plans vertically.
+Use `layout="horizontal"` on `PlanCard` combined with `layout="vertical"` on `PlanGroupContent` to create a row-style pricing list.
 
 <ComponentPreview code={`<PlanGroup>
   <PlanGroupHeader>
@@ -412,33 +412,30 @@ Use `layout="vertical"` to stack plans vertically.
     <PlanGroupToggle />
   </PlanGroupHeader>
   <PlanGroupContent layout="vertical">
-    <PlanCard>
-      <PlanCardHeader>
+    <PlanCard layout="horizontal" className="min-w-[500px] grid grid-cols-[1fr_auto] gap-x-8 gap-y-3">
+      <div className="flex items-center gap-2">
         <PlanCardTitle>Basic</PlanCardTitle>
-        <PlanCardDescription>Everything you need to get started</PlanCardDescription>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={9} yearlyAmount={90} />
+      </div>
+      <PlanPrice monthlyAmount={9} yearlyAmount={90} className="my-0 justify-self-end" />
       <PlanCardFeatures>
         <PlanCardFeature included>5 projects</PlanCardFeature>
         <PlanCardFeature included>Basic analytics</PlanCardFeature>
+        <PlanCardFeature included={false}>Priority support</PlanCardFeature>
       </PlanCardFeatures>
-      <PlanCardAction variant="outline">Select Plan</PlanCardAction>
+      <PlanCardAction variant="outline" className="mt-0 w-auto self-end justify-self-end">Select</PlanCardAction>
     </PlanCard>
-    <PlanCard variant="highlighted">
-      <PlanCardHeader>
-        <div className="flex items-center justify-between">
-          <PlanCardTitle>Professional</PlanCardTitle>
-          <PlanCardBadge>Recommended</PlanCardBadge>
-        </div>
-        <PlanCardDescription>Best for growing businesses</PlanCardDescription>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={29} yearlyAmount={290} originalMonthlyAmount={39} originalYearlyAmount={390} />
+    <PlanCard layout="horizontal" variant="highlighted" className="min-w-[500px] grid grid-cols-[1fr_auto] gap-x-8 gap-y-3">
+      <div className="flex items-center gap-2">
+        <PlanCardTitle>Pro</PlanCardTitle>
+        <PlanCardBadge>Popular</PlanCardBadge>
+      </div>
+      <PlanPrice monthlyAmount={29} yearlyAmount={290} className="my-0 justify-self-end" />
       <PlanCardFeatures>
         <PlanCardFeature included>Unlimited projects</PlanCardFeature>
         <PlanCardFeature included>Advanced analytics</PlanCardFeature>
         <PlanCardFeature included>Priority support</PlanCardFeature>
       </PlanCardFeatures>
-      <PlanCardAction>Select Plan</PlanCardAction>
+      <PlanCardAction className="mt-0 w-auto self-end justify-self-end">Select</PlanCardAction>
     </PlanCard>
   </PlanGroupContent>
 </PlanGroup>`}>
@@ -448,33 +445,30 @@ Use `layout="vertical"` to stack plans vertically.
       <PlanGroupToggle />
     </PlanGroupHeader>
     <PlanGroupContent layout="vertical">
-      <PlanCard>
-        <PlanCardHeader>
+      <PlanCard layout="horizontal" className="min-w-[500px] grid grid-cols-[1fr_auto] gap-x-8 gap-y-3">
+        <div className="flex items-center gap-2">
           <PlanCardTitle>Basic</PlanCardTitle>
-          <PlanCardDescription>Everything you need to get started</PlanCardDescription>
-        </PlanCardHeader>
-        <PlanPrice monthlyAmount={9} yearlyAmount={90} />
+        </div>
+        <PlanPrice monthlyAmount={9} yearlyAmount={90} className="my-0 justify-self-end" />
         <PlanCardFeatures>
           <PlanCardFeature included>5 projects</PlanCardFeature>
           <PlanCardFeature included>Basic analytics</PlanCardFeature>
+          <PlanCardFeature included={false}>Priority support</PlanCardFeature>
         </PlanCardFeatures>
-        <PlanCardAction variant="outline">Select Plan</PlanCardAction>
+        <PlanCardAction variant="outline" className="mt-0 w-auto self-end justify-self-end">Select</PlanCardAction>
       </PlanCard>
-      <PlanCard variant="highlighted">
-        <PlanCardHeader>
-          <div className="flex items-center justify-between">
-            <PlanCardTitle>Professional</PlanCardTitle>
-            <PlanCardBadge>Recommended</PlanCardBadge>
-          </div>
-          <PlanCardDescription>Best for growing businesses</PlanCardDescription>
-        </PlanCardHeader>
-        <PlanPrice monthlyAmount={29} yearlyAmount={290} originalMonthlyAmount={39} originalYearlyAmount={390} />
+      <PlanCard layout="horizontal" variant="highlighted" className="min-w-[500px] grid grid-cols-[1fr_auto] gap-x-8 gap-y-3">
+        <div className="flex items-center gap-2">
+          <PlanCardTitle>Pro</PlanCardTitle>
+          <PlanCardBadge>Popular</PlanCardBadge>
+        </div>
+        <PlanPrice monthlyAmount={29} yearlyAmount={290} className="my-0 justify-self-end" />
         <PlanCardFeatures>
           <PlanCardFeature included>Unlimited projects</PlanCardFeature>
           <PlanCardFeature included>Advanced analytics</PlanCardFeature>
           <PlanCardFeature included>Priority support</PlanCardFeature>
         </PlanCardFeatures>
-        <PlanCardAction>Select Plan</PlanCardAction>
+        <PlanCardAction className="mt-0 w-auto self-end justify-self-end">Select</PlanCardAction>
       </PlanCard>
     </PlanGroupContent>
   </PlanGroup>
