@@ -8,13 +8,16 @@ import { cn } from "@/lib/utils";
 interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   code?: string;
+  /** Component name for generating v0 demo URL (e.g., "plan-card") */
+  component?: string;
+  /** @deprecated Use `component` prop instead */
   registryUrl?: string;
 }
 
 function OpenInV0Button({ url }: { url: string }) {
   return (
     <a
-      href={`https://v0.dev/chat/api/open?url=${url}`}
+      href={`https://v0.dev/chat/api/open?url=${encodeURIComponent(url)}`}
       target="_blank"
       rel="noreferrer"
       aria-label="Open in v0"
@@ -40,9 +43,15 @@ function OpenInV0Button({ url }: { url: string }) {
   );
 }
 
+function generateV0Url(componentName: string, code: string): string {
+  const base64Code = btoa(code);
+  return `https://billui.com/r/${componentName}/demo?code=${base64Code}`;
+}
+
 export function ComponentPreview({
   children,
   code,
+  component,
   registryUrl,
   className,
   ...props
@@ -50,6 +59,13 @@ export function ComponentPreview({
   const [activeTab, setActiveTab] = React.useState<"preview" | "code">(
     "preview",
   );
+
+  // Generate v0 URL from component name and code
+  const v0Url = React.useMemo(() => {
+    if (registryUrl) return registryUrl;
+    if (component && code) return generateV0Url(component, code);
+    return null;
+  }, [registryUrl, component, code]);
 
   // If no code provided, render simple preview
   if (!code) {
@@ -96,7 +112,7 @@ export function ComponentPreview({
           <Code className="h-4 w-4" />
           Code
         </button>
-        {registryUrl && <OpenInV0Button url={registryUrl} />}
+        {v0Url && <OpenInV0Button url={v0Url} />}
       </div>
 
       {/* Content area */}

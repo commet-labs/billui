@@ -3,11 +3,95 @@ import path from "node:path";
 import { NextResponse } from "next/server";
 import { getRegistryItem } from "@/registry/registry";
 
+// Map component names to their exports for generating imports
+const componentExports: Record<string, string[]> = {
+  "plan-card": [
+    "PlanCard",
+    "PlanCardHeader",
+    "PlanCardBadge",
+    "PlanCardTitle",
+    "PlanCardDescription",
+    "PlanCardPrice",
+    "PlanCardFeatures",
+    "PlanCardFeature",
+    "PlanCardAction",
+  ],
+  "invoice-card": [
+    "InvoiceCard",
+    "InvoiceCardIcon",
+    "InvoiceCardContent",
+    "InvoiceCardHeader",
+    "InvoiceCardNumber",
+    "InvoiceCardStatus",
+    "InvoiceCardDate",
+    "InvoiceCardAmount",
+    "InvoiceCardActions",
+    "InvoiceCardAction",
+  ],
+  "payment-method": [
+    "PaymentMethod",
+    "PaymentMethodIcon",
+    "PaymentMethodDetails",
+    "PaymentMethodNumber",
+    "PaymentMethodExpiry",
+    "PaymentMethodBadge",
+    "PaymentMethodActions",
+    "PaymentMethodAction",
+  ],
+  "usage-card": [
+    "UsageCard",
+    "UsageCardHeader",
+    "UsageCardPeriod",
+    "UsageCardAction",
+    "UsageCardSummary",
+    "UsageCardLabels",
+    "UsageCardLabel",
+    "UsageCardProgress",
+    "UsageCardList",
+    "UsageCardItem",
+    "UsageCardItemLabel",
+    "UsageCardItemValue",
+    "UsageCardMeter",
+    "UsageCardTotal",
+  ],
+  "plan-group": [
+    "PlanGroup",
+    "PlanGroupHeader",
+    "PlanGroupTitle",
+    "PlanGroupDescription",
+    "PlanGroupToggle",
+    "PlanGroupContent",
+    "PlanPrice",
+  ],
+};
+
+function generateDemoPage(componentName: string, exampleCode: string): string {
+  const exports = componentExports[componentName] || [];
+  const importStatement = exports.length > 0
+    ? `import {\n  ${exports.join(",\n  ")},\n} from "@/components/ui/${componentName}";`
+    : `import { ${componentName} } from "@/components/ui/${componentName}";`;
+
+  return `${importStatement}
+
+export default function Page() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background p-8">
+      ${exampleCode}
+    </div>
+  );
+}
+`;
+}
+
 export async function GET(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ name: string }> },
 ) {
   const { name } = await params;
+  const url = new URL(request.url);
+  
+  // Get the example code from query parameter (base64 encoded)
+  const codeParam = url.searchParams.get("code");
 
   // Remove .json extension if present
   const componentName = name.replace(/\.json$/, "");
@@ -31,35 +115,43 @@ export async function GET(
       `${componentName}.tsx`,
     );
 
-    // Read the demo file
-    const demoPath = path.join(
-      process.cwd(),
-      "src",
-      "registry",
-      "demos",
-      `${componentName}-demo.tsx`,
-    );
-
-    const [componentContent, demoContent] = await Promise.all([
-      fs.readFile(componentPath, "utf-8"),
-      fs.readFile(demoPath, "utf-8").catch(() => null),
-    ]);
-
-    if (!demoContent) {
-      return NextResponse.json(
-        { error: `Demo for "${componentName}" not found` },
-        { status: 404 },
-      );
-    }
+    const componentContent = await fs.readFile(componentPath, "utf-8");
 
     // Transform imports for distribution
     const transformedComponentContent = componentContent
       .replace(/@\/registry\/shadcn\//g, "@/components/ui/")
       .replace(/@\/registry\/ui\//g, "@/components/ui/");
 
-    const transformedDemoContent = demoContent
-      .replace(/@\/registry\/ui\//g, "@/components/ui/")
-      .replace(/@\/registry\/shadcn\//g, "@/components/ui/");
+    // Generate demo content - either from query param or use default
+    let demoContent: string;
+    
+    if (codeParam) {
+      // Decode the base64 code
+      const exampleCode = Buffer.from(codeParam, "base64").toString("utf-8");
+      demoContent = generateDemoPage(componentName, exampleCode);
+    } else {
+      // Try to read the default demo file
+      const demoPath = path.join(
+        process.cwd(),
+        "src",
+        "registry",
+        "demos",
+        `${componentName}-demo.tsx`,
+      );
+      
+      const defaultDemo = await fs.readFile(demoPath, "utf-8").catch(() => null);
+      
+      if (defaultDemo) {
+        demoContent = defaultDemo
+          .replace(/@\/registry\/ui\//g, "@/components/ui/")
+          .replace(/@\/registry\/shadcn\//g, "@/components/ui/");
+      } else {
+        return NextResponse.json(
+          { error: `Demo for "${componentName}" not found. Provide ?code= parameter.` },
+          { status: 404 },
+        );
+      }
+    }
 
     const registryBlock = {
       $schema: "https://ui.shadcn.com/schema/registry-item.json",
@@ -71,7 +163,7 @@ export async function GET(
       files: [
         {
           path: `registry/billui/${componentName}/page.tsx`,
-          content: transformedDemoContent,
+          content: demoContent,
           type: "registry:page",
           target: `app/${componentName}/page.tsx`,
         },
