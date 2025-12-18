@@ -60,7 +60,7 @@ const UsageCardPeriod = React.forwardRef<HTMLSpanElement, UsageCardPeriodProps>(
   ({ className, daysRemaining, children, ...props }, ref) => (
     <span
       ref={ref}
-      className={cn("text-sm font-medium italic text-foreground", className)}
+      className={cn("text-sm font-medium text-foreground", className)}
       {...props}
     >
       {children ??
@@ -231,6 +231,8 @@ interface UsageCardListProps extends React.HTMLAttributes<HTMLDivElement> {
   collapsedHeight?: number;
   /** Enable collapse/expand functionality */
   collapsible?: boolean;
+  /** Show dividers between items */
+  dividers?: boolean;
 }
 
 const UsageCardList = React.forwardRef<HTMLDivElement, UsageCardListProps>(
@@ -240,6 +242,7 @@ const UsageCardList = React.forwardRef<HTMLDivElement, UsageCardListProps>(
       defaultExpanded = false,
       collapsedHeight = 88,
       collapsible = false,
+      dividers = true,
       children,
       ...props
     },
@@ -262,7 +265,10 @@ const UsageCardList = React.forwardRef<HTMLDivElement, UsageCardListProps>(
         >
           {/* Content container */}
           <div
-            className="divide-y divide-border overflow-hidden transition-[max-height] duration-300 ease-out"
+            className={cn(
+              "overflow-hidden transition-[max-height] duration-300 ease-out",
+              dividers && "divide-y divide-border",
+            )}
             style={{
               maxHeight:
                 collapsible && !expanded
@@ -277,7 +283,7 @@ const UsageCardList = React.forwardRef<HTMLDivElement, UsageCardListProps>(
           {collapsible && (
             <div
               className={cn(
-                "pointer-events-none absolute inset-x-0 bottom-4 bg-gradient-to-t from-card via-card/80 to-transparent transition-opacity duration-300",
+                "pointer-events-none absolute inset-x-0 bottom-4 from-card via-card/80 to-transparent transition-opacity duration-300",
                 expanded ? "opacity-0" : "opacity-100",
               )}
               style={{ height: `${collapsedHeight * 0.5}px` }}
