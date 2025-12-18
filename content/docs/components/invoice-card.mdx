@@ -16,35 +16,7 @@ import {
   InvoiceCardAction,
 } from "@/components/billing";
 
-<ComponentPreview code={`<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
-      <InvoiceCardStatus status="paid" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-01-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={29} />
-  <InvoiceCardActions>
-    <InvoiceCardAction action="download" />
-  </InvoiceCardActions>
-</InvoiceCard>
-
-<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-002</InvoiceCardNumber>
-      <InvoiceCardStatus status="pending" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-02-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={29} />
-  <InvoiceCardActions>
-    <InvoiceCardAction action="view" />
-  </InvoiceCardActions>
-</InvoiceCard>`}>
+<ComponentPreview>
   <div className="w-full max-w-lg space-y-3">
     <InvoiceCard>
       <InvoiceCardIcon />
@@ -385,6 +357,248 @@ import {
   </InvoiceCardActions>
 </InvoiceCard>
 ```
+
+## Examples
+
+### Pending Status
+
+<ComponentPreview code={`<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-002</InvoiceCardNumber>
+      <InvoiceCardStatus status="pending" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-02-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={49} />
+</InvoiceCard>`}>
+  <div className="w-full max-w-lg">
+    <InvoiceCard>
+      <InvoiceCardIcon />
+      <InvoiceCardContent>
+        <InvoiceCardHeader>
+          <InvoiceCardNumber>INV-2024-002</InvoiceCardNumber>
+          <InvoiceCardStatus status="pending" />
+        </InvoiceCardHeader>
+        <InvoiceCardDate date="2024-02-15" />
+      </InvoiceCardContent>
+      <InvoiceCardAmount amount={49} />
+    </InvoiceCard>
+  </div>
+</ComponentPreview>
+
+### Failed Status
+
+<ComponentPreview code={`<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-003</InvoiceCardNumber>
+      <InvoiceCardStatus status="failed" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-03-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={99} />
+</InvoiceCard>`}>
+  <div className="w-full max-w-lg">
+    <InvoiceCard>
+      <InvoiceCardIcon />
+      <InvoiceCardContent>
+        <InvoiceCardHeader>
+          <InvoiceCardNumber>INV-2024-003</InvoiceCardNumber>
+          <InvoiceCardStatus status="failed" />
+        </InvoiceCardHeader>
+        <InvoiceCardDate date="2024-03-15" />
+      </InvoiceCardContent>
+      <InvoiceCardAmount amount={99} />
+    </InvoiceCard>
+  </div>
+</ComponentPreview>
+
+### Refunded Status
+
+<ComponentPreview code={`<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-004</InvoiceCardNumber>
+      <InvoiceCardStatus status="refunded" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-04-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={29} />
+</InvoiceCard>`}>
+  <div className="w-full max-w-lg">
+    <InvoiceCard>
+      <InvoiceCardIcon />
+      <InvoiceCardContent>
+        <InvoiceCardHeader>
+          <InvoiceCardNumber>INV-2024-004</InvoiceCardNumber>
+          <InvoiceCardStatus status="refunded" />
+        </InvoiceCardHeader>
+        <InvoiceCardDate date="2024-04-15" />
+      </InvoiceCardContent>
+      <InvoiceCardAmount amount={29} />
+    </InvoiceCard>
+  </div>
+</ComponentPreview>
+
+### Draft Status
+
+<ComponentPreview code={`<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-005</InvoiceCardNumber>
+      <InvoiceCardStatus status="draft" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-05-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={149} />
+</InvoiceCard>`}>
+  <div className="w-full max-w-lg">
+    <InvoiceCard>
+      <InvoiceCardIcon />
+      <InvoiceCardContent>
+        <InvoiceCardHeader>
+          <InvoiceCardNumber>INV-2024-005</InvoiceCardNumber>
+          <InvoiceCardStatus status="draft" />
+        </InvoiceCardHeader>
+        <InvoiceCardDate date="2024-05-15" />
+      </InvoiceCardContent>
+      <InvoiceCardAmount amount={149} />
+    </InvoiceCard>
+  </div>
+</ComponentPreview>
+
+### Compact Variant
+
+Use the `compact` variant for denser layouts.
+
+<ComponentPreview code={`<InvoiceCard variant="compact">
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+      <InvoiceCardStatus status="paid" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-01-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={29} />
+</InvoiceCard>`}>
+  <div className="w-full max-w-lg">
+    <InvoiceCard variant="compact">
+      <InvoiceCardIcon />
+      <InvoiceCardContent>
+        <InvoiceCardHeader>
+          <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+          <InvoiceCardStatus status="paid" />
+        </InvoiceCardHeader>
+        <InvoiceCardDate date="2024-01-15" />
+      </InvoiceCardContent>
+      <InvoiceCardAmount amount={29} />
+    </InvoiceCard>
+  </div>
+</ComponentPreview>
+
+### Long Date Format
+
+Use the `format="long"` prop for more detailed date display.
+
+<ComponentPreview code={`<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+      <InvoiceCardStatus status="paid" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-01-15" format="long" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={29} />
+</InvoiceCard>`}>
+  <div className="w-full max-w-lg">
+    <InvoiceCard>
+      <InvoiceCardIcon />
+      <InvoiceCardContent>
+        <InvoiceCardHeader>
+          <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+          <InvoiceCardStatus status="paid" />
+        </InvoiceCardHeader>
+        <InvoiceCardDate date="2024-01-15" format="long" />
+      </InvoiceCardContent>
+      <InvoiceCardAmount amount={29} />
+    </InvoiceCard>
+  </div>
+</ComponentPreview>
+
+### With Actions
+
+Include download or view action buttons.
+
+<ComponentPreview code={`<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+      <InvoiceCardStatus status="paid" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-01-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={29} />
+  <InvoiceCardActions>
+    <InvoiceCardAction action="download" />
+    <InvoiceCardAction action="view" />
+  </InvoiceCardActions>
+</InvoiceCard>`}>
+  <div className="w-full max-w-lg">
+    <InvoiceCard>
+      <InvoiceCardIcon />
+      <InvoiceCardContent>
+        <InvoiceCardHeader>
+          <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+          <InvoiceCardStatus status="paid" />
+        </InvoiceCardHeader>
+        <InvoiceCardDate date="2024-01-15" />
+      </InvoiceCardContent>
+      <InvoiceCardAmount amount={29} />
+      <InvoiceCardActions>
+        <InvoiceCardAction action="download" />
+        <InvoiceCardAction action="view" />
+      </InvoiceCardActions>
+    </InvoiceCard>
+  </div>
+</ComponentPreview>
+
+### Custom Currency
+
+Display amounts in different currencies.
+
+<ComponentPreview code={`<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+      <InvoiceCardStatus status="paid" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-01-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={29} currency="€" />
+</InvoiceCard>`}>
+  <div className="w-full max-w-lg">
+    <InvoiceCard>
+      <InvoiceCardIcon />
+      <InvoiceCardContent>
+        <InvoiceCardHeader>
+          <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+          <InvoiceCardStatus status="paid" />
+        </InvoiceCardHeader>
+        <InvoiceCardDate date="2024-01-15" />
+      </InvoiceCardContent>
+      <InvoiceCardAmount amount={29} currency="€" />
+    </InvoiceCard>
+  </div>
+</ComponentPreview>
 
 ## API Reference
 

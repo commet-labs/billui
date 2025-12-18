@@ -15,21 +15,7 @@ import {
   PlanCardAction,
 } from "@/components/billing";
 
-<ComponentPreview code={`<PlanCard variant="highlighted">
-  <PlanCardHeader>
-    <PlanCardBadge>Most Popular</PlanCardBadge>
-    <PlanCardTitle>Pro</PlanCardTitle>
-    <PlanCardDescription>For growing teams</PlanCardDescription>
-  </PlanCardHeader>
-  <PlanCardPrice amount={29} originalAmount={49} period="month" />
-  <PlanCardFeatures>
-    <PlanCardFeature included>Unlimited projects</PlanCardFeature>
-    <PlanCardFeature included>Advanced analytics</PlanCardFeature>
-    <PlanCardFeature included>Priority support</PlanCardFeature>
-    <PlanCardFeature included={false}>Custom integrations</PlanCardFeature>
-  </PlanCardFeatures>
-  <PlanCardAction>Get Started</PlanCardAction>
-</PlanCard>`}>
+<ComponentPreview>
   <PlanCard variant="highlighted">
     <PlanCardHeader>
       <PlanCardBadge>Most Popular</PlanCardBadge>
@@ -299,6 +285,234 @@ import {
   <PlanCardAction>Get Started</PlanCardAction>
 </PlanCard>
 ```
+
+## Examples
+
+### Default Variant
+
+<ComponentPreview code={`<PlanCard>
+  <PlanCardHeader>
+    <PlanCardTitle>Basic</PlanCardTitle>
+    <PlanCardDescription>For individuals</PlanCardDescription>
+  </PlanCardHeader>
+  <PlanCardPrice amount={9} period="month" />
+  <PlanCardFeatures>
+    <PlanCardFeature included>5 projects</PlanCardFeature>
+    <PlanCardFeature included>Basic analytics</PlanCardFeature>
+    <PlanCardFeature included={false}>Priority support</PlanCardFeature>
+  </PlanCardFeatures>
+  <PlanCardAction variant="outline">Get Started</PlanCardAction>
+</PlanCard>`}>
+  <PlanCard>
+    <PlanCardHeader>
+      <PlanCardTitle>Basic</PlanCardTitle>
+      <PlanCardDescription>For individuals</PlanCardDescription>
+    </PlanCardHeader>
+    <PlanCardPrice amount={9} period="month" />
+    <PlanCardFeatures>
+      <PlanCardFeature included>5 projects</PlanCardFeature>
+      <PlanCardFeature included>Basic analytics</PlanCardFeature>
+      <PlanCardFeature included={false}>Priority support</PlanCardFeature>
+    </PlanCardFeatures>
+    <PlanCardAction variant="outline">Get Started</PlanCardAction>
+  </PlanCard>
+</ComponentPreview>
+
+### Highlighted Variant
+
+Use the `highlighted` variant to emphasize a recommended plan.
+
+<ComponentPreview code={`<PlanCard variant="highlighted">
+  <PlanCardHeader>
+    <PlanCardBadge>Most Popular</PlanCardBadge>
+    <PlanCardTitle>Pro</PlanCardTitle>
+    <PlanCardDescription>For growing teams</PlanCardDescription>
+  </PlanCardHeader>
+  <PlanCardPrice amount={29} period="month" />
+  <PlanCardFeatures>
+    <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+    <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+    <PlanCardFeature included>Priority support</PlanCardFeature>
+  </PlanCardFeatures>
+  <PlanCardAction>Get Started</PlanCardAction>
+</PlanCard>`}>
+  <PlanCard variant="highlighted">
+    <PlanCardHeader>
+      <PlanCardBadge>Most Popular</PlanCardBadge>
+      <PlanCardTitle>Pro</PlanCardTitle>
+      <PlanCardDescription>For growing teams</PlanCardDescription>
+    </PlanCardHeader>
+    <PlanCardPrice amount={29} period="month" />
+    <PlanCardFeatures>
+      <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+      <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+      <PlanCardFeature included>Priority support</PlanCardFeature>
+    </PlanCardFeatures>
+    <PlanCardAction>Get Started</PlanCardAction>
+  </PlanCard>
+</ComponentPreview>
+
+### With Discount
+
+Show original price with strikethrough to highlight discounts.
+
+<ComponentPreview code={`<PlanCard variant="highlighted">
+  <PlanCardHeader>
+    <PlanCardBadge>40% OFF</PlanCardBadge>
+    <PlanCardTitle>Pro</PlanCardTitle>
+    <PlanCardDescription>For growing teams</PlanCardDescription>
+  </PlanCardHeader>
+  <PlanCardPrice amount={29} originalAmount={49} period="month" />
+  <PlanCardFeatures>
+    <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+    <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+    <PlanCardFeature included>Priority support</PlanCardFeature>
+  </PlanCardFeatures>
+  <PlanCardAction>Get Started</PlanCardAction>
+</PlanCard>`}>
+  <PlanCard variant="highlighted">
+    <PlanCardHeader>
+      <PlanCardBadge>40% OFF</PlanCardBadge>
+      <PlanCardTitle>Pro</PlanCardTitle>
+      <PlanCardDescription>For growing teams</PlanCardDescription>
+    </PlanCardHeader>
+    <PlanCardPrice amount={29} originalAmount={49} period="month" />
+    <PlanCardFeatures>
+      <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+      <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+      <PlanCardFeature included>Priority support</PlanCardFeature>
+    </PlanCardFeatures>
+    <PlanCardAction>Get Started</PlanCardAction>
+  </PlanCard>
+</ComponentPreview>
+
+### Yearly Period
+
+<ComponentPreview code={`<PlanCard variant="highlighted">
+  <PlanCardHeader>
+    <PlanCardBadge>Save 20%</PlanCardBadge>
+    <PlanCardTitle>Yearly</PlanCardTitle>
+    <PlanCardDescription>Billed annually</PlanCardDescription>
+  </PlanCardHeader>
+  <PlanCardPrice amount={279} period="year" />
+  <PlanCardFeatures>
+    <PlanCardFeature included>All features</PlanCardFeature>
+    <PlanCardFeature included>2 months free</PlanCardFeature>
+  </PlanCardFeatures>
+  <PlanCardAction>Subscribe</PlanCardAction>
+</PlanCard>`}>
+  <PlanCard variant="highlighted">
+    <PlanCardHeader>
+      <PlanCardBadge>Save 20%</PlanCardBadge>
+      <PlanCardTitle>Yearly</PlanCardTitle>
+      <PlanCardDescription>Billed annually</PlanCardDescription>
+    </PlanCardHeader>
+    <PlanCardPrice amount={279} period="year" />
+    <PlanCardFeatures>
+      <PlanCardFeature included>All features</PlanCardFeature>
+      <PlanCardFeature included>2 months free</PlanCardFeature>
+    </PlanCardFeatures>
+    <PlanCardAction>Subscribe</PlanCardAction>
+  </PlanCard>
+</ComponentPreview>
+
+### One-time Payment
+
+Use `period="once"` for lifetime or one-time purchases.
+
+<ComponentPreview code={`<PlanCard>
+  <PlanCardHeader>
+    <PlanCardTitle>Lifetime</PlanCardTitle>
+    <PlanCardDescription>One-time payment</PlanCardDescription>
+  </PlanCardHeader>
+  <PlanCardPrice amount={499} period="once" />
+  <PlanCardFeatures>
+    <PlanCardFeature included>All features forever</PlanCardFeature>
+    <PlanCardFeature included>Free updates</PlanCardFeature>
+  </PlanCardFeatures>
+  <PlanCardAction variant="outline">Buy Now</PlanCardAction>
+</PlanCard>`}>
+  <PlanCard>
+    <PlanCardHeader>
+      <PlanCardTitle>Lifetime</PlanCardTitle>
+      <PlanCardDescription>One-time payment</PlanCardDescription>
+    </PlanCardHeader>
+    <PlanCardPrice amount={499} period="once" />
+    <PlanCardFeatures>
+      <PlanCardFeature included>All features forever</PlanCardFeature>
+      <PlanCardFeature included>Free updates</PlanCardFeature>
+    </PlanCardFeatures>
+    <PlanCardAction variant="outline">Buy Now</PlanCardAction>
+  </PlanCard>
+</ComponentPreview>
+
+### Compact Variant
+
+Use the `compact` variant for smaller plan cards.
+
+<ComponentPreview code={`<PlanCard variant="compact">
+  <PlanCardHeader>
+    <PlanCardTitle>Starter</PlanCardTitle>
+    <PlanCardDescription>Get started quickly</PlanCardDescription>
+  </PlanCardHeader>
+  <PlanCardPrice amount={0} period="month" />
+  <PlanCardFeatures>
+    <PlanCardFeature included>3 projects</PlanCardFeature>
+    <PlanCardFeature included>Community support</PlanCardFeature>
+  </PlanCardFeatures>
+  <PlanCardAction variant="outline">Start Free</PlanCardAction>
+</PlanCard>`}>
+  <PlanCard variant="compact">
+    <PlanCardHeader>
+      <PlanCardTitle>Starter</PlanCardTitle>
+      <PlanCardDescription>Get started quickly</PlanCardDescription>
+    </PlanCardHeader>
+    <PlanCardPrice amount={0} period="month" />
+    <PlanCardFeatures>
+      <PlanCardFeature included>3 projects</PlanCardFeature>
+      <PlanCardFeature included>Community support</PlanCardFeature>
+    </PlanCardFeatures>
+    <PlanCardAction variant="outline">Start Free</PlanCardAction>
+  </PlanCard>
+</ComponentPreview>
+
+### Large Size
+
+Use `size="lg"` for more spacious plan cards.
+
+<ComponentPreview code={`<PlanCard size="lg" variant="highlighted">
+  <PlanCardHeader>
+    <PlanCardBadge>Best Value</PlanCardBadge>
+    <PlanCardTitle>Professional</PlanCardTitle>
+    <PlanCardDescription>Everything you need to scale your business</PlanCardDescription>
+  </PlanCardHeader>
+  <PlanCardPrice amount={79} period="month" />
+  <PlanCardFeatures>
+    <PlanCardFeature included>Unlimited everything</PlanCardFeature>
+    <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+    <PlanCardFeature included>Priority support</PlanCardFeature>
+    <PlanCardFeature included>Custom integrations</PlanCardFeature>
+    <PlanCardFeature included>API access</PlanCardFeature>
+  </PlanCardFeatures>
+  <PlanCardAction>Start Free Trial</PlanCardAction>
+</PlanCard>`}>
+  <PlanCard size="lg" variant="highlighted">
+    <PlanCardHeader>
+      <PlanCardBadge>Best Value</PlanCardBadge>
+      <PlanCardTitle>Professional</PlanCardTitle>
+      <PlanCardDescription>Everything you need to scale your business</PlanCardDescription>
+    </PlanCardHeader>
+    <PlanCardPrice amount={79} period="month" />
+    <PlanCardFeatures>
+      <PlanCardFeature included>Unlimited everything</PlanCardFeature>
+      <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+      <PlanCardFeature included>Priority support</PlanCardFeature>
+      <PlanCardFeature included>Custom integrations</PlanCardFeature>
+      <PlanCardFeature included>API access</PlanCardFeature>
+    </PlanCardFeatures>
+    <PlanCardAction>Start Free Trial</PlanCardAction>
+  </PlanCard>
+</ComponentPreview>
 
 ## API Reference
 

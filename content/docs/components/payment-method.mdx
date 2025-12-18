@@ -3,18 +3,18 @@ title: Payment Method
 description: A composable card for displaying saved payment methods like credit cards.
 ---
 
-<ComponentPreview code={`<PaymentMethod>
-  <PaymentMethodIcon brand="visa" />
-  <PaymentMethodDetails>
-    <PaymentMethodNumber last4="4242" />
-    <PaymentMethodExpiry month={12} year={2026} />
-  </PaymentMethodDetails>
-  <PaymentMethodBadge>Default</PaymentMethodBadge>
-  <PaymentMethodActions>
-    <PaymentMethodAction action="edit" />
-    <PaymentMethodAction action="delete" />
-  </PaymentMethodActions>
-</PaymentMethod>`}>
+import {
+  PaymentMethod,
+  PaymentMethodIcon,
+  PaymentMethodDetails,
+  PaymentMethodNumber,
+  PaymentMethodExpiry,
+  PaymentMethodBadge,
+  PaymentMethodActions,
+  PaymentMethodAction,
+} from "@/components/billing";
+
+<ComponentPreview>
   <div className="w-full max-w-md">
     <PaymentMethod>
       <PaymentMethodIcon brand="visa" />
