@@ -1,5 +1,3 @@
-"use client";
-
 import { cva, type VariantProps } from "class-variance-authority";
 import { Download, ExternalLink, FileText } from "lucide-react";
 import * as React from "react";

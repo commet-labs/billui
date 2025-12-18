@@ -1,5 +1,3 @@
-"use client";
-
 import { cva, type VariantProps } from "class-variance-authority";
 import { CreditCard, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import * as React from "react";
