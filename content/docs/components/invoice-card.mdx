@@ -1,0 +1,209 @@
+---
+title: Invoice Card
+description: A composable invoice card component for displaying billing history.
+---
+
+import {
+  InvoiceCard,
+  InvoiceCardIcon,
+  InvoiceCardContent,
+  InvoiceCardHeader,
+  InvoiceCardNumber,
+  InvoiceCardStatus,
+  InvoiceCardDate,
+  InvoiceCardAmount,
+  InvoiceCardActions,
+  InvoiceCardAction,
+} from "@/components/billing";
+
+<div className="not-prose my-8 space-y-3 max-w-lg">
+  <InvoiceCard>
+    <InvoiceCardIcon />
+    <InvoiceCardContent>
+      <InvoiceCardHeader>
+        <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+        <InvoiceCardStatus status="paid" />
+      </InvoiceCardHeader>
+      <InvoiceCardDate date="2024-01-15" />
+    </InvoiceCardContent>
+    <InvoiceCardAmount amount={29} />
+    <InvoiceCardActions>
+      <InvoiceCardAction action="download" />
+    </InvoiceCardActions>
+  </InvoiceCard>
+
+  <InvoiceCard>
+    <InvoiceCardIcon />
+    <InvoiceCardContent>
+      <InvoiceCardHeader>
+        <InvoiceCardNumber>INV-2024-002</InvoiceCardNumber>
+        <InvoiceCardStatus status="pending" />
+      </InvoiceCardHeader>
+      <InvoiceCardDate date="2024-02-15" />
+    </InvoiceCardContent>
+    <InvoiceCardAmount amount={29} />
+    <InvoiceCardActions>
+      <InvoiceCardAction action="view" />
+    </InvoiceCardActions>
+  </InvoiceCard>
+
+  <InvoiceCard>
+    <InvoiceCardIcon />
+    <InvoiceCardContent>
+      <InvoiceCardHeader>
+        <InvoiceCardNumber>INV-2024-003</InvoiceCardNumber>
+        <InvoiceCardStatus status="failed" />
+      </InvoiceCardHeader>
+      <InvoiceCardDate date="2024-03-15" />
+    </InvoiceCardContent>
+    <InvoiceCardAmount amount={49} />
+    <InvoiceCardActions>
+      <InvoiceCardAction action="view" />
+    </InvoiceCardActions>
+  </InvoiceCard>
+</div>
+
+## Installation
+
+<Tabs items={["CLI", "Manual"]}>
+  <Tab value="CLI">
+```bash
+npx shadcn@latest add invoice-card --from https://billui.com/api/registry
+```
+  </Tab>
+  <Tab value="Manual">
+<Steps>
+<Step>
+
+Copy and paste the following code into your project.
+
+</Step>
+
+```tsx title="components/ui/invoice-card.tsx"
+// See the full source at: https://billui.com/api/registry/invoice-card
+```
+
+<Step>
+
+Update the import paths to match your project setup.
+
+</Step>
+</Steps>
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  InvoiceCard,
+  InvoiceCardIcon,
+  InvoiceCardContent,
+  InvoiceCardHeader,
+  InvoiceCardNumber,
+  InvoiceCardStatus,
+  InvoiceCardDate,
+  InvoiceCardAmount,
+  InvoiceCardActions,
+  InvoiceCardAction,
+} from "@/components/ui/invoice-card"
+```
+
+```tsx
+<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+      <InvoiceCardStatus status="paid" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-01-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={29} />
+  <InvoiceCardActions>
+    <InvoiceCardAction action="download" />
+  </InvoiceCardActions>
+</InvoiceCard>
+```
+
+## API Reference
+
+### InvoiceCard
+
+The root container component.
+
+<TypeTable
+  type={{
+    variant: {
+      type: '"default" | "compact"',
+      default: '"default"',
+      description: "Visual style variant",
+    },
+  }}
+/>
+
+### InvoiceCardStatus
+
+Badge showing the invoice status.
+
+<TypeTable
+  type={{
+    status: {
+      type: '"paid" | "pending" | "failed" | "refunded" | "draft"',
+      required: true,
+      description: "The invoice status",
+    },
+  }}
+/>
+
+### InvoiceCardDate
+
+Displays the invoice date.
+
+<TypeTable
+  type={{
+    date: {
+      type: "Date | string",
+      required: true,
+      description: "The invoice date",
+    },
+    format: {
+      type: '"short" | "long"',
+      default: '"short"',
+      description: "Date format style",
+    },
+  }}
+/>
+
+### InvoiceCardAmount
+
+Displays the invoice amount.
+
+<TypeTable
+  type={{
+    amount: {
+      type: "number",
+      required: true,
+      description: "The invoice amount",
+    },
+    currency: {
+      type: "string",
+      default: '"$"',
+      description: "Currency symbol",
+    },
+  }}
+/>
+
+### InvoiceCardAction
+
+Action button for download or view.
+
+<TypeTable
+  type={{
+    action: {
+      type: '"download" | "view"',
+      default: '"download"',
+      description: "The action type (changes the icon)",
+    },
+  }}
+/>

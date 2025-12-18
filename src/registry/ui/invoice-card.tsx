@@ -1,0 +1,239 @@
+"use client";
+
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Download, ExternalLink, FileText } from "lucide-react";
+
+import { Badge } from "@/registry/shadcn/badge";
+import { Button } from "@/registry/shadcn/button";
+import { cn } from "@/lib/utils";
+
+const invoiceCardVariants = cva(
+  "relative flex items-center gap-4 rounded-xl border bg-card p-4 text-card-foreground transition-colors hover:bg-accent/50",
+  {
+    variants: {
+      variant: {
+        default: "border-border",
+        compact: "gap-3 p-3",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
+interface InvoiceCardProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof invoiceCardVariants> {}
+
+const InvoiceCard = React.forwardRef<HTMLDivElement, InvoiceCardProps>(
+  ({ className, variant, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(invoiceCardVariants({ variant, className }))}
+      {...props}
+    />
+  )
+);
+InvoiceCard.displayName = "InvoiceCard";
+
+const InvoiceCardIcon = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted",
+      className
+    )}
+    {...props}
+  >
+    <FileText className="h-5 w-5 text-muted-foreground" />
+  </div>
+));
+InvoiceCardIcon.displayName = "InvoiceCardIcon";
+
+const InvoiceCardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex min-w-0 flex-1 flex-col gap-1", className)}
+    {...props}
+  />
+));
+InvoiceCardContent.displayName = "InvoiceCardContent";
+
+const InvoiceCardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center gap-2", className)}
+    {...props}
+  />
+));
+InvoiceCardHeader.displayName = "InvoiceCardHeader";
+
+const InvoiceCardNumber = React.forwardRef<
+  HTMLSpanElement,
+  React.HTMLAttributes<HTMLSpanElement>
+>(({ className, ...props }, ref) => (
+  <span
+    ref={ref}
+    className={cn("font-medium text-foreground", className)}
+    {...props}
+  />
+));
+InvoiceCardNumber.displayName = "InvoiceCardNumber";
+
+type InvoiceStatus = "paid" | "pending" | "failed" | "refunded" | "draft";
+
+const statusConfig: Record<
+  InvoiceStatus,
+  { label: string; variant: "default" | "secondary" | "destructive" | "outline" }
+> = {
+  paid: { label: "Paid", variant: "default" },
+  pending: { label: "Pending", variant: "secondary" },
+  failed: { label: "Failed", variant: "destructive" },
+  refunded: { label: "Refunded", variant: "outline" },
+  draft: { label: "Draft", variant: "outline" },
+};
+
+interface InvoiceCardStatusProps
+  extends Omit<React.ComponentPropsWithoutRef<typeof Badge>, "variant"> {
+  status: InvoiceStatus;
+}
+
+const InvoiceCardStatus = React.forwardRef<HTMLDivElement, InvoiceCardStatusProps>(
+  ({ className, status, ...props }, ref) => {
+    const config = statusConfig[status];
+    return (
+      <Badge
+        ref={ref}
+        variant={config.variant}
+        className={cn("text-xs", className)}
+        {...props}
+      >
+        {config.label}
+      </Badge>
+    );
+  }
+);
+InvoiceCardStatus.displayName = "InvoiceCardStatus";
+
+interface InvoiceCardDateProps extends React.HTMLAttributes<HTMLSpanElement> {
+  date: Date | string;
+  format?: "short" | "long";
+}
+
+const InvoiceCardDate = React.forwardRef<HTMLSpanElement, InvoiceCardDateProps>(
+  ({ className, date, format = "short", ...props }, ref) => {
+    const dateObj = typeof date === "string" ? new Date(date) : date;
+    const formatted = dateObj.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: format === "long" ? "long" : "short",
+      day: "numeric",
+    });
+
+    return (
+      <span
+        ref={ref}
+        className={cn("text-sm text-muted-foreground", className)}
+        {...props}
+      >
+        {formatted}
+      </span>
+    );
+  }
+);
+InvoiceCardDate.displayName = "InvoiceCardDate";
+
+interface InvoiceCardAmountProps extends React.HTMLAttributes<HTMLSpanElement> {
+  amount: number;
+  currency?: string;
+}
+
+const InvoiceCardAmount = React.forwardRef<HTMLSpanElement, InvoiceCardAmountProps>(
+  ({ className, amount, currency = "$", ...props }, ref) => (
+    <span
+      ref={ref}
+      className={cn(
+        "ml-auto shrink-0 text-base font-semibold tabular-nums",
+        className
+      )}
+      {...props}
+    >
+      {currency}
+      {amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+    </span>
+  )
+);
+InvoiceCardAmount.displayName = "InvoiceCardAmount";
+
+const InvoiceCardActions = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex shrink-0 items-center gap-1", className)}
+    {...props}
+  />
+));
+InvoiceCardActions.displayName = "InvoiceCardActions";
+
+interface InvoiceCardActionProps
+  extends React.ComponentPropsWithoutRef<typeof Button> {
+  action?: "download" | "view";
+}
+
+const InvoiceCardAction = React.forwardRef<
+  HTMLButtonElement,
+  InvoiceCardActionProps
+>(({ className, action = "download", children, ...props }, ref) => {
+  const Icon = action === "download" ? Download : ExternalLink;
+
+  return (
+    <Button
+      ref={ref}
+      variant="ghost"
+      size="icon"
+      className={cn("h-8 w-8", className)}
+      {...props}
+    >
+      {children ?? <Icon className="h-4 w-4" />}
+      <span className="sr-only">{action === "download" ? "Download" : "View"}</span>
+    </Button>
+  );
+});
+InvoiceCardAction.displayName = "InvoiceCardAction";
+
+export {
+  InvoiceCard,
+  InvoiceCardIcon,
+  InvoiceCardContent,
+  InvoiceCardHeader,
+  InvoiceCardNumber,
+  InvoiceCardStatus,
+  InvoiceCardDate,
+  InvoiceCardAmount,
+  InvoiceCardActions,
+  InvoiceCardAction,
+  invoiceCardVariants,
+  statusConfig,
+};
+
+export type {
+  InvoiceCardProps,
+  InvoiceCardStatusProps,
+  InvoiceCardDateProps,
+  InvoiceCardAmountProps,
+  InvoiceCardActionProps,
+  InvoiceStatus,
+};
+

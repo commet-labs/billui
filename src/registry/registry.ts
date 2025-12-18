@@ -14,6 +14,12 @@ export const registryIndex: RegistryIndex = {
       description:
         "A composable pricing card component for displaying subscription plans",
     },
+    {
+      name: "invoice-card",
+      type: "registry:ui",
+      description:
+        "A composable invoice card component for displaying billing history",
+    },
   ],
 };
 
@@ -23,6 +29,15 @@ export const registry: Record<string, RegistryItem> = {
     type: "registry:ui",
     description:
       "A composable pricing card component for displaying subscription plans",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["button", "badge"],
+    files: [], // Will be populated dynamically from source files
+  },
+  "invoice-card": {
+    name: "invoice-card",
+    type: "registry:ui",
+    description:
+      "A composable invoice card component for displaying billing history",
     dependencies: ["lucide-react"],
     registryDependencies: ["button", "badge"],
     files: [], // Will be populated dynamically from source files
