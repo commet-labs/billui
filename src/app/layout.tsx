@@ -1,8 +1,8 @@
 import { RootProvider } from "fumadocs-ui/provider/next";
 import "./global.css";
 import { Analytics } from "@vercel/analytics/next";
-import { Inter } from "next/font/google";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,21 +10,21 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "BillUI",
-    template: "%s | BillUI",
+    default: "billui",
+    template: "%s | billui",
   },
   description: "Beautiful billing UI components for your Next.js app",
   openGraph: {
-    title: "BillUI",
+    title: "billui",
     description: "Beautiful billing UI components for your Next.js app",
     url: "https://billui.com",
-    siteName: "BillUI",
+    siteName: "billui",
     images: [
       {
         url: "/billui-banner.png",
         width: 1200,
         height: 630,
-        alt: "BillUI - Billing UI Components",
+        alt: "billui - Billing UI Components",
       },
     ],
     locale: "en_US",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "BillUI",
+    title: "billui",
     description: "Beautiful billing UI components for your Next.js app",
     images: ["/billui-banner.png"],
   },

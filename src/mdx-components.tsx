@@ -3,6 +3,7 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import type { MDXComponents } from "mdx/types";
+import { ComponentPreview } from "@/components/docs/component-preview";
 import {
   PaymentMethod,
   PaymentMethodAction,
@@ -29,7 +30,6 @@ import {
   PlanGroupToggle,
   PlanPrice,
 } from "@/registry/ui";
-import { ComponentPreview } from "@/components/docs/component-preview";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {

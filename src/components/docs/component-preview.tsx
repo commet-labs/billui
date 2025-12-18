@@ -1,9 +1,9 @@
 "use client";
 
+import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
+import { Code, Eye } from "lucide-react";
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { Code, Eye } from "lucide-react";
-import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 
 interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;

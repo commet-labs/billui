@@ -54,11 +54,13 @@ export async function GET(
 
     return NextResponse.json(registryItem);
   } catch (error) {
-    console.error(`Error reading component file for "${componentName}":`, error);
+    console.error(
+      `Error reading component file for "${componentName}":`,
+      error,
+    );
     return NextResponse.json(
       { error: `Failed to load component "${componentName}"` },
       { status: 500 },
     );
   }
 }
-
