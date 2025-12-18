@@ -25,6 +25,11 @@ export const registryIndex: RegistryIndex = {
       type: "registry:ui",
       description: "A card for displaying invoice details and billing history.",
     },
+    {
+      name: "payment-method",
+      type: "registry:ui",
+      description: "A card for displaying saved payment methods like credit cards.",
+    },
   ],
 };
 
@@ -51,6 +56,15 @@ export const registry: Record<string, RegistryItem> = {
     type: "registry:ui",
     description:
       "A card component for displaying invoice details and billing history.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["button", "badge"],
+    files: [], // Will be populated dynamically from source files
+  },
+  "payment-method": {
+    name: "payment-method",
+    type: "registry:ui",
+    description:
+      "A card for displaying saved payment methods like credit cards.",
     dependencies: ["lucide-react"],
     registryDependencies: ["button", "badge"],
     files: [], // Will be populated dynamically from source files

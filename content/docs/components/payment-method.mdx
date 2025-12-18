@@ -1,0 +1,206 @@
+---
+title: PaymentMethod
+description: A composable card for displaying saved payment methods like credit cards.
+---
+
+<ComponentPreview>
+  <div className="w-full max-w-md">
+    <PaymentMethod>
+      <PaymentMethodIcon brand="visa" />
+      <PaymentMethodDetails>
+        <PaymentMethodNumber last4="4242" />
+        <PaymentMethodExpiry month={12} year={2026} />
+      </PaymentMethodDetails>
+      <PaymentMethodBadge>Default</PaymentMethodBadge>
+      <PaymentMethodActions>
+        <PaymentMethodAction action="edit" />
+        <PaymentMethodAction action="delete" />
+      </PaymentMethodActions>
+    </PaymentMethod>
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<Tabs items={['CLI', 'Manual']}>
+  <Tab value="CLI">
+    ```bash
+    npx shadcn@latest add "https://billui.com/r/payment-method.json"
+    ```
+  </Tab>
+  <Tab value="Manual">
+    Copy and paste the component source into your project.
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  PaymentMethod,
+  PaymentMethodIcon,
+  PaymentMethodDetails,
+  PaymentMethodNumber,
+  PaymentMethodExpiry,
+  PaymentMethodBadge,
+  PaymentMethodActions,
+  PaymentMethodAction,
+} from "@/components/billing/payment-method"
+```
+
+```tsx
+<PaymentMethod>
+  <PaymentMethodIcon brand="visa" />
+  <PaymentMethodDetails>
+    <PaymentMethodNumber last4="4242" />
+    <PaymentMethodExpiry month={12} year={2026} />
+  </PaymentMethodDetails>
+  <PaymentMethodBadge>Default</PaymentMethodBadge>
+  <PaymentMethodActions>
+    <PaymentMethodAction action="edit" />
+    <PaymentMethodAction action="delete" />
+  </PaymentMethodActions>
+</PaymentMethod>
+```
+
+## Examples
+
+### Card Brands
+
+Each card brand displays with its official logo.
+
+<ComponentPreview>
+  <div className="flex w-full flex-col gap-4 max-w-md">
+    <PaymentMethod>
+      <PaymentMethodIcon brand="visa" />
+      <PaymentMethodDetails>
+        <PaymentMethodNumber last4="4242" />
+        <PaymentMethodExpiry month={12} year={2026} />
+      </PaymentMethodDetails>
+    </PaymentMethod>
+    <PaymentMethod>
+      <PaymentMethodIcon brand="mastercard" />
+      <PaymentMethodDetails>
+        <PaymentMethodNumber last4="5555" />
+        <PaymentMethodExpiry month={8} year={2025} />
+      </PaymentMethodDetails>
+    </PaymentMethod>
+    <PaymentMethod>
+      <PaymentMethodIcon brand="amex" />
+      <PaymentMethodDetails>
+        <PaymentMethodNumber last4="0001" />
+        <PaymentMethodExpiry month={3} year={2027} />
+      </PaymentMethodDetails>
+    </PaymentMethod>
+  </div>
+</ComponentPreview>
+
+### Selected State
+
+Use the `selected` variant to highlight the active payment method.
+
+<ComponentPreview>
+  <div className="flex w-full flex-col gap-4 max-w-md">
+    <PaymentMethod variant="selected">
+      <PaymentMethodIcon brand="visa" />
+      <PaymentMethodDetails>
+        <PaymentMethodNumber last4="4242" />
+        <PaymentMethodExpiry month={12} year={2026} />
+      </PaymentMethodDetails>
+      <PaymentMethodBadge>Default</PaymentMethodBadge>
+    </PaymentMethod>
+    <PaymentMethod>
+      <PaymentMethodIcon brand="mastercard" />
+      <PaymentMethodDetails>
+        <PaymentMethodNumber last4="5555" />
+        <PaymentMethodExpiry month={8} year={2025} />
+      </PaymentMethodDetails>
+    </PaymentMethod>
+  </div>
+</ComponentPreview>
+
+### Expired Card
+
+Show expired cards with visual indication.
+
+<ComponentPreview>
+  <div className="w-full max-w-md">
+    <PaymentMethod>
+      <PaymentMethodIcon brand="visa" />
+      <PaymentMethodDetails>
+        <PaymentMethodNumber last4="1234" />
+        <PaymentMethodExpiry month={1} year={2023} expired />
+      </PaymentMethodDetails>
+      <PaymentMethodActions>
+        <PaymentMethodAction action="edit" />
+        <PaymentMethodAction action="delete" />
+      </PaymentMethodActions>
+    </PaymentMethod>
+  </div>
+</ComponentPreview>
+
+### With Actions
+
+Include edit, delete, or more options buttons.
+
+<ComponentPreview>
+  <div className="w-full max-w-md">
+    <PaymentMethod>
+      <PaymentMethodIcon brand="mastercard" />
+      <PaymentMethodDetails>
+        <PaymentMethodNumber last4="8888" />
+        <PaymentMethodExpiry month={6} year={2028} />
+      </PaymentMethodDetails>
+      <PaymentMethodActions>
+        <PaymentMethodAction action="edit" />
+        <PaymentMethodAction action="delete" />
+        <PaymentMethodAction action="more" />
+      </PaymentMethodActions>
+    </PaymentMethod>
+  </div>
+</ComponentPreview>
+
+## API Reference
+
+### PaymentMethod
+
+The root container for the payment method card.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `"default" \| "selected"` | `"default"` | Visual style variant |
+
+### PaymentMethodIcon
+
+Displays the card brand logo (SVGs embedded inline for easy distribution).
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `brand` | `"visa" \| "mastercard" \| "amex" \| "generic"` | `"generic"` | Card brand |
+
+### PaymentMethodNumber
+
+Displays the masked card number.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `last4` | `string` | - | Last 4 digits of the card |
+
+### PaymentMethodExpiry
+
+Displays the card expiration date.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `month` | `number` | - | Expiration month (1-12) |
+| `year` | `number` | - | Expiration year |
+| `expired` | `boolean` | `false` | Shows expired indicator |
+
+### PaymentMethodAction
+
+Action button for the payment method.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `action` | `"edit" \| "delete" \| "more"` | `"more"` | Type of action |
+
