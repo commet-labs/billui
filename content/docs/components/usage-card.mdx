@@ -1,0 +1,61 @@
+---
+title: Usage Card
+description: A card for displaying usage metrics, billing cycle progress and itemized charges.
+---
+
+import {
+  UsageCard,
+  UsageCardHeader,
+  UsageCardPeriod,
+  UsageCardAction,
+  UsageCardSummary,
+  UsageCardLabels,
+  UsageCardLabel,
+  UsageCardProgress,
+  UsageCardList,
+  UsageCardItem,
+  UsageCardItemLabel,
+  UsageCardItemValue,
+} from "@/registry/ui";
+
+<ComponentPreview>
+  <div className="w-full max-w-xl">
+    <UsageCard>
+      <UsageCardHeader>
+        <UsageCardPeriod daysRemaining={2} />
+        <UsageCardAction>Billing</UsageCardAction>
+      </UsageCardHeader>
+      
+      <UsageCardSummary>
+        <UsageCardLabels>
+          <UsageCardLabel label="Included Credit" amount={6.96} limit={20} />
+          <UsageCardLabel label="On-Demand Charges" amount={0} align="right" />
+        </UsageCardLabels>
+        <UsageCardProgress value={6.96} max={20} />
+      </UsageCardSummary>
+
+      <UsageCardList collapsible>
+        <UsageCardItem highlighted>
+          <UsageCardItemLabel>Build Minutes</UsageCardItemLabel>
+          <UsageCardItemValue amount={4.02} />
+        </UsageCardItem>
+        <UsageCardItem>
+          <UsageCardItemLabel>Edge Invocations</UsageCardItemLabel>
+          <UsageCardItemValue amount={0.65} />
+        </UsageCardItem>
+        <UsageCardItem highlighted>
+          <UsageCardItemLabel>Function Calls</UsageCardItemLabel>
+          <UsageCardItemValue amount={0.60} />
+        </UsageCardItem>
+        <UsageCardItem>
+          <UsageCardItemLabel>Bandwidth</UsageCardItemLabel>
+          <UsageCardItemValue amount={0.34} />
+        </UsageCardItem>
+        <UsageCardItem highlighted>
+          <UsageCardItemLabel>Storage</UsageCardItemLabel>
+          <UsageCardItemValue amount={0.21} />
+        </UsageCardItem>
+      </UsageCardList>
+    </UsageCard>
+  </div>
+</ComponentPreview>
