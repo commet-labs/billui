@@ -1,7 +1,11 @@
 import Link from "fumadocs-core/link";
 import type * as PageTree from "fumadocs-core/page-tree";
 import { TreeContextProvider } from "fumadocs-ui/contexts/tree";
-import { Languages, Sidebar as SidebarIcon } from "lucide-react";
+import {
+  Languages,
+  Sidebar as SidebarIcon,
+  Link as LinkIcon,
+} from "lucide-react";
 import {
   type ComponentProps,
   type HTMLAttributes,
@@ -171,6 +175,16 @@ export function DocsLayout({
             {banner}
           </div>
           {viewport}
+          <div className="px-2 pb-2">
+            <Link
+              href="/llms-full.txt"
+              target="_blank"
+              className="flex items-center gap-2 p-2 rounded-lg text-fd-muted-foreground hover:bg-fd-accent/50 hover:text-fd-accent-foreground/80 transition-colors w-full justify-between"
+            >
+              llms-full.txt
+              <LinkIcon className="h-4 w-4" />
+            </Link>
+          </div>
           {(i18n ||
             iconLinks.length > 0 ||
             themeSwitch?.enabled !== false ||
@@ -253,6 +267,16 @@ export function DocsLayout({
             {banner}
           </div>
           {viewport}
+          <div className="px-2 pb-2">
+            <Link
+              href="/llms-full.txt"
+              target="_blank"
+              className="flex items-center gap-2 p-2 rounded-lg text-fd-muted-foreground hover:bg-fd-accent/50 hover:text-fd-accent-foreground/80 transition-colors w-full justify-between"
+            >
+              llms-full.txt
+              <LinkIcon className="h-4 w-4" />
+            </Link>
+          </div>
           <div className="flex flex-col border-t p-4 pt-2 empty:hidden">
             {footer}
           </div>
