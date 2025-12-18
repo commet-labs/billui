@@ -168,8 +168,10 @@ export default function HomePage() {
 
                   <PlanCard variant="highlighted">
                     <PlanCardHeader>
-                      <PlanCardBadge>Most Popular</PlanCardBadge>
-                      <PlanCardTitle>Pro</PlanCardTitle>
+                      <div className="flex items-center justify-between">
+                        <PlanCardTitle>Pro</PlanCardTitle>
+                        <PlanCardBadge>Most Popular</PlanCardBadge>
+                      </div>
                       <PlanCardDescription>
                         For growing teams
                       </PlanCardDescription>
