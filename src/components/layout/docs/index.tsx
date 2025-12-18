@@ -72,7 +72,7 @@ interface SidebarOptions
   /**
    * Support collapsing the sidebar on desktop mode
    *
-   * @defaultValue true
+   * @defaultValue false
    */
   collapsible?: boolean;
 }
@@ -112,7 +112,7 @@ export function DocsLayout({
     const {
       footer,
       banner,
-      collapsible = true,
+      collapsible = false,
       component,
       components,
       ...rest
