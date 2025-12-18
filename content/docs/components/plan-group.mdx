@@ -406,7 +406,7 @@ import {
 
 Use `layout="horizontal"` on `PlanCard` combined with `layout="vertical"` on `PlanGroupContent` to create a row-style pricing list.
 
-<ComponentPreview code={`<PlanGroup>
+<ComponentPreview component="plan-group" code={`<PlanGroup>
   <PlanGroupHeader>
     <PlanGroupTitle>Compare plans</PlanGroupTitle>
     <PlanGroupToggle />
@@ -478,7 +478,7 @@ Use `layout="horizontal"` on `PlanCard` combined with `layout="vertical"` on `Pl
 
 Set `defaultPeriod="year"` to show yearly prices by default.
 
-<ComponentPreview code={`<PlanGroup defaultPeriod="year">
+<ComponentPreview component="plan-group" code={`<PlanGroup defaultPeriod="year">
   <PlanGroupHeader>
     <PlanGroupTitle>Annual pricing</PlanGroupTitle>
     <PlanGroupDescription>Save more with yearly billing</PlanGroupDescription>
@@ -554,7 +554,7 @@ Set `defaultPeriod="year"` to show yearly prices by default.
 
 Customize the toggle labels with `monthLabel` and `yearLabel`.
 
-<ComponentPreview code={`<PlanGroup>
+<ComponentPreview component="plan-group" code={`<PlanGroup>
   <PlanGroupHeader>
     <PlanGroupTitle>Flexible billing</PlanGroupTitle>
     <PlanGroupToggle monthLabel="Pay Monthly" yearLabel="Pay Annually" yearDiscount="-17%" />
@@ -626,7 +626,7 @@ Customize the toggle labels with `monthLabel` and `yearLabel`.
 
 You can use PlanGroup without a header for simpler use cases.
 
-<ComponentPreview code={`<PlanGroup>
+<ComponentPreview component="plan-group" code={`<PlanGroup>
   <PlanGroupContent>
     <PlanCard>
       <PlanCardHeader>

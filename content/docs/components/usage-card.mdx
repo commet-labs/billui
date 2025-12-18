@@ -628,7 +628,7 @@ import {
 
 Simple usage card with progress bar and itemized list.
 
-<ComponentPreview code={`<UsageCard>
+<ComponentPreview component="usage-card" code={`<UsageCard>
   <UsageCardHeader>
     <UsageCardPeriod daysRemaining={14} />
   </UsageCardHeader>
@@ -678,7 +678,7 @@ Simple usage card with progress bar and itemized list.
 
 Use `variant="elevated"` to add a shadow for more visual prominence.
 
-<ComponentPreview code={`<UsageCard variant="elevated">
+<ComponentPreview component="usage-card" code={`<UsageCard variant="elevated">
   <UsageCardHeader>
     <UsageCardPeriod daysRemaining={7} />
     <UsageCardAction>Upgrade</UsageCardAction>
@@ -712,7 +712,7 @@ Use `variant="elevated"` to add a shadow for more visual prominence.
 
 Use `UsageCardMeter` to show individual resource usage with visual progress bars.
 
-<ComponentPreview code={`<UsageCard>
+<ComponentPreview component="usage-card" code={`<UsageCard>
   <UsageCardHeader>
     <UsageCardPeriod daysRemaining={5} />
     <UsageCardAction>Manage</UsageCardAction>
@@ -742,7 +742,7 @@ Use `UsageCardMeter` to show individual resource usage with visual progress bars
 
 Enable `collapsible` on `UsageCardList` to show a preview with expand/collapse functionality.
 
-<ComponentPreview code={`<UsageCard>
+<ComponentPreview component="usage-card" code={`<UsageCard>
   <UsageCardHeader>
     <UsageCardPeriod daysRemaining={3} />
   </UsageCardHeader>
@@ -796,7 +796,7 @@ Enable `collapsible` on `UsageCardList` to show a preview with expand/collapse f
 
 Use `highlighted` prop on items to create zebra striping.
 
-<ComponentPreview code={`<UsageCard>
+<ComponentPreview component="usage-card" code={`<UsageCard>
   <UsageCardList dividers={false}>
     <UsageCardItem highlighted>
       <UsageCardItemLabel>Compute</UsageCardItemLabel>
@@ -844,7 +844,7 @@ Use `highlighted` prop on items to create zebra striping.
 
 Add a `UsageCardTotal` at the bottom to show the sum of all charges.
 
-<ComponentPreview code={`<UsageCard>
+<ComponentPreview component="usage-card" code={`<UsageCard>
   <UsageCardHeader>
     <UsageCardPeriod daysRemaining={2} />
   </UsageCardHeader>
@@ -892,7 +892,7 @@ Add a `UsageCardTotal` at the bottom to show the sum of all charges.
 
 The progress bar turns red when usage exceeds the limit.
 
-<ComponentPreview code={`<UsageCard>
+<ComponentPreview component="usage-card" code={`<UsageCard>
   <UsageCardHeader>
     <UsageCardPeriod>Billing cycle exceeded</UsageCardPeriod>
     <UsageCardAction>Add Credits</UsageCardAction>
@@ -926,7 +926,7 @@ The progress bar turns red when usage exceeds the limit.
 
 Display amounts in different currencies.
 
-<ComponentPreview code={`<UsageCard>
+<ComponentPreview component="usage-card" code={`<UsageCard>
   <UsageCardSummary>
     <UsageCardLabels>
       <UsageCardLabel label="Créditos Usados" amount={15.00} limit={50} currency="€" />
@@ -974,7 +974,7 @@ Display amounts in different currencies.
 
 Pass custom children to `UsageCardPeriod` for custom text.
 
-<ComponentPreview code={`<UsageCard>
+<ComponentPreview component="usage-card" code={`<UsageCard>
   <UsageCardHeader>
     <UsageCardPeriod>Jan 1 - Jan 31, 2024</UsageCardPeriod>
     <UsageCardAction>View History</UsageCardAction>

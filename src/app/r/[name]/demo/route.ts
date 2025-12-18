@@ -62,14 +62,50 @@ const componentExports: Record<string, string[]> = {
     "PlanGroupToggle",
     "PlanGroupContent",
     "PlanPrice",
+    "PlanCard",
+    "PlanCardHeader",
+    "PlanCardBadge",
+    "PlanCardTitle",
+    "PlanCardDescription",
+    "PlanCardPrice",
+    "PlanCardFeatures",
+    "PlanCardFeature",
+    "PlanCardAction",
   ],
 };
 
 function generateDemoPage(componentName: string, exampleCode: string): string {
   const exports = componentExports[componentName] || [];
-  const importStatement = exports.length > 0
-    ? `import {\n  ${exports.join(",\n  ")},\n} from "@/components/ui/${componentName}";`
-    : `import { ${componentName} } from "@/components/ui/${componentName}";`;
+
+  // Special case: plan-group needs imports from both plan-group and plan-card
+  let importStatement: string;
+  if (componentName === "plan-group") {
+    const planGroupExports = [
+      "PlanGroup",
+      "PlanGroupHeader",
+      "PlanGroupTitle",
+      "PlanGroupDescription",
+      "PlanGroupToggle",
+      "PlanGroupContent",
+      "PlanPrice",
+    ];
+    const planCardExports = [
+      "PlanCard",
+      "PlanCardHeader",
+      "PlanCardBadge",
+      "PlanCardTitle",
+      "PlanCardDescription",
+      "PlanCardPrice",
+      "PlanCardFeatures",
+      "PlanCardFeature",
+      "PlanCardAction",
+    ];
+    importStatement = `import {\n  ${planGroupExports.join(",\n  ")},\n} from "@/components/ui/plan-group";\nimport {\n  ${planCardExports.join(",\n  ")},\n} from "@/components/ui/plan-card";`;
+  } else if (exports.length > 0) {
+    importStatement = `import {\n  ${exports.join(",\n  ")},\n} from "@/components/ui/${componentName}";`;
+  } else {
+    importStatement = `import { ${componentName} } from "@/components/ui/${componentName}";`;
+  }
 
   return `${importStatement}
 
@@ -89,7 +125,7 @@ export async function GET(
 ) {
   const { name } = await params;
   const url = new URL(request.url);
-  
+
   // Get the example code from query parameter (base64 encoded)
   const codeParam = url.searchParams.get("code");
 
@@ -124,7 +160,7 @@ export async function GET(
 
     // Generate demo content - either from query param or use default
     let demoContent: string;
-    
+
     if (codeParam) {
       // Decode the base64 code (was encoded with encodeURIComponent + btoa)
       const decoded = Buffer.from(codeParam, "base64").toString("utf-8");
@@ -139,16 +175,20 @@ export async function GET(
         "demos",
         `${componentName}-demo.tsx`,
       );
-      
-      const defaultDemo = await fs.readFile(demoPath, "utf-8").catch(() => null);
-      
+
+      const defaultDemo = await fs
+        .readFile(demoPath, "utf-8")
+        .catch(() => null);
+
       if (defaultDemo) {
         demoContent = defaultDemo
           .replace(/@\/registry\/ui\//g, "@/components/ui/")
           .replace(/@\/registry\/shadcn\//g, "@/components/ui/");
       } else {
         return NextResponse.json(
-          { error: `Demo for "${componentName}" not found. Provide ?code= parameter.` },
+          {
+            error: `Demo for "${componentName}" not found. Provide ?code= parameter.`,
+          },
           { status: 404 },
         );
       }
