@@ -18,6 +18,8 @@ export async function GET(
       title={page.data.title}
       description={page.data.description}
       site="billui"
+      primaryColor="rgba(255,255,255,0.15)"
+      primaryTextColor="rgb(255,255,255)"
     />,
     {
       width: 1200,
