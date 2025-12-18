@@ -132,78 +132,40 @@ import {
 
 The root container component.
 
-<TypeTable
-  type={{
-    variant: {
-      type: '"default" | "compact"',
-      default: '"default"',
-      description: "Visual style variant",
-    },
-  }}
-/>
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "compact"` | `"default"` |
 
 ### InvoiceCardStatus
 
 Badge showing the invoice status.
 
-<TypeTable
-  type={{
-    status: {
-      type: '"paid" | "pending" | "failed" | "refunded" | "draft"',
-      required: true,
-      description: "The invoice status",
-    },
-  }}
-/>
+| Prop | Type | Default |
+| --- | --- | --- |
+| `status` | `"paid" \| "pending" \| "failed" \| "refunded" \| "draft"` | — |
 
 ### InvoiceCardDate
 
 Displays the invoice date.
 
-<TypeTable
-  type={{
-    date: {
-      type: "Date | string",
-      required: true,
-      description: "The invoice date",
-    },
-    format: {
-      type: '"short" | "long"',
-      default: '"short"',
-      description: "Date format style",
-    },
-  }}
-/>
+| Prop | Type | Default |
+| --- | --- | --- |
+| `date` | `Date \| string` | — |
+| `format` | `"short" \| "long"` | `"short"` |
 
 ### InvoiceCardAmount
 
 Displays the invoice amount.
 
-<TypeTable
-  type={{
-    amount: {
-      type: "number",
-      required: true,
-      description: "The invoice amount",
-    },
-    currency: {
-      type: "string",
-      default: '"$"',
-      description: "Currency symbol",
-    },
-  }}
-/>
+| Prop | Type | Default |
+| --- | --- | --- |
+| `amount` | `number` | — |
+| `currency` | `string` | `"$"` |
 
 ### InvoiceCardAction
 
 Action button for download or view.
 
-<TypeTable
-  type={{
-    action: {
-      type: '"download" | "view"',
-      default: '"download"',
-      description: "The action type (changes the icon)",
-    },
-  }}
-/>
+| Prop | Type | Default |
+| --- | --- | --- |
+| `action` | `"download" \| "view"` | `"download"` |

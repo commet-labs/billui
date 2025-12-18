@@ -101,87 +101,42 @@ import {
 
 The root container component.
 
-<TypeTable
-  type={{
-    variant: {
-      type: '"default" | "highlighted" | "compact"',
-      default: '"default"',
-      description: "Visual style variant",
-    },
-    size: {
-      type: '"default" | "lg"',
-      default: '"default"',
-      description: "Size variant",
-    },
-  }}
-/>
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "highlighted" \| "compact"` | `"default"` |
+| `size` | `"default" \| "lg"` | `"default"` |
 
 ### PricingCardBadge
 
 Optional badge for highlighting plans.
 
-<TypeTable
-  type={{
-    variant: {
-      type: '"default" | "secondary" | "outline"',
-      default: '"default"',
-      description: "Badge style variant",
-    },
-  }}
-/>
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "secondary" \| "outline"` | `"default"` |
 
 ### PricingCardPrice
 
 Displays the price with optional original price for discounts.
 
-<TypeTable
-  type={{
-    amount: {
-      type: "number",
-      required: true,
-      description: "The price amount",
-    },
-    currency: {
-      type: "string",
-      default: '"$"',
-      description: "Currency symbol",
-    },
-    period: {
-      type: '"month" | "year" | "once"',
-      default: '"month"',
-      description: "Billing period",
-    },
-    originalAmount: {
-      type: "number",
-      description: "Original price for showing discounts",
-    },
-  }}
-/>
+| Prop | Type | Default |
+| --- | --- | --- |
+| `amount` | `number` | — |
+| `currency` | `string` | `"$"` |
+| `period` | `"month" \| "year" \| "once"` | `"month"` |
+| `originalAmount` | `number` | — |
 
 ### PricingCardFeature
 
 Individual feature item with included/excluded state.
 
-<TypeTable
-  type={{
-    included: {
-      type: "boolean",
-      default: "true",
-      description: "Whether the feature is included",
-    },
-  }}
-/>
+| Prop | Type | Default |
+| --- | --- | --- |
+| `included` | `boolean` | `true` |
 
 ### PricingCardAction
 
 CTA button for the pricing card.
 
-<TypeTable
-  type={{
-    variant: {
-      type: '"default" | "outline" | "secondary"',
-      default: '"default"',
-      description: "Button style variant",
-    },
-  }}
-/>
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "outline" \| "secondary"` | `"default"` |
