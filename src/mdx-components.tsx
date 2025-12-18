@@ -3,6 +3,7 @@ import type { MDXComponents } from "mdx/types";
 import { Tabs, Tab } from "fumadocs-ui/components/tabs";
 import { Steps, Step } from "fumadocs-ui/components/steps";
 import { TypeTable } from "fumadocs-ui/components/type-table";
+import { ComponentPreview } from "@/components/docs/component-preview";
 import {
   PlanCard,
   PlanCardAction,
@@ -30,6 +31,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Steps,
     Step,
     TypeTable,
+    ComponentPreview,
     PlanCard,
     PlanCardHeader,
     PlanCardBadge,
