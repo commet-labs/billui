@@ -83,7 +83,7 @@ export default function HomePage() {
           <div className="rounded-xl border bg-card/50 backdrop-blur overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-3">
               {/* Payment Methods */}
-              <div className="p-6 border-b lg:border-r border-border/50 lg:col-span-2">
+              <div className="p-6 border-b lg:border-r border-border/50">
                 <div className="mb-4">
                   <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Payment Methods
@@ -130,38 +130,63 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Plan Card */}
-              <div className="p-6 border-b border-border/50">
+              {/* Plan Cards */}
+              <div className="p-6 border-b border-border/50 lg:col-span-2">
                 <div className="mb-4">
                   <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Plan Card
+                    Plan Cards
                   </span>
                 </div>
-                <PlanCard variant="highlighted">
-                  <PlanCardHeader>
-                    <PlanCardBadge>Most Popular</PlanCardBadge>
-                    <PlanCardTitle>Pro</PlanCardTitle>
-                    <PlanCardDescription>For growing teams</PlanCardDescription>
-                  </PlanCardHeader>
-                  <PlanCardPrice
-                    amount={29}
-                    originalAmount={49}
-                    period="month"
-                  />
-                  <PlanCardFeatures>
-                    <PlanCardFeature included>
-                      Unlimited projects
-                    </PlanCardFeature>
-                    <PlanCardFeature included>
-                      Advanced analytics
-                    </PlanCardFeature>
-                    <PlanCardFeature included>Priority support</PlanCardFeature>
-                    <PlanCardFeature included={false}>
-                      Custom integrations
-                    </PlanCardFeature>
-                  </PlanCardFeatures>
-                  <PlanCardAction>Get Started</PlanCardAction>
-                </PlanCard>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <PlanCard>
+                    <PlanCardHeader>
+                      <PlanCardTitle>Free</PlanCardTitle>
+                      <PlanCardDescription>For individuals</PlanCardDescription>
+                    </PlanCardHeader>
+                    <PlanCardPrice amount={0} period="month" />
+                    <PlanCardFeatures>
+                      <PlanCardFeature included>
+                        Up to 3 projects
+                      </PlanCardFeature>
+                      <PlanCardFeature included>
+                        Basic analytics
+                      </PlanCardFeature>
+                      <PlanCardFeature included={false}>
+                        Priority support
+                      </PlanCardFeature>
+                    </PlanCardFeatures>
+                    <PlanCardAction variant="outline">
+                      Get Started
+                    </PlanCardAction>
+                  </PlanCard>
+
+                  <PlanCard variant="highlighted">
+                    <PlanCardHeader>
+                      <PlanCardBadge>Most Popular</PlanCardBadge>
+                      <PlanCardTitle>Pro</PlanCardTitle>
+                      <PlanCardDescription>
+                        For growing teams
+                      </PlanCardDescription>
+                    </PlanCardHeader>
+                    <PlanCardPrice
+                      amount={29}
+                      originalAmount={49}
+                      period="month"
+                    />
+                    <PlanCardFeatures>
+                      <PlanCardFeature included>
+                        Unlimited projects
+                      </PlanCardFeature>
+                      <PlanCardFeature included>
+                        Advanced analytics
+                      </PlanCardFeature>
+                      <PlanCardFeature included>
+                        Priority support
+                      </PlanCardFeature>
+                    </PlanCardFeatures>
+                    <PlanCardAction>Get Started</PlanCardAction>
+                  </PlanCard>
+                </div>
               </div>
 
               {/* Invoice History - full width with 2 columns */}
@@ -233,6 +258,11 @@ export default function HomePage() {
 
               {/* Plan Group with Toggle - spans full width */}
               <div className="p-6 lg:col-span-3">
+                <div className="mb-4">
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Plan Group
+                  </span>
+                </div>
                 <PlanGroup>
                   <PlanGroupHeader>
                     <PlanGroupTitle>Simple, transparent pricing</PlanGroupTitle>
