@@ -15,7 +15,21 @@ import {
   PlanCardAction,
 } from "@/components/billing";
 
-<ComponentPreview>
+<ComponentPreview code={`<PlanCard variant="highlighted">
+  <PlanCardHeader>
+    <PlanCardBadge>Most Popular</PlanCardBadge>
+    <PlanCardTitle>Pro</PlanCardTitle>
+    <PlanCardDescription>For growing teams</PlanCardDescription>
+  </PlanCardHeader>
+  <PlanCardPrice amount={29} originalAmount={49} period="month" />
+  <PlanCardFeatures>
+    <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+    <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+    <PlanCardFeature included>Priority support</PlanCardFeature>
+    <PlanCardFeature included={false}>Custom integrations</PlanCardFeature>
+  </PlanCardFeatures>
+  <PlanCardAction>Get Started</PlanCardAction>
+</PlanCard>`}>
   <PlanCard variant="highlighted">
     <PlanCardHeader>
       <PlanCardBadge>Most Popular</PlanCardBadge>

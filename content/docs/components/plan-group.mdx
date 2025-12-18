@@ -22,7 +22,43 @@ import {
   PlanCardAction,
 } from "@/components/billing";
 
-<ComponentPreview>
+<ComponentPreview code={`<PlanGroup>
+  <PlanGroupHeader>
+    <PlanGroupTitle>Simple, transparent pricing</PlanGroupTitle>
+    <PlanGroupDescription>
+      Choose the plan that works best for you.
+    </PlanGroupDescription>
+    <PlanGroupToggle yearDiscount="Save 20%" />
+  </PlanGroupHeader>
+  <PlanGroupContent>
+    <PlanCard>
+      <PlanCardHeader>
+        <PlanCardTitle>Free</PlanCardTitle>
+        <PlanCardDescription>For individuals</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanPrice monthlyAmount={0} yearlyAmount={0} />
+      <PlanCardFeatures>
+        <PlanCardFeature included>Up to 3 projects</PlanCardFeature>
+        <PlanCardFeature included>Basic analytics</PlanCardFeature>
+        <PlanCardFeature included={false}>Priority support</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction variant="outline">Get Started</PlanCardAction>
+    </PlanCard>
+    <PlanCard variant="highlighted">
+      <PlanCardHeader>
+        <PlanCardTitle>Pro</PlanCardTitle>
+        <PlanCardDescription>For growing teams</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanPrice monthlyAmount={29} yearlyAmount={278} />
+      <PlanCardFeatures>
+        <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+        <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+        <PlanCardFeature included>Priority support</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction>Get Started</PlanCardAction>
+    </PlanCard>
+  </PlanGroupContent>
+</PlanGroup>`}>
   <PlanGroup>
     <PlanGroupHeader>
       <PlanGroupTitle>Simple, transparent pricing</PlanGroupTitle>

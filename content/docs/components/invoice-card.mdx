@@ -16,7 +16,35 @@ import {
   InvoiceCardAction,
 } from "@/components/billing";
 
-<ComponentPreview>
+<ComponentPreview code={`<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+      <InvoiceCardStatus status="paid" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-01-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={29} />
+  <InvoiceCardActions>
+    <InvoiceCardAction action="download" />
+  </InvoiceCardActions>
+</InvoiceCard>
+
+<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-002</InvoiceCardNumber>
+      <InvoiceCardStatus status="pending" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-02-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={29} />
+  <InvoiceCardActions>
+    <InvoiceCardAction action="view" />
+  </InvoiceCardActions>
+</InvoiceCard>`}>
   <div className="w-full max-w-lg space-y-3">
     <InvoiceCard>
       <InvoiceCardIcon />
