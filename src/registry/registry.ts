@@ -28,7 +28,8 @@ export const registryIndex: RegistryIndex = {
     {
       name: "payment-method",
       type: "registry:ui",
-      description: "A card for displaying saved payment methods like credit cards.",
+      description:
+        "A card for displaying saved payment methods like credit cards.",
     },
   ],
 };
