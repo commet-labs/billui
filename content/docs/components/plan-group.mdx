@@ -400,6 +400,298 @@ import {
 </PlanGroup>
 ```
 
+## Examples
+
+### Vertical Layout
+
+Use `layout="vertical"` to stack plans vertically.
+
+<ComponentPreview code={`<PlanGroup>
+  <PlanGroupHeader>
+    <PlanGroupTitle>Compare plans</PlanGroupTitle>
+    <PlanGroupToggle />
+  </PlanGroupHeader>
+  <PlanGroupContent layout="vertical">
+    <PlanCard>
+      <PlanCardHeader>
+        <PlanCardTitle>Basic</PlanCardTitle>
+        <PlanCardDescription>Everything you need to get started</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanPrice monthlyAmount={9} yearlyAmount={90} />
+      <PlanCardFeatures>
+        <PlanCardFeature included>5 projects</PlanCardFeature>
+        <PlanCardFeature included>Basic analytics</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction variant="outline">Select Plan</PlanCardAction>
+    </PlanCard>
+    <PlanCard variant="highlighted">
+      <PlanCardHeader>
+        <div className="flex items-center justify-between">
+          <PlanCardTitle>Professional</PlanCardTitle>
+          <PlanCardBadge>Recommended</PlanCardBadge>
+        </div>
+        <PlanCardDescription>Best for growing businesses</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanPrice monthlyAmount={29} yearlyAmount={290} originalMonthlyAmount={39} originalYearlyAmount={390} />
+      <PlanCardFeatures>
+        <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+        <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+        <PlanCardFeature included>Priority support</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction>Select Plan</PlanCardAction>
+    </PlanCard>
+  </PlanGroupContent>
+</PlanGroup>`}>
+  <PlanGroup>
+    <PlanGroupHeader>
+      <PlanGroupTitle>Compare plans</PlanGroupTitle>
+      <PlanGroupToggle />
+    </PlanGroupHeader>
+    <PlanGroupContent layout="vertical">
+      <PlanCard>
+        <PlanCardHeader>
+          <PlanCardTitle>Basic</PlanCardTitle>
+          <PlanCardDescription>Everything you need to get started</PlanCardDescription>
+        </PlanCardHeader>
+        <PlanPrice monthlyAmount={9} yearlyAmount={90} />
+        <PlanCardFeatures>
+          <PlanCardFeature included>5 projects</PlanCardFeature>
+          <PlanCardFeature included>Basic analytics</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction variant="outline">Select Plan</PlanCardAction>
+      </PlanCard>
+      <PlanCard variant="highlighted">
+        <PlanCardHeader>
+          <div className="flex items-center justify-between">
+            <PlanCardTitle>Professional</PlanCardTitle>
+            <PlanCardBadge>Recommended</PlanCardBadge>
+          </div>
+          <PlanCardDescription>Best for growing businesses</PlanCardDescription>
+        </PlanCardHeader>
+        <PlanPrice monthlyAmount={29} yearlyAmount={290} originalMonthlyAmount={39} originalYearlyAmount={390} />
+        <PlanCardFeatures>
+          <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+          <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+          <PlanCardFeature included>Priority support</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction>Select Plan</PlanCardAction>
+      </PlanCard>
+    </PlanGroupContent>
+  </PlanGroup>
+</ComponentPreview>
+
+### Default Yearly Period
+
+Set `defaultPeriod="year"` to show yearly prices by default.
+
+<ComponentPreview code={`<PlanGroup defaultPeriod="year">
+  <PlanGroupHeader>
+    <PlanGroupTitle>Annual pricing</PlanGroupTitle>
+    <PlanGroupDescription>Save more with yearly billing</PlanGroupDescription>
+    <PlanGroupToggle yearDiscount="Save 20%" />
+  </PlanGroupHeader>
+  <PlanGroupContent>
+    <PlanCard>
+      <PlanCardHeader>
+        <PlanCardTitle>Hobby</PlanCardTitle>
+        <PlanCardDescription>For side projects</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanPrice monthlyAmount={5} yearlyAmount={48} />
+      <PlanCardFeatures>
+        <PlanCardFeature included>3 projects</PlanCardFeature>
+        <PlanCardFeature included>Community support</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction variant="outline">Start Free</PlanCardAction>
+    </PlanCard>
+    <PlanCard variant="highlighted">
+      <PlanCardHeader>
+        <PlanCardBadge>Best Value</PlanCardBadge>
+        <PlanCardTitle>Team</PlanCardTitle>
+        <PlanCardDescription>For small teams</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanPrice monthlyAmount={15} yearlyAmount={144} originalMonthlyAmount={20} originalYearlyAmount={192} />
+      <PlanCardFeatures>
+        <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+        <PlanCardFeature included>Team collaboration</PlanCardFeature>
+        <PlanCardFeature included>Priority support</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction>Subscribe Now</PlanCardAction>
+    </PlanCard>
+  </PlanGroupContent>
+</PlanGroup>`}>
+  <PlanGroup defaultPeriod="year">
+    <PlanGroupHeader>
+      <PlanGroupTitle>Annual pricing</PlanGroupTitle>
+      <PlanGroupDescription>Save more with yearly billing</PlanGroupDescription>
+      <PlanGroupToggle yearDiscount="Save 20%" />
+    </PlanGroupHeader>
+    <PlanGroupContent>
+      <PlanCard>
+        <PlanCardHeader>
+          <PlanCardTitle>Hobby</PlanCardTitle>
+          <PlanCardDescription>For side projects</PlanCardDescription>
+        </PlanCardHeader>
+        <PlanPrice monthlyAmount={5} yearlyAmount={48} />
+        <PlanCardFeatures>
+          <PlanCardFeature included>3 projects</PlanCardFeature>
+          <PlanCardFeature included>Community support</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction variant="outline">Start Free</PlanCardAction>
+      </PlanCard>
+      <PlanCard variant="highlighted">
+        <PlanCardHeader>
+          <PlanCardBadge>Best Value</PlanCardBadge>
+          <PlanCardTitle>Team</PlanCardTitle>
+          <PlanCardDescription>For small teams</PlanCardDescription>
+        </PlanCardHeader>
+        <PlanPrice monthlyAmount={15} yearlyAmount={144} originalMonthlyAmount={20} originalYearlyAmount={192} />
+        <PlanCardFeatures>
+          <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+          <PlanCardFeature included>Team collaboration</PlanCardFeature>
+          <PlanCardFeature included>Priority support</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction>Subscribe Now</PlanCardAction>
+      </PlanCard>
+    </PlanGroupContent>
+  </PlanGroup>
+</ComponentPreview>
+
+### Custom Toggle Labels
+
+Customize the toggle labels with `monthLabel` and `yearLabel`.
+
+<ComponentPreview code={`<PlanGroup>
+  <PlanGroupHeader>
+    <PlanGroupTitle>Flexible billing</PlanGroupTitle>
+    <PlanGroupToggle monthLabel="Pay Monthly" yearLabel="Pay Annually" yearDiscount="-17%" />
+  </PlanGroupHeader>
+  <PlanGroupContent>
+    <PlanCard>
+      <PlanCardHeader>
+        <PlanCardTitle>Solo</PlanCardTitle>
+        <PlanCardDescription>For freelancers</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanPrice monthlyAmount={12} yearlyAmount={120} />
+      <PlanCardFeatures>
+        <PlanCardFeature included>10 projects</PlanCardFeature>
+        <PlanCardFeature included>Email support</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction variant="outline">Get Started</PlanCardAction>
+    </PlanCard>
+    <PlanCard variant="highlighted">
+      <PlanCardHeader>
+        <PlanCardTitle>Agency</PlanCardTitle>
+        <PlanCardDescription>For creative agencies</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanPrice monthlyAmount={49} yearlyAmount={490} />
+      <PlanCardFeatures>
+        <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+        <PlanCardFeature included>White-label reports</PlanCardFeature>
+        <PlanCardFeature included>24/7 support</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction>Get Started</PlanCardAction>
+    </PlanCard>
+  </PlanGroupContent>
+</PlanGroup>`}>
+  <PlanGroup>
+    <PlanGroupHeader>
+      <PlanGroupTitle>Flexible billing</PlanGroupTitle>
+      <PlanGroupToggle monthLabel="Pay Monthly" yearLabel="Pay Annually" yearDiscount="-17%" />
+    </PlanGroupHeader>
+    <PlanGroupContent>
+      <PlanCard>
+        <PlanCardHeader>
+          <PlanCardTitle>Solo</PlanCardTitle>
+          <PlanCardDescription>For freelancers</PlanCardDescription>
+        </PlanCardHeader>
+        <PlanPrice monthlyAmount={12} yearlyAmount={120} />
+        <PlanCardFeatures>
+          <PlanCardFeature included>10 projects</PlanCardFeature>
+          <PlanCardFeature included>Email support</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction variant="outline">Get Started</PlanCardAction>
+      </PlanCard>
+      <PlanCard variant="highlighted">
+        <PlanCardHeader>
+          <PlanCardTitle>Agency</PlanCardTitle>
+          <PlanCardDescription>For creative agencies</PlanCardDescription>
+        </PlanCardHeader>
+        <PlanPrice monthlyAmount={49} yearlyAmount={490} />
+        <PlanCardFeatures>
+          <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+          <PlanCardFeature included>White-label reports</PlanCardFeature>
+          <PlanCardFeature included>24/7 support</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction>Get Started</PlanCardAction>
+      </PlanCard>
+    </PlanGroupContent>
+  </PlanGroup>
+</ComponentPreview>
+
+### Without Header
+
+You can use PlanGroup without a header for simpler use cases.
+
+<ComponentPreview code={`<PlanGroup>
+  <PlanGroupContent>
+    <PlanCard>
+      <PlanCardHeader>
+        <PlanCardTitle>Monthly</PlanCardTitle>
+        <PlanCardDescription>Flexible billing</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanCardPrice amount={29} period="month" />
+      <PlanCardFeatures>
+        <PlanCardFeature included>All features</PlanCardFeature>
+        <PlanCardFeature included>Cancel anytime</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction variant="outline">Subscribe</PlanCardAction>
+    </PlanCard>
+    <PlanCard variant="highlighted">
+      <PlanCardHeader>
+        <PlanCardBadge>Save $70</PlanCardBadge>
+        <PlanCardTitle>Annual</PlanCardTitle>
+        <PlanCardDescription>Best value</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanCardPrice amount={278} period="year" />
+      <PlanCardFeatures>
+        <PlanCardFeature included>All features</PlanCardFeature>
+        <PlanCardFeature included>2 months free</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction>Subscribe</PlanCardAction>
+    </PlanCard>
+  </PlanGroupContent>
+</PlanGroup>`}>
+  <PlanGroup>
+    <PlanGroupContent>
+      <PlanCard>
+        <PlanCardHeader>
+          <PlanCardTitle>Monthly</PlanCardTitle>
+          <PlanCardDescription>Flexible billing</PlanCardDescription>
+        </PlanCardHeader>
+        <PlanCardPrice amount={29} period="month" />
+        <PlanCardFeatures>
+          <PlanCardFeature included>All features</PlanCardFeature>
+          <PlanCardFeature included>Cancel anytime</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction variant="outline">Subscribe</PlanCardAction>
+      </PlanCard>
+      <PlanCard variant="highlighted">
+        <PlanCardHeader>
+          <PlanCardBadge>Save $70</PlanCardBadge>
+          <PlanCardTitle>Annual</PlanCardTitle>
+          <PlanCardDescription>Best value</PlanCardDescription>
+        </PlanCardHeader>
+        <PlanCardPrice amount={278} period="year" />
+        <PlanCardFeatures>
+          <PlanCardFeature included>All features</PlanCardFeature>
+          <PlanCardFeature included>2 months free</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction>Subscribe</PlanCardAction>
+      </PlanCard>
+    </PlanGroupContent>
+  </PlanGroup>
+</ComponentPreview>
+
 ## API Reference
 
 ### PlanGroup
