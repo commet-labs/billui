@@ -9,35 +9,48 @@ export const registryIndex: RegistryIndex = {
   homepage: REGISTRY_HOMEPAGE,
   items: [
     {
-      name: "pricing-card",
+      name: "plan-card",
       type: "registry:ui",
       description:
-        "A composable pricing card component for displaying subscription plans",
+        "A card for displaying pricing tiers and subscription plans.",
+    },
+    {
+      name: "plan-group",
+      type: "registry:ui",
+      description:
+        "A container for displaying multiple pricing plans with a monthly/yearly toggle.",
     },
     {
       name: "invoice-card",
       type: "registry:ui",
-      description:
-        "A composable invoice card component for displaying billing history",
+      description: "A card for displaying invoice details and billing history.",
     },
   ],
 };
 
 export const registry: Record<string, RegistryItem> = {
-  "pricing-card": {
-    name: "pricing-card",
+  "plan-card": {
+    name: "plan-card",
     type: "registry:ui",
-    description:
-      "A composable pricing card component for displaying subscription plans",
+    description: "A card for displaying pricing tiers and subscription plans.",
     dependencies: ["lucide-react"],
     registryDependencies: ["button", "badge"],
+    files: [], // Will be populated dynamically from source files
+  },
+  "plan-group": {
+    name: "plan-group",
+    type: "registry:ui",
+    description:
+      "A container for displaying multiple pricing plans with a monthly/yearly toggle.",
+    dependencies: [],
+    registryDependencies: ["plan-card"],
     files: [], // Will be populated dynamically from source files
   },
   "invoice-card": {
     name: "invoice-card",
     type: "registry:ui",
     description:
-      "A composable invoice card component for displaying billing history",
+      "A card component for displaying invoice details and billing history.",
     dependencies: ["lucide-react"],
     registryDependencies: ["button", "badge"],
     files: [], // Will be populated dynamically from source files

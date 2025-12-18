@@ -1,6 +1,6 @@
 ---
 title: Plan Group
-description: A composable container for displaying multiple pricing plans with optional billing period toggle.
+description: A container for displaying multiple pricing plans with a monthly/yearly toggle.
 ---
 
 import {
@@ -11,15 +11,15 @@ import {
   PlanGroupToggle,
   PlanGroupContent,
   PlanPrice,
-  PricingCard,
-  PricingCardHeader,
-  PricingCardBadge,
-  PricingCardTitle,
-  PricingCardDescription,
-  PricingCardPrice,
-  PricingCardFeatures,
-  PricingCardFeature,
-  PricingCardAction,
+  PlanCard,
+  PlanCardHeader,
+  PlanCardBadge,
+  PlanCardTitle,
+  PlanCardDescription,
+  PlanCardPrice,
+  PlanCardFeatures,
+  PlanCardFeature,
+  PlanCardAction,
 } from "@/components/billing";
 
 <div className="not-prose my-8">
@@ -32,54 +32,54 @@ import {
       <PlanGroupToggle yearDiscount="Save 20%" />
     </PlanGroupHeader>
     <PlanGroupContent columns={3}>
-      <PricingCard>
-        <PricingCardHeader>
-          <PricingCardTitle>Basic</PricingCardTitle>
-          <PricingCardDescription>For individuals</PricingCardDescription>
-        </PricingCardHeader>
+      <PlanCard>
+        <PlanCardHeader>
+          <PlanCardTitle>Basic</PlanCardTitle>
+          <PlanCardDescription>For individuals</PlanCardDescription>
+        </PlanCardHeader>
         <PlanPrice monthlyAmount={9} yearlyAmount={86} />
-        <PricingCardFeatures>
-          <PricingCardFeature included>Up to 3 projects</PricingCardFeature>
-          <PricingCardFeature included>Basic analytics</PricingCardFeature>
-          <PricingCardFeature included>Community support</PricingCardFeature>
-          <PricingCardFeature included={false}>Custom integrations</PricingCardFeature>
-          <PricingCardFeature included={false}>Priority support</PricingCardFeature>
-        </PricingCardFeatures>
-        <PricingCardAction variant="outline">Get Started</PricingCardAction>
-      </PricingCard>
-      <PricingCard variant="highlighted">
-        <PricingCardHeader>
+        <PlanCardFeatures>
+          <PlanCardFeature included>Up to 3 projects</PlanCardFeature>
+          <PlanCardFeature included>Basic analytics</PlanCardFeature>
+          <PlanCardFeature included>Community support</PlanCardFeature>
+          <PlanCardFeature included={false}>Custom integrations</PlanCardFeature>
+          <PlanCardFeature included={false}>Priority support</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction variant="outline">Get Started</PlanCardAction>
+      </PlanCard>
+      <PlanCard variant="highlighted">
+        <PlanCardHeader>
           <div className="flex items-center justify-between">
-            <PricingCardTitle>Pro</PricingCardTitle>
-            <PricingCardBadge>Most Popular</PricingCardBadge>
+            <PlanCardTitle>Pro</PlanCardTitle>
+            <PlanCardBadge>Most Popular</PlanCardBadge>
           </div>
-          <PricingCardDescription>For growing teams</PricingCardDescription>
-        </PricingCardHeader>
+          <PlanCardDescription>For growing teams</PlanCardDescription>
+        </PlanCardHeader>
         <PlanPrice monthlyAmount={29} yearlyAmount={278} originalMonthlyAmount={49} originalYearlyAmount={470} />
-        <PricingCardFeatures>
-          <PricingCardFeature included>Unlimited projects</PricingCardFeature>
-          <PricingCardFeature included>Advanced analytics</PricingCardFeature>
-          <PricingCardFeature included>Priority support</PricingCardFeature>
-          <PricingCardFeature included>Custom integrations</PricingCardFeature>
-          <PricingCardFeature included={false}>Custom integrations</PricingCardFeature>
-        </PricingCardFeatures>
-        <PricingCardAction>Get Started</PricingCardAction>
-      </PricingCard>
-      <PricingCard>
-        <PricingCardHeader>
-          <PricingCardTitle>Enterprise</PricingCardTitle>
-          <PricingCardDescription>For large organizations</PricingCardDescription>
-        </PricingCardHeader>
+        <PlanCardFeatures>
+          <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+          <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+          <PlanCardFeature included>Priority support</PlanCardFeature>
+          <PlanCardFeature included>Custom integrations</PlanCardFeature>
+          <PlanCardFeature included={false}>Custom integrations</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction>Get Started</PlanCardAction>
+      </PlanCard>
+      <PlanCard>
+        <PlanCardHeader>
+          <PlanCardTitle>Enterprise</PlanCardTitle>
+          <PlanCardDescription>For large organizations</PlanCardDescription>
+        </PlanCardHeader>
         <PlanPrice monthlyAmount={99} yearlyAmount={950} />
-        <PricingCardFeatures>
-          <PricingCardFeature included>Everything in Pro</PricingCardFeature>
-          <PricingCardFeature included>Unlimited team members</PricingCardFeature>
-          <PricingCardFeature included>SSO & SAML</PricingCardFeature>
-          <PricingCardFeature included>Dedicated manager</PricingCardFeature>
-          <PricingCardFeature included>Custom SLA</PricingCardFeature>
-        </PricingCardFeatures>
-        <PricingCardAction variant="outline">Contact Sales</PricingCardAction>
-      </PricingCard>
+        <PlanCardFeatures>
+          <PlanCardFeature included>Everything in Pro</PlanCardFeature>
+          <PlanCardFeature included>Unlimited team members</PlanCardFeature>
+          <PlanCardFeature included>SSO & SAML</PlanCardFeature>
+          <PlanCardFeature included>Dedicated manager</PlanCardFeature>
+          <PlanCardFeature included>Custom SLA</PlanCardFeature>
+        </PlanCardFeatures>
+        <PlanCardAction variant="outline">Contact Sales</PlanCardAction>
+      </PlanCard>
     </PlanGroupContent>
   </PlanGroup>
 </div>
@@ -96,10 +96,10 @@ npx shadcn@latest add plan-group --from https://billui.com/api/registry
 <Steps>
 <Step>
 
-First, install the Pricing Card component as it's a dependency.
+First, install the Plan Card component as it's a dependency.
 
 ```bash
-npx shadcn@latest add pricing-card --from https://billui.com/api/registry
+npx shadcn@latest add plan-card --from https://billui.com/api/registry
 ```
 
 </Step>
@@ -136,14 +136,14 @@ import {
   PlanPrice,
 } from "@/components/ui/plan-group"
 import {
-  PricingCard,
-  PricingCardHeader,
-  PricingCardTitle,
-  PricingCardDescription,
-  PricingCardFeatures,
-  PricingCardFeature,
-  PricingCardAction,
-} from "@/components/ui/pricing-card"
+  PlanCard,
+  PlanCardHeader,
+  PlanCardTitle,
+  PlanCardDescription,
+  PlanCardFeatures,
+  PlanCardFeature,
+  PlanCardAction,
+} from "@/components/ui/plan-card"
 ```
 
 ```tsx
@@ -154,27 +154,27 @@ import {
     <PlanGroupToggle yearDiscount="Save 20%" />
   </PlanGroupHeader>
   <PlanGroupContent columns={3}>
-    <PricingCard>
-      <PricingCardHeader>
-        <PricingCardTitle>Basic</PricingCardTitle>
-      </PricingCardHeader>
+    <PlanCard>
+      <PlanCardHeader>
+        <PlanCardTitle>Basic</PlanCardTitle>
+      </PlanCardHeader>
       <PlanPrice monthlyAmount={9} yearlyAmount={86} />
       {/* features... */}
-    </PricingCard>
-    <PricingCard variant="highlighted">
-      <PricingCardHeader>
-        <PricingCardTitle>Pro</PricingCardTitle>
-      </PricingCardHeader>
+    </PlanCard>
+    <PlanCard variant="highlighted">
+      <PlanCardHeader>
+        <PlanCardTitle>Pro</PlanCardTitle>
+      </PlanCardHeader>
       <PlanPrice monthlyAmount={29} yearlyAmount={278} />
       {/* features... */}
-    </PricingCard>
-    <PricingCard>
-      <PricingCardHeader>
-        <PricingCardTitle>Enterprise</PricingCardTitle>
-      </PricingCardHeader>
+    </PlanCard>
+    <PlanCard>
+      <PlanCardHeader>
+        <PlanCardTitle>Enterprise</PlanCardTitle>
+      </PlanCardHeader>
       <PlanPrice monthlyAmount={99} yearlyAmount={950} />
       {/* features... */}
-    </PricingCard>
+    </PlanCard>
   </PlanGroupContent>
 </PlanGroup>
 ```
@@ -223,7 +223,7 @@ Grid container for the pricing cards.
 
 ### PlanPrice
 
-Price display that responds to the billing period toggle. Use this instead of `PricingCardPrice` when you want the price to change with the toggle.
+Price display that responds to the billing period toggle. Use this instead of `PlanCardPrice` when you want the price to change with the toggle.
 
 | Prop | Type | Default |
 | --- | --- | --- |

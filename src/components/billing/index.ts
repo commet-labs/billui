@@ -1,23 +1,23 @@
 export {
-  PricingCard,
-  PricingCardAction,
-  PricingCardBadge,
-  PricingCardDescription,
-  PricingCardFeature,
-  PricingCardFeatures,
-  PricingCardHeader,
-  PricingCardPrice,
-  PricingCardTitle,
-  pricingCardVariants,
-} from "./pricing-card";
+  PlanCard,
+  PlanCardAction,
+  PlanCardBadge,
+  PlanCardDescription,
+  PlanCardFeature,
+  PlanCardFeatures,
+  PlanCardHeader,
+  PlanCardPrice,
+  PlanCardTitle,
+  planCardVariants,
+} from "./plan-card";
 
 export type {
-  PricingCardActionProps,
-  PricingCardBadgeProps,
-  PricingCardFeatureProps,
-  PricingCardPriceProps,
-  PricingCardProps,
-} from "./pricing-card";
+  PlanCardActionProps,
+  PlanCardBadgeProps,
+  PlanCardFeatureProps,
+  PlanCardPriceProps,
+  PlanCardProps,
+} from "./plan-card";
 
 export {
   InvoiceCard,

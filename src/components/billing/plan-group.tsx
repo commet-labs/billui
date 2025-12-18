@@ -4,7 +4,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
-import { PricingCardPrice } from "./pricing-card";
+import { PlanCardPrice } from "./plan-card";
 
 const planGroupVariants = cva("w-full", {
   variants: {
@@ -206,7 +206,7 @@ PlanGroupContent.displayName = "PlanGroupContent";
 
 interface PlanPriceProps
   extends Omit<
-    React.ComponentPropsWithoutRef<typeof PricingCardPrice>,
+    React.ComponentPropsWithoutRef<typeof PlanCardPrice>,
     "amount" | "originalAmount" | "period"
   > {
   monthlyAmount: number;
@@ -233,7 +233,7 @@ const PlanPrice = React.forwardRef<HTMLDivElement, PlanPriceProps>(
       period === "month" ? originalMonthlyAmount : originalYearlyAmount;
 
     return (
-      <PricingCardPrice
+      <PlanCardPrice
         ref={ref}
         amount={amount}
         originalAmount={originalAmount}

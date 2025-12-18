@@ -1,0 +1,143 @@
+---
+title: Plan Card
+description: A card for displaying pricing tiers and subscription plans.
+---
+
+import {
+  PlanCard,
+  PlanCardHeader,
+  PlanCardBadge,
+  PlanCardTitle,
+  PlanCardDescription,
+  PlanCardPrice,
+  PlanCardFeatures,
+  PlanCardFeature,
+  PlanCardAction,
+} from "@/components/billing";
+
+<div className="not-prose my-8">
+  <PlanCard variant="highlighted" className="max-w-sm mx-auto">
+    <PlanCardHeader>
+      <PlanCardBadge>Most Popular</PlanCardBadge>
+      <PlanCardTitle>Pro</PlanCardTitle>
+      <PlanCardDescription>For growing teams</PlanCardDescription>
+    </PlanCardHeader>
+    <PlanCardPrice amount={29} originalAmount={49} period="month" />
+    <PlanCardFeatures>
+      <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+      <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+      <PlanCardFeature included>Priority support</PlanCardFeature>
+      <PlanCardFeature included={false}>Custom integrations</PlanCardFeature>
+    </PlanCardFeatures>
+    <PlanCardAction>Get Started</PlanCardAction>
+  </PlanCard>
+</div>
+
+## Installation
+
+<Tabs items={["CLI", "Manual"]}>
+  <Tab value="CLI">
+```bash
+npx shadcn@latest add plan-card --from https://billui.com/api/registry
+```
+  </Tab>
+  <Tab value="Manual">
+<Steps>
+<Step>
+
+Copy and paste the following code into your project.
+
+</Step>
+
+```tsx title="components/ui/plan-card.tsx"
+// See the full source at: https://billui.com/api/registry/plan-card
+```
+
+<Step>
+
+Update the import paths to match your project setup.
+
+</Step>
+</Steps>
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  PlanCard,
+  PlanCardHeader,
+  PlanCardBadge,
+  PlanCardTitle,
+  PlanCardDescription,
+  PlanCardPrice,
+  PlanCardFeatures,
+  PlanCardFeature,
+  PlanCardAction,
+} from "@/components/ui/plan-card"
+```
+
+```tsx
+<PlanCard>
+  <PlanCardHeader>
+    <PlanCardBadge>Most Popular</PlanCardBadge>
+    <PlanCardTitle>Pro</PlanCardTitle>
+    <PlanCardDescription>For growing teams</PlanCardDescription>
+  </PlanCardHeader>
+  <PlanCardPrice amount={29} period="month" />
+  <PlanCardFeatures>
+    <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+    <PlanCardFeature included>Priority support</PlanCardFeature>
+    <PlanCardFeature included={false}>Custom integrations</PlanCardFeature>
+  </PlanCardFeatures>
+  <PlanCardAction>Get Started</PlanCardAction>
+</PlanCard>
+```
+
+## API Reference
+
+### PlanCard
+
+The root container component.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "highlighted" \| "compact"` | `"default"` |
+| `size` | `"default" \| "lg"` | `"default"` |
+
+### PlanCardBadge
+
+Optional badge for highlighting plans.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "secondary" \| "outline"` | `"default"` |
+
+### PlanCardPrice
+
+Displays the price with optional original price for discounts.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `amount` | `number` | — |
+| `currency` | `string` | `"$"` |
+| `period` | `"month" \| "year" \| "once"` | `"month"` |
+| `originalAmount` | `number` | — |
+
+### PlanCardFeature
+
+Individual feature item with included/excluded state.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `included` | `boolean` | `true` |
+
+### PlanCardAction
+
+CTA button for the plan card.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "outline" \| "secondary"` | `"default"` |
+

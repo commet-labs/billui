@@ -8,7 +8,7 @@ import { Badge } from "@/registry/shadcn/badge";
 import { Button } from "@/registry/shadcn/button";
 import { cn } from "@/lib/utils";
 
-const pricingCardVariants = cva(
+const planCardVariants = cva(
   "relative flex flex-col rounded-2xl border bg-card text-card-foreground transition-all duration-200",
   {
     variants: {
@@ -30,40 +30,40 @@ const pricingCardVariants = cva(
   }
 );
 
-interface PricingCardProps
+interface PlanCardProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof pricingCardVariants> {}
+    VariantProps<typeof planCardVariants> {}
 
-const PricingCard = React.forwardRef<HTMLDivElement, PricingCardProps>(
+const PlanCard = React.forwardRef<HTMLDivElement, PlanCardProps>(
   ({ className, variant, size, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(pricingCardVariants({ variant, size, className }))}
+      className={cn(planCardVariants({ variant, size, className }))}
       {...props}
     />
   )
 );
-PricingCard.displayName = "PricingCard";
+PlanCard.displayName = "PlanCard";
 
-const PricingCardHeader = React.forwardRef<
+const PlanCardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
   <div ref={ref} className={cn("flex flex-col gap-2", className)} {...props} />
 ));
-PricingCardHeader.displayName = "PricingCardHeader";
+PlanCardHeader.displayName = "PlanCardHeader";
 
-interface PricingCardBadgeProps
+interface PlanCardBadgeProps
   extends React.ComponentPropsWithoutRef<typeof Badge> {}
 
-const PricingCardBadge = React.forwardRef<HTMLDivElement, PricingCardBadgeProps>(
+const PlanCardBadge = React.forwardRef<HTMLDivElement, PlanCardBadgeProps>(
   ({ className, ...props }, ref) => (
     <Badge ref={ref} className={cn("w-fit", className)} {...props} />
   )
 );
-PricingCardBadge.displayName = "PricingCardBadge";
+PlanCardBadge.displayName = "PlanCardBadge";
 
-const PricingCardTitle = React.forwardRef<
+const PlanCardTitle = React.forwardRef<
   HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
@@ -73,9 +73,9 @@ const PricingCardTitle = React.forwardRef<
     {...props}
   />
 ));
-PricingCardTitle.displayName = "PricingCardTitle";
+PlanCardTitle.displayName = "PlanCardTitle";
 
-const PricingCardDescription = React.forwardRef<
+const PlanCardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
@@ -85,16 +85,16 @@ const PricingCardDescription = React.forwardRef<
     {...props}
   />
 ));
-PricingCardDescription.displayName = "PricingCardDescription";
+PlanCardDescription.displayName = "PlanCardDescription";
 
-interface PricingCardPriceProps extends React.HTMLAttributes<HTMLDivElement> {
+interface PlanCardPriceProps extends React.HTMLAttributes<HTMLDivElement> {
   amount: number;
   currency?: string;
   period?: "month" | "year" | "once";
   originalAmount?: number;
 }
 
-const PricingCardPrice = React.forwardRef<HTMLDivElement, PricingCardPriceProps>(
+const PlanCardPrice = React.forwardRef<HTMLDivElement, PlanCardPriceProps>(
   (
     { className, amount, currency = "$", period = "month", originalAmount, ...props },
     ref
@@ -128,9 +128,9 @@ const PricingCardPrice = React.forwardRef<HTMLDivElement, PricingCardPriceProps>
     );
   }
 );
-PricingCardPrice.displayName = "PricingCardPrice";
+PlanCardPrice.displayName = "PlanCardPrice";
 
-const PricingCardFeatures = React.forwardRef<
+const PlanCardFeatures = React.forwardRef<
   HTMLUListElement,
   React.HTMLAttributes<HTMLUListElement>
 >(({ className, ...props }, ref) => (
@@ -140,13 +140,13 @@ const PricingCardFeatures = React.forwardRef<
     {...props}
   />
 ));
-PricingCardFeatures.displayName = "PricingCardFeatures";
+PlanCardFeatures.displayName = "PlanCardFeatures";
 
-interface PricingCardFeatureProps extends React.HTMLAttributes<HTMLLIElement> {
+interface PlanCardFeatureProps extends React.HTMLAttributes<HTMLLIElement> {
   included?: boolean;
 }
 
-const PricingCardFeature = React.forwardRef<HTMLLIElement, PricingCardFeatureProps>(
+const PlanCardFeature = React.forwardRef<HTMLLIElement, PlanCardFeatureProps>(
   ({ className, included = true, children, ...props }, ref) => (
     <li
       ref={ref}
@@ -166,36 +166,36 @@ const PricingCardFeature = React.forwardRef<HTMLLIElement, PricingCardFeaturePro
     </li>
   )
 );
-PricingCardFeature.displayName = "PricingCardFeature";
+PlanCardFeature.displayName = "PlanCardFeature";
 
-interface PricingCardActionProps
+interface PlanCardActionProps
   extends React.ComponentPropsWithoutRef<typeof Button> {}
 
-const PricingCardAction = React.forwardRef<HTMLButtonElement, PricingCardActionProps>(
+const PlanCardAction = React.forwardRef<HTMLButtonElement, PlanCardActionProps>(
   ({ className, ...props }, ref) => (
     <Button ref={ref} className={cn("mt-6 w-full", className)} {...props} />
   )
 );
-PricingCardAction.displayName = "PricingCardAction";
+PlanCardAction.displayName = "PlanCardAction";
 
 export {
-  PricingCard,
-  PricingCardHeader,
-  PricingCardBadge,
-  PricingCardTitle,
-  PricingCardDescription,
-  PricingCardPrice,
-  PricingCardFeatures,
-  PricingCardFeature,
-  PricingCardAction,
-  pricingCardVariants,
+  PlanCard,
+  PlanCardHeader,
+  PlanCardBadge,
+  PlanCardTitle,
+  PlanCardDescription,
+  PlanCardPrice,
+  PlanCardFeatures,
+  PlanCardFeature,
+  PlanCardAction,
+  planCardVariants,
 };
 
 export type {
-  PricingCardProps,
-  PricingCardBadgeProps,
-  PricingCardPriceProps,
-  PricingCardFeatureProps,
-  PricingCardActionProps,
+  PlanCardProps,
+  PlanCardBadgeProps,
+  PlanCardPriceProps,
+  PlanCardFeatureProps,
+  PlanCardActionProps,
 };
 
