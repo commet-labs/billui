@@ -55,7 +55,7 @@ export const registry: Record<string, RegistryItem> = {
     description:
       "A container for displaying multiple pricing plans with a monthly/yearly toggle.",
     dependencies: [],
-    registryDependencies: ["plan-card"],
+    registryDependencies: ["https://billui.com/r/plan-card.json"],
     files: [], // Will be populated dynamically from source files
   },
   "invoice-card": {
