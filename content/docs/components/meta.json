@@ -1,4 +1,4 @@
 {
   "title": "Components",
-  "pages": ["pricing-card", "invoice-card"]
+  "pages": ["pricing-card", "plan-group", "invoice-card"]
 }

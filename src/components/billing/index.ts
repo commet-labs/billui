@@ -42,3 +42,23 @@ export type {
   InvoiceCardActionProps,
   InvoiceStatus,
 } from "./invoice-card";
+
+export {
+  PlanGroup,
+  PlanGroupHeader,
+  PlanGroupTitle,
+  PlanGroupDescription,
+  PlanGroupToggle,
+  PlanGroupContent,
+  PlanPrice,
+  usePlanGroup,
+  planGroupVariants,
+} from "./plan-group";
+
+export type {
+  PlanGroupProps,
+  PlanGroupToggleProps,
+  PlanGroupContentProps,
+  PlanPriceProps,
+  BillingPeriod,
+} from "./plan-group";
