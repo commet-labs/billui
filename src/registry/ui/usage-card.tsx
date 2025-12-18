@@ -283,7 +283,7 @@ const UsageCardList = React.forwardRef<HTMLDivElement, UsageCardListProps>(
           {collapsible && (
             <div
               className={cn(
-                "pointer-events-none absolute inset-x-0 bottom-4 from-card via-card/80 to-transparent transition-opacity duration-300",
+                "pointer-events-none absolute inset-x-0 bottom-4 bg-linear-to-t from-card via-card/80 to-transparent transition-opacity duration-300",
                 expanded ? "opacity-0" : "opacity-100",
               )}
               style={{ height: `${collapsedHeight * 0.5}px` }}
@@ -383,16 +383,6 @@ const UsageCardItemValue = React.forwardRef<
   </span>
 ));
 UsageCardItemValue.displayName = "UsageCardItemValue";
-
-interface UsageCardExpandProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-// This is a marker component - the actual button is rendered by UsageCardList
-const UsageCardExpand = React.forwardRef<HTMLDivElement, UsageCardExpandProps>(
-  (_props, _ref) => {
-    return null; // Marker only, UsageCardList renders the actual button
-  },
-);
-UsageCardExpand.displayName = "UsageCardExpand";
 
 // Metric bar for showing usage with visual indicator
 interface UsageCardMeterProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -506,7 +496,6 @@ export {
   UsageCardItem,
   UsageCardItemLabel,
   UsageCardItemValue,
-  UsageCardExpand,
   UsageCardMeter,
   UsageCardTotal,
   usageCardVariants,
@@ -526,7 +515,6 @@ export type {
   UsageCardItemProps,
   UsageCardItemLabelProps,
   UsageCardItemValueProps,
-  UsageCardExpandProps,
   UsageCardMeterProps,
   UsageCardTotalProps,
 };

@@ -92,7 +92,6 @@ export type {
   UsageCardItemProps,
   UsageCardItemLabelProps,
   UsageCardItemValueProps,
-  UsageCardExpandProps,
   UsageCardMeterProps,
   UsageCardTotalProps,
 } from "./usage-card";
@@ -109,7 +108,6 @@ export {
   UsageCardItem,
   UsageCardItemLabel,
   UsageCardItemValue,
-  UsageCardExpand,
   UsageCardMeter,
   UsageCardTotal,
   usageCardVariants,
