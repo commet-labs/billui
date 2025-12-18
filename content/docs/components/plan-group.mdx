@@ -31,13 +31,13 @@ import {
       </PlanGroupDescription>
       <PlanGroupToggle yearDiscount="Save 20%" />
     </PlanGroupHeader>
-    <PlanGroupContent columns={3}>
+    <PlanGroupContent>
       <PlanCard>
         <PlanCardHeader>
-          <PlanCardTitle>Basic</PlanCardTitle>
+          <PlanCardTitle>Free</PlanCardTitle>
           <PlanCardDescription>For individuals</PlanCardDescription>
         </PlanCardHeader>
-        <PlanPrice monthlyAmount={9} yearlyAmount={86} />
+        <PlanPrice monthlyAmount={0} yearlyAmount={0} />
         <PlanCardFeatures>
           <PlanCardFeature included>Up to 3 projects</PlanCardFeature>
           <PlanCardFeature included>Basic analytics</PlanCardFeature>
@@ -61,24 +61,9 @@ import {
           <PlanCardFeature included>Advanced analytics</PlanCardFeature>
           <PlanCardFeature included>Priority support</PlanCardFeature>
           <PlanCardFeature included>Custom integrations</PlanCardFeature>
-          <PlanCardFeature included={false}>Custom integrations</PlanCardFeature>
+          <PlanCardFeature included>Dedicated manager</PlanCardFeature>
         </PlanCardFeatures>
         <PlanCardAction>Get Started</PlanCardAction>
-      </PlanCard>
-      <PlanCard>
-        <PlanCardHeader>
-          <PlanCardTitle>Enterprise</PlanCardTitle>
-          <PlanCardDescription>For large organizations</PlanCardDescription>
-        </PlanCardHeader>
-        <PlanPrice monthlyAmount={99} yearlyAmount={950} />
-        <PlanCardFeatures>
-          <PlanCardFeature included>Everything in Pro</PlanCardFeature>
-          <PlanCardFeature included>Unlimited team members</PlanCardFeature>
-          <PlanCardFeature included>SSO & SAML</PlanCardFeature>
-          <PlanCardFeature included>Dedicated manager</PlanCardFeature>
-          <PlanCardFeature included>Custom SLA</PlanCardFeature>
-        </PlanCardFeatures>
-        <PlanCardAction variant="outline">Contact Sales</PlanCardAction>
       </PlanCard>
     </PlanGroupContent>
   </PlanGroup>
@@ -153,12 +138,12 @@ import {
     <PlanGroupDescription>Choose your plan</PlanGroupDescription>
     <PlanGroupToggle yearDiscount="Save 20%" />
   </PlanGroupHeader>
-  <PlanGroupContent columns={3}>
+  <PlanGroupContent>
     <PlanCard>
       <PlanCardHeader>
-        <PlanCardTitle>Basic</PlanCardTitle>
+        <PlanCardTitle>Free</PlanCardTitle>
       </PlanCardHeader>
-      <PlanPrice monthlyAmount={9} yearlyAmount={86} />
+      <PlanPrice monthlyAmount={0} yearlyAmount={0} />
       {/* features... */}
     </PlanCard>
     <PlanCard variant="highlighted">
@@ -166,13 +151,6 @@ import {
         <PlanCardTitle>Pro</PlanCardTitle>
       </PlanCardHeader>
       <PlanPrice monthlyAmount={29} yearlyAmount={278} />
-      {/* features... */}
-    </PlanCard>
-    <PlanCard>
-      <PlanCardHeader>
-        <PlanCardTitle>Enterprise</PlanCardTitle>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={99} yearlyAmount={950} />
       {/* features... */}
     </PlanCard>
   </PlanGroupContent>
@@ -219,7 +197,7 @@ Grid container for the pricing cards.
 | Prop | Type | Default |
 | --- | --- | --- |
 | `layout` | `"horizontal" \| "vertical"` | `"horizontal"` |
-| `columns` | `2 \| 3 \| 4` | `3` |
+| `columns` | `2 \| 3 \| 4` | `2` |
 
 ### PlanPrice
 

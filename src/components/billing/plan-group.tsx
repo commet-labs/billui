@@ -14,13 +14,13 @@ const planGroupVariants = cva("w-full", {
     },
     columns: {
       2: "md:grid-cols-2",
-      3: "md:grid-cols-3",
-      4: "md:grid-cols-4",
+      3: "lg:grid-cols-3",
+      4: "lg:grid-cols-2 xl:grid-cols-4",
     },
   },
   defaultVariants: {
     layout: "horizontal",
-    columns: 3,
+    columns: 2,
   },
 });
 

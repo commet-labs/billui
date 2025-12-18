@@ -9,7 +9,7 @@ import { Button } from "@/registry/shadcn/button";
 import { cn } from "@/lib/utils";
 
 const planCardVariants = cva(
-  "relative flex flex-col rounded-2xl border bg-card text-card-foreground transition-all duration-200",
+  "relative flex flex-col rounded-2xl border bg-card text-card-foreground transition-all duration-200 min-w-[280px]",
   {
     variants: {
       variant: {
