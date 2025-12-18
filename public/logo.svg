@@ -1,0 +1,12 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class=""><rect id="_r_3g_" width="512" height="512" x="0" y="0" rx="0" fill="#000000" stroke="#FFFFFF" stroke-width="0" stroke-opacity="100%" paint-order="stroke"></rect><clipPath id="clip"><use xlink:href="#_r_3g_"></use></clipPath><defs><linearGradient id="_r_3h_" gradientUnits="userSpaceOnUse" gradientTransform="rotate(180)" style="transform-origin: center center;"><stop stop-color="#000000"></stop><stop offset="1" stop-color="#003EB7"></stop></linearGradient><radialGradient id="_r_3i_" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256) rotate(90) scale(512)"><stop stop-color="white"></stop><stop offset="1" stop-color="white" stop-opacity="0"></stop></radialGradient></defs><svg width="800" height="800" viewBox="0 0 800 800" x="-144" y="-144" alignment-baseline="middle" style="color: rgb(255, 255, 255); width: 800px; height: 800px;">
+        <style>
+          text {
+           font-family: Inter, sans-serif;
+            font-weight: bold;
+          }
+         </style>
+        <rect width="800" height="800"></rect>
+        <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-size="384" font-family="Arial, sans-serif" fill="#FFFFFF">
+        B
+      </text>
+      </svg></svg>
