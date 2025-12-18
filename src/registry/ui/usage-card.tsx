@@ -8,7 +8,7 @@ import { Button } from "@/registry/shadcn/button";
 import { Progress } from "@/registry/shadcn/progress";
 
 const usageCardVariants = cva(
-  "relative rounded-2xl border bg-card text-card-foreground",
+  "relative min-w-[280px] rounded-2xl border bg-card text-card-foreground",
   {
     variants: {
       variant: {
