@@ -1,12 +1,11 @@
 "use client";
 
-import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Check, X } from "lucide-react";
-
+import * as React from "react";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/registry/shadcn/badge";
 import { Button } from "@/registry/shadcn/button";
-import { cn } from "@/lib/utils";
 
 const planCardVariants = cva(
   "relative flex flex-col rounded-2xl border bg-card text-card-foreground transition-all duration-200 min-w-[280px]",
@@ -27,7 +26,7 @@ const planCardVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 interface PlanCardProps
@@ -41,7 +40,7 @@ const PlanCard = React.forwardRef<HTMLDivElement, PlanCardProps>(
       className={cn(planCardVariants({ variant, size, className }))}
       {...props}
     />
-  )
+  ),
 );
 PlanCard.displayName = "PlanCard";
 
@@ -59,7 +58,7 @@ interface PlanCardBadgeProps
 const PlanCardBadge = React.forwardRef<HTMLDivElement, PlanCardBadgeProps>(
   ({ className, ...props }, ref) => (
     <Badge ref={ref} className={cn("w-fit", className)} {...props} />
-  )
+  ),
 );
 PlanCardBadge.displayName = "PlanCardBadge";
 
@@ -96,8 +95,15 @@ interface PlanCardPriceProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const PlanCardPrice = React.forwardRef<HTMLDivElement, PlanCardPriceProps>(
   (
-    { className, amount, currency = "$", period = "month", originalAmount, ...props },
-    ref
+    {
+      className,
+      amount,
+      currency = "$",
+      period = "month",
+      originalAmount,
+      ...props
+    },
+    ref,
   ) => {
     const periodLabel = {
       month: "/mo",
@@ -126,7 +132,7 @@ const PlanCardPrice = React.forwardRef<HTMLDivElement, PlanCardPriceProps>(
         )}
       </div>
     );
-  }
+  },
 );
 PlanCardPrice.displayName = "PlanCardPrice";
 
@@ -153,7 +159,7 @@ const PlanCardFeature = React.forwardRef<HTMLLIElement, PlanCardFeatureProps>(
       className={cn(
         "flex items-center gap-3",
         !included && "text-muted-foreground",
-        className
+        className,
       )}
       {...props}
     >
@@ -164,7 +170,7 @@ const PlanCardFeature = React.forwardRef<HTMLLIElement, PlanCardFeatureProps>(
       )}
       <span>{children}</span>
     </li>
-  )
+  ),
 );
 PlanCardFeature.displayName = "PlanCardFeature";
 
@@ -174,7 +180,7 @@ interface PlanCardActionProps
 const PlanCardAction = React.forwardRef<HTMLButtonElement, PlanCardActionProps>(
   ({ className, ...props }, ref) => (
     <Button ref={ref} className={cn("mt-6 w-full", className)} {...props} />
-  )
+  ),
 );
 PlanCardAction.displayName = "PlanCardAction";
 
@@ -198,4 +204,3 @@ export type {
   PlanCardFeatureProps,
   PlanCardActionProps,
 };
-

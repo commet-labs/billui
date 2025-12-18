@@ -1,12 +1,11 @@
 "use client";
 
-import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Download, ExternalLink, FileText } from "lucide-react";
-
+import * as React from "react";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/registry/shadcn/badge";
 import { Button } from "@/registry/shadcn/button";
-import { cn } from "@/lib/utils";
 
 const invoiceCardVariants = cva(
   "relative flex items-center gap-4 rounded-xl border bg-card p-4 text-card-foreground transition-colors hover:bg-accent/50",
@@ -20,7 +19,7 @@ const invoiceCardVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
+  },
 );
 
 interface InvoiceCardProps
@@ -34,7 +33,7 @@ const InvoiceCard = React.forwardRef<HTMLDivElement, InvoiceCardProps>(
       className={cn(invoiceCardVariants({ variant, className }))}
       {...props}
     />
-  )
+  ),
 );
 InvoiceCard.displayName = "InvoiceCard";
 
@@ -46,7 +45,7 @@ const InvoiceCardIcon = React.forwardRef<
     ref={ref}
     className={cn(
       "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted",
-      className
+      className,
     )}
     {...props}
   >
@@ -95,7 +94,10 @@ type InvoiceStatus = "paid" | "pending" | "failed" | "refunded" | "draft";
 
 const statusConfig: Record<
   InvoiceStatus,
-  { label: string; variant: "default" | "secondary" | "destructive" | "outline" }
+  {
+    label: string;
+    variant: "default" | "secondary" | "destructive" | "outline";
+  }
 > = {
   paid: { label: "Paid", variant: "default" },
   pending: { label: "Pending", variant: "secondary" },
@@ -109,21 +111,22 @@ interface InvoiceCardStatusProps
   status: InvoiceStatus;
 }
 
-const InvoiceCardStatus = React.forwardRef<HTMLDivElement, InvoiceCardStatusProps>(
-  ({ className, status, ...props }, ref) => {
-    const config = statusConfig[status];
-    return (
-      <Badge
-        ref={ref}
-        variant={config.variant}
-        className={cn("text-xs", className)}
-        {...props}
-      >
-        {config.label}
-      </Badge>
-    );
-  }
-);
+const InvoiceCardStatus = React.forwardRef<
+  HTMLDivElement,
+  InvoiceCardStatusProps
+>(({ className, status, ...props }, ref) => {
+  const config = statusConfig[status];
+  return (
+    <Badge
+      ref={ref}
+      variant={config.variant}
+      className={cn("text-xs", className)}
+      {...props}
+    >
+      {config.label}
+    </Badge>
+  );
+});
 InvoiceCardStatus.displayName = "InvoiceCardStatus";
 
 interface InvoiceCardDateProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -149,7 +152,7 @@ const InvoiceCardDate = React.forwardRef<HTMLSpanElement, InvoiceCardDateProps>(
         {formatted}
       </span>
     );
-  }
+  },
 );
 InvoiceCardDate.displayName = "InvoiceCardDate";
 
@@ -158,21 +161,22 @@ interface InvoiceCardAmountProps extends React.HTMLAttributes<HTMLSpanElement> {
   currency?: string;
 }
 
-const InvoiceCardAmount = React.forwardRef<HTMLSpanElement, InvoiceCardAmountProps>(
-  ({ className, amount, currency = "$", ...props }, ref) => (
-    <span
-      ref={ref}
-      className={cn(
-        "ml-auto shrink-0 text-base font-semibold tabular-nums",
-        className
-      )}
-      {...props}
-    >
-      {currency}
-      {amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-    </span>
-  )
-);
+const InvoiceCardAmount = React.forwardRef<
+  HTMLSpanElement,
+  InvoiceCardAmountProps
+>(({ className, amount, currency = "$", ...props }, ref) => (
+  <span
+    ref={ref}
+    className={cn(
+      "ml-auto shrink-0 text-base font-semibold tabular-nums",
+      className,
+    )}
+    {...props}
+  >
+    {currency}
+    {amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+  </span>
+));
 InvoiceCardAmount.displayName = "InvoiceCardAmount";
 
 const InvoiceCardActions = React.forwardRef<
@@ -207,7 +211,9 @@ const InvoiceCardAction = React.forwardRef<
       {...props}
     >
       {children ?? <Icon className="h-4 w-4" />}
-      <span className="sr-only">{action === "download" ? "Download" : "View"}</span>
+      <span className="sr-only">
+        {action === "download" ? "Download" : "View"}
+      </span>
     </Button>
   );
 });
@@ -236,4 +242,3 @@ export type {
   InvoiceCardActionProps,
   InvoiceStatus,
 };
-

@@ -1,12 +1,11 @@
 "use client";
 
-import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Download, ExternalLink, FileText } from "lucide-react";
-
+import * as React from "react";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/registry/shadcn/badge";
 import { Button } from "@/registry/shadcn/button";
-import { cn } from "@/lib/utils";
 
 const invoiceCardVariants = cva(
   "relative flex items-center gap-4 rounded-xl border bg-card p-4 text-card-foreground transition-colors hover:bg-accent/50",

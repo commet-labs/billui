@@ -1,9 +1,8 @@
+import { Step, Steps } from "fumadocs-ui/components/steps";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { TypeTable } from "fumadocs-ui/components/type-table";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import type { MDXComponents } from "mdx/types";
-import { Tabs, Tab } from "fumadocs-ui/components/tabs";
-import { Steps, Step } from "fumadocs-ui/components/steps";
-import { TypeTable } from "fumadocs-ui/components/type-table";
-import { ComponentPreview } from "@/components/docs/component-preview";
 import {
   PlanCard,
   PlanCardAction,
@@ -15,13 +14,14 @@ import {
   PlanCardPrice,
   PlanCardTitle,
   PlanGroup,
+  PlanGroupContent,
+  PlanGroupDescription,
   PlanGroupHeader,
   PlanGroupTitle,
-  PlanGroupDescription,
   PlanGroupToggle,
-  PlanGroupContent,
   PlanPrice,
 } from "@/components/billing";
+import { ComponentPreview } from "@/components/docs/component-preview";
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
