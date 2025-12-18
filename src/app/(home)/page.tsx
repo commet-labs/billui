@@ -85,9 +85,12 @@ export default function HomePage() {
               {/* Payment Methods */}
               <div className="p-6 border-b lg:border-r border-border/50">
                 <div className="mb-4">
-                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <Link
+                    href="/docs/components/payment-method"
+                    className="text-xs font-medium text-muted-foreground uppercase tracking-wider hover:underline"
+                  >
                     Payment Methods
-                  </span>
+                  </Link>
                 </div>
                 <div className="space-y-3">
                   <PaymentMethod variant="selected">
@@ -133,9 +136,12 @@ export default function HomePage() {
               {/* Plan Cards */}
               <div className="p-6 border-b border-border/50 lg:col-span-2">
                 <div className="mb-4">
-                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <Link
+                    href="/docs/components/plan-card"
+                    className="text-xs font-medium text-muted-foreground uppercase tracking-wider hover:underline"
+                  >
                     Plan Cards
-                  </span>
+                  </Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <PlanCard>
@@ -192,9 +198,12 @@ export default function HomePage() {
               {/* Invoice History - full width with 2 columns */}
               <div className="p-6 border-b border-border/50 lg:col-span-3">
                 <div className="mb-4">
-                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <Link
+                    href="/docs/components/invoice-card"
+                    className="text-xs font-medium text-muted-foreground uppercase tracking-wider hover:underline"
+                  >
                     Invoice History
-                  </span>
+                  </Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <InvoiceCard>
@@ -259,9 +268,12 @@ export default function HomePage() {
               {/* Plan Group with Toggle - spans full width */}
               <div className="p-6 lg:col-span-3">
                 <div className="mb-4">
-                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                  <Link
+                    href="/docs/components/plan-group"
+                    className="text-xs font-medium text-muted-foreground uppercase tracking-wider hover:underline"
+                  >
                     Plan Group
-                  </span>
+                  </Link>
                 </div>
                 <PlanGroup>
                   <PlanGroupHeader>
