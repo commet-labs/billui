@@ -81,9 +81,9 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           {/* Unified Grid Panel */}
           <div className="rounded-xl border bg-card/50 backdrop-blur overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 lg:grid-cols-3">
               {/* Payment Methods */}
-              <div className="p-6 border-b lg:border-b-0 lg:border-r border-border/50">
+              <div className="p-6 border-b lg:border-r border-border/50 lg:col-span-2">
                 <div className="mb-4">
                   <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Payment Methods
@@ -118,17 +118,60 @@ export default function HomePage() {
                       <PaymentMethodExpiry month={1} year={2023} expired />
                     </PaymentMethodDetails>
                   </PaymentMethod>
+
+                  <PaymentMethod>
+                    <PaymentMethodIcon brand="visa" />
+                    <PaymentMethodDetails>
+                      <PaymentMethodNumber last4="7890" />
+                      <PaymentMethodExpiry month={11} year={2025} />
+                    </PaymentMethodDetails>
+                    <PaymentMethodAction action="delete" />
+                  </PaymentMethod>
                 </div>
               </div>
 
-              {/* Invoices */}
-              <div className="p-6 border-b lg:border-b-0 lg:border-r border-border/50">
+              {/* Plan Card */}
+              <div className="p-6 border-b border-border/50">
+                <div className="mb-4">
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                    Plan Card
+                  </span>
+                </div>
+                <PlanCard variant="highlighted">
+                  <PlanCardHeader>
+                    <PlanCardBadge>Most Popular</PlanCardBadge>
+                    <PlanCardTitle>Pro</PlanCardTitle>
+                    <PlanCardDescription>For growing teams</PlanCardDescription>
+                  </PlanCardHeader>
+                  <PlanCardPrice
+                    amount={29}
+                    originalAmount={49}
+                    period="month"
+                  />
+                  <PlanCardFeatures>
+                    <PlanCardFeature included>
+                      Unlimited projects
+                    </PlanCardFeature>
+                    <PlanCardFeature included>
+                      Advanced analytics
+                    </PlanCardFeature>
+                    <PlanCardFeature included>Priority support</PlanCardFeature>
+                    <PlanCardFeature included={false}>
+                      Custom integrations
+                    </PlanCardFeature>
+                  </PlanCardFeatures>
+                  <PlanCardAction>Get Started</PlanCardAction>
+                </PlanCard>
+              </div>
+
+              {/* Invoice History - full width with 2 columns */}
+              <div className="p-6 border-b border-border/50 lg:col-span-3">
                 <div className="mb-4">
                   <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                     Invoice History
                   </span>
                 </div>
-                <div className="space-y-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <InvoiceCard>
                     <InvoiceCardIcon />
                     <InvoiceCardContent>
@@ -170,45 +213,26 @@ export default function HomePage() {
                     </InvoiceCardContent>
                     <InvoiceCardAmount amount={99} />
                   </InvoiceCard>
-                </div>
-              </div>
 
-              {/* Single Plan Card */}
-              <div className="p-6 border-b lg:border-b-0 border-border/50">
-                <div className="mb-4">
-                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                    Plan Card
-                  </span>
+                  <InvoiceCard>
+                    <InvoiceCardIcon />
+                    <InvoiceCardContent>
+                      <InvoiceCardHeader>
+                        <InvoiceCardNumber>INV-2024-004</InvoiceCardNumber>
+                        <InvoiceCardStatus status="paid" />
+                      </InvoiceCardHeader>
+                      <InvoiceCardDate date="2024-04-15" />
+                    </InvoiceCardContent>
+                    <InvoiceCardAmount amount={29} />
+                    <InvoiceCardActions>
+                      <InvoiceCardAction action="download" />
+                    </InvoiceCardActions>
+                  </InvoiceCard>
                 </div>
-                <PlanCard variant="highlighted">
-                  <PlanCardHeader>
-                    <PlanCardBadge>Most Popular</PlanCardBadge>
-                    <PlanCardTitle>Pro</PlanCardTitle>
-                    <PlanCardDescription>For growing teams</PlanCardDescription>
-                  </PlanCardHeader>
-                  <PlanCardPrice
-                    amount={29}
-                    originalAmount={49}
-                    period="month"
-                  />
-                  <PlanCardFeatures>
-                    <PlanCardFeature included>
-                      Unlimited projects
-                    </PlanCardFeature>
-                    <PlanCardFeature included>
-                      Advanced analytics
-                    </PlanCardFeature>
-                    <PlanCardFeature included>Priority support</PlanCardFeature>
-                    <PlanCardFeature included={false}>
-                      Custom integrations
-                    </PlanCardFeature>
-                  </PlanCardFeatures>
-                  <PlanCardAction>Get Started</PlanCardAction>
-                </PlanCard>
               </div>
 
               {/* Plan Group with Toggle - spans full width */}
-              <div className="p-6 lg:col-span-3 border-t border-border/50">
+              <div className="p-6 lg:col-span-3">
                 <PlanGroup>
                   <PlanGroupHeader>
                     <PlanGroupTitle>Simple, transparent pricing</PlanGroupTitle>
