@@ -35,7 +35,7 @@ import {
       <PricingCard>
         <PricingCardHeader>
           <PricingCardTitle>Basic</PricingCardTitle>
-          <PricingCardDescription>For individuals and small projects</PricingCardDescription>
+          <PricingCardDescription>For individuals</PricingCardDescription>
         </PricingCardHeader>
         <PlanPrice monthlyAmount={9} yearlyAmount={86} />
         <PricingCardFeatures>
@@ -49,8 +49,10 @@ import {
       </PricingCard>
       <PricingCard variant="highlighted">
         <PricingCardHeader>
-          <PricingCardBadge>Most Popular</PricingCardBadge>
-          <PricingCardTitle>Pro</PricingCardTitle>
+          <div className="flex items-center justify-between">
+            <PricingCardTitle>Pro</PricingCardTitle>
+            <PricingCardBadge>Most Popular</PricingCardBadge>
+          </div>
           <PricingCardDescription>For growing teams</PricingCardDescription>
         </PricingCardHeader>
         <PlanPrice monthlyAmount={29} yearlyAmount={278} originalMonthlyAmount={49} originalYearlyAmount={470} />
@@ -59,6 +61,7 @@ import {
           <PricingCardFeature included>Advanced analytics</PricingCardFeature>
           <PricingCardFeature included>Priority support</PricingCardFeature>
           <PricingCardFeature included>Custom integrations</PricingCardFeature>
+          <PricingCardFeature included={false}>Custom integrations</PricingCardFeature>
         </PricingCardFeatures>
         <PricingCardAction>Get Started</PricingCardAction>
       </PricingCard>
@@ -72,7 +75,7 @@ import {
           <PricingCardFeature included>Everything in Pro</PricingCardFeature>
           <PricingCardFeature included>Unlimited team members</PricingCardFeature>
           <PricingCardFeature included>SSO & SAML</PricingCardFeature>
-          <PricingCardFeature included>Dedicated account manager</PricingCardFeature>
+          <PricingCardFeature included>Dedicated manager</PricingCardFeature>
           <PricingCardFeature included>Custom SLA</PricingCardFeature>
         </PricingCardFeatures>
         <PricingCardAction variant="outline">Contact Sales</PricingCardAction>
@@ -175,74 +178,6 @@ import {
   </PlanGroupContent>
 </PlanGroup>
 ```
-
-## Examples
-
-### Two Columns
-
-<div className="not-prose my-8">
-  <PlanGroup>
-    <PlanGroupContent columns={2} className="max-w-2xl mx-auto">
-      <PricingCard>
-        <PricingCardHeader>
-          <PricingCardTitle>Free</PricingCardTitle>
-          <PricingCardDescription>Get started for free</PricingCardDescription>
-        </PricingCardHeader>
-        <PricingCardPrice amount={0} period="month" />
-        <PricingCardFeatures>
-          <PricingCardFeature included>1 project</PricingCardFeature>
-          <PricingCardFeature included>Basic features</PricingCardFeature>
-          <PricingCardFeature included={false}>Priority support</PricingCardFeature>
-        </PricingCardFeatures>
-        <PricingCardAction variant="outline">Start Free</PricingCardAction>
-      </PricingCard>
-      <PricingCard variant="highlighted">
-        <PricingCardHeader>
-          <PricingCardBadge>Recommended</PricingCardBadge>
-          <PricingCardTitle>Pro</PricingCardTitle>
-          <PricingCardDescription>Everything you need</PricingCardDescription>
-        </PricingCardHeader>
-        <PricingCardPrice amount={19} period="month" />
-        <PricingCardFeatures>
-          <PricingCardFeature included>Unlimited projects</PricingCardFeature>
-          <PricingCardFeature included>All features</PricingCardFeature>
-          <PricingCardFeature included>Priority support</PricingCardFeature>
-        </PricingCardFeatures>
-        <PricingCardAction>Upgrade to Pro</PricingCardAction>
-      </PricingCard>
-    </PlanGroupContent>
-  </PlanGroup>
-</div>
-
-### Without Header
-
-<div className="not-prose my-8">
-  <PlanGroup>
-    <PlanGroupContent columns={3}>
-      <PricingCard>
-        <PricingCardHeader>
-          <PricingCardTitle>Starter</PricingCardTitle>
-        </PricingCardHeader>
-        <PricingCardPrice amount={0} period="month" />
-        <PricingCardAction variant="outline">Get Started</PricingCardAction>
-      </PricingCard>
-      <PricingCard variant="highlighted">
-        <PricingCardHeader>
-          <PricingCardTitle>Pro</PricingCardTitle>
-        </PricingCardHeader>
-        <PricingCardPrice amount={29} period="month" />
-        <PricingCardAction>Upgrade</PricingCardAction>
-      </PricingCard>
-      <PricingCard>
-        <PricingCardHeader>
-          <PricingCardTitle>Enterprise</PricingCardTitle>
-        </PricingCardHeader>
-        <PricingCardPrice amount={99} period="month" />
-        <PricingCardAction variant="outline">Contact</PricingCardAction>
-      </PricingCard>
-    </PlanGroupContent>
-  </PlanGroup>
-</div>
 
 ## API Reference
 
