@@ -15,7 +15,7 @@ import {
 import { cn } from "../../../lib/cn";
 import { buttonVariants } from "../../ui/button";
 import { LanguageToggle, LanguageToggleText } from "../language-toggle";
-import { LinkItem } from "../link-item";
+import { LinkItem, type LinkItemType } from "../link-item";
 import { LargeSearchToggle, SearchToggle } from "../search-toggle";
 import { type BaseLayoutProps, resolveLinkItems } from "../shared";
 import type { SidebarPageTreeComponents } from "../sidebar/page-tree";
@@ -125,10 +125,12 @@ export function DocsLayout({
 
     const iconLinks = links.filter((item) => item.type === "icon");
     const secondaryCustomLinks = links.filter(
-      (item) => item.type === "custom" && item.secondary,
+      (item): item is Extract<LinkItemType, { type: "custom" }> =>
+        item.type === "custom" && item.secondary === true,
     );
     const mainLinks = links.filter(
-      (v) => v.type !== "icon" && !(v.type === "custom" && v.secondary),
+      (v): v is Exclude<LinkItemType, { type: "icon" }> =>
+        v.type !== "icon" && !(v.type === "custom" && v.secondary),
     );
     const viewport = (
       <SidebarViewport>
