@@ -124,17 +124,21 @@ export function DocsLayout({
     if (component) return component;
 
     const iconLinks = links.filter((item) => item.type === "icon");
+    const secondaryCustomLinks = links.filter(
+      (item) => item.type === "custom" && item.secondary,
+    );
+    const mainLinks = links.filter(
+      (v) => v.type !== "icon" && !(v.type === "custom" && v.secondary),
+    );
     const viewport = (
       <SidebarViewport>
-        {links
-          .filter((v) => v.type !== "icon")
-          .map((item, i, list) => (
-            <SidebarLinkItem
-              key={i}
-              item={item}
-              className={cn(i === list.length - 1 && "mb-4")}
-            />
-          ))}
+        {mainLinks.map((item, i, list) => (
+          <SidebarLinkItem
+            key={i}
+            item={item}
+            className={cn(i === list.length - 1 && "mb-4")}
+          />
+        ))}
         <SidebarPageTree {...components} />
       </SidebarViewport>
     );
@@ -187,15 +191,19 @@ export function DocsLayout({
           </div>
           {(i18n ||
             iconLinks.length > 0 ||
+            secondaryCustomLinks.length > 0 ||
             themeSwitch?.enabled !== false ||
             footer) && (
             <div className="flex flex-col border-t p-4 pt-2 empty:hidden">
-              <div className="flex text-fd-muted-foreground items-center empty:hidden">
+              <div className="flex text-fd-muted-foreground items-center gap-1 empty:hidden">
                 {i18n && (
                   <LanguageToggle>
                     <Languages className="size-4.5" />
                   </LanguageToggle>
                 )}
+                {secondaryCustomLinks.map((item, i) => (
+                  <div key={`custom-${i}`}>{item.children}</div>
+                ))}
                 {iconLinks.map((item, i) => (
                   <LinkItem
                     key={i}
@@ -223,7 +231,10 @@ export function DocsLayout({
         <SidebarDrawer>
           <div className="flex flex-col gap-3 p-4 pb-2">
             <div className="flex text-fd-muted-foreground items-center gap-1.5">
-              <div className="flex flex-1">
+              <div className="flex flex-1 items-center gap-1">
+                {secondaryCustomLinks.map((item, i) => (
+                  <div key={`custom-${i}`}>{item.children}</div>
+                ))}
                 {iconLinks.map((item, i) => (
                   <LinkItem
                     key={i}
