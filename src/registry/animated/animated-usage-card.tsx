@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/registry/shadcn/button";
 
 const animatedUsageCardVariants = cva(
-  "relative min-w-[280px] rounded-2xl border bg-card text-card-foreground overflow-hidden",
+  "relative min-w-[280px] rounded-2xl border bg-card text-card-foreground",
   {
     variants: {
       variant: {
