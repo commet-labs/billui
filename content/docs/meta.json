@@ -8,6 +8,8 @@
     "components/plan-group",
     "components/invoice-card",
     "components/payment-method",
-    "components/usage-card"
+    "components/usage-card",
+    "---Animated---",
+    "animated/animated-usage-card"
   ]
 }

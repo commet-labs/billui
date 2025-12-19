@@ -37,6 +37,12 @@ export const registryIndex: RegistryIndex = {
       description:
         "A card for displaying usage metrics, billing cycle progress and itemized charges.",
     },
+    {
+      name: "animated-usage-card",
+      type: "registry:ui",
+      description:
+        "An animated version of usage-card with smooth spring animations powered by motion.",
+    },
   ],
 };
 
@@ -83,6 +89,15 @@ export const registry: Record<string, RegistryItem> = {
       "A card for displaying usage metrics, billing cycle progress and itemized charges.",
     dependencies: ["lucide-react"],
     registryDependencies: ["button", "progress"],
+    files: [], // Will be populated dynamically from source files
+  },
+  "animated-usage-card": {
+    name: "animated-usage-card",
+    type: "registry:ui",
+    description:
+      "An animated version of usage-card with smooth spring animations powered by motion.",
+    dependencies: ["lucide-react", "motion"],
+    registryDependencies: ["button"],
     files: [], // Will be populated dynamically from source files
   },
 };

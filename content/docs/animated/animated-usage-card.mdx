@@ -1,0 +1,112 @@
+---
+title: Animated Usage Card
+description: An animated version of usage-card with smooth spring animations powered by motion.
+---
+
+import {
+  AnimatedUsageCard,
+  AnimatedUsageCardHeader,
+  AnimatedUsageCardPeriod,
+  AnimatedUsageCardAction,
+  AnimatedUsageCardSummary,
+  AnimatedUsageCardLabels,
+  AnimatedUsageCardLabel,
+  AnimatedUsageCardProgress,
+  AnimatedUsageCardList,
+  AnimatedUsageCardItem,
+  AnimatedUsageCardItemLabel,
+  AnimatedUsageCardItemValue,
+  AnimatedUsageCardMeter,
+  AnimatedUsageCardTotal,
+} from "@/registry/animated";
+
+<ComponentPreview>
+  <div className="w-full max-w-xl">
+    <AnimatedUsageCard>
+      <AnimatedUsageCardHeader>
+        <AnimatedUsageCardPeriod daysRemaining={12} />
+        <AnimatedUsageCardAction>Buy Credits</AnimatedUsageCardAction>
+      </AnimatedUsageCardHeader>
+      
+      <AnimatedUsageCardSummary>
+        <AnimatedUsageCardLabels>
+          <AnimatedUsageCardLabel label="Credits Used" amount={347} limit={500} currency="" />
+          <AnimatedUsageCardLabel label="Remaining" amount={153} currency="" align="right" />
+        </AnimatedUsageCardLabels>
+        <AnimatedUsageCardProgress value={347} max={500} />
+      </AnimatedUsageCardSummary>
+
+      <AnimatedUsageCardList collapsible>
+        <AnimatedUsageCardItem highlighted>
+          <AnimatedUsageCardItemLabel>Image Generation</AnimatedUsageCardItemLabel>
+          <AnimatedUsageCardItemValue>120 credits</AnimatedUsageCardItemValue>
+        </AnimatedUsageCardItem>
+        <AnimatedUsageCardItem>
+          <AnimatedUsageCardItemLabel>Video Generation</AnimatedUsageCardItemLabel>
+          <AnimatedUsageCardItemValue>85 credits</AnimatedUsageCardItemValue>
+        </AnimatedUsageCardItem>
+        <AnimatedUsageCardItem highlighted>
+          <AnimatedUsageCardItemLabel>Upscaling (4x)</AnimatedUsageCardItemLabel>
+          <AnimatedUsageCardItemValue>62 credits</AnimatedUsageCardItemValue>
+        </AnimatedUsageCardItem>
+        <AnimatedUsageCardItem>
+          <AnimatedUsageCardItemLabel>Background Removal</AnimatedUsageCardItemLabel>
+          <AnimatedUsageCardItemValue>45 credits</AnimatedUsageCardItemValue>
+        </AnimatedUsageCardItem>
+        <AnimatedUsageCardItem highlighted>
+          <AnimatedUsageCardItemLabel>Style Transfer</AnimatedUsageCardItemLabel>
+          <AnimatedUsageCardItemValue>35 credits</AnimatedUsageCardItemValue>
+        </AnimatedUsageCardItem>
+      </AnimatedUsageCardList>
+    </AnimatedUsageCard>
+  </div>
+</ComponentPreview>
+
+## Installation
+
+<Tabs items={["CLI", "Manual"]}>
+  <Tab value="CLI">
+```bash
+npx shadcn@latest add "https://billui.com/r/animated-usage-card.json"
+```
+  </Tab>
+  <Tab value="Manual">
+
+First, install the `motion` dependency:
+
+```bash
+npm install motion
+```
+
+Then copy the component code to your project.
+
+  </Tab>
+</Tabs>
+
+## Usage
+
+```tsx
+import {
+  AnimatedUsageCard,
+  AnimatedUsageCardHeader,
+  AnimatedUsageCardPeriod,
+  AnimatedUsageCardAction,
+  AnimatedUsageCardSummary,
+  AnimatedUsageCardLabels,
+  AnimatedUsageCardLabel,
+  AnimatedUsageCardProgress,
+  AnimatedUsageCardList,
+  AnimatedUsageCardItem,
+  AnimatedUsageCardItemLabel,
+  AnimatedUsageCardItemValue,
+} from "@/components/ui/animated-usage-card"
+```
+
+## Features
+
+- **Spring physics**: All animations use spring physics for natural, fluid motion
+- **Animated progress bars**: Progress indicators animate smoothly when values change
+- **Animated numbers**: Values animate when they change using spring interpolation
+- **Staggered list items**: Items animate in sequence when expanding/collapsing
+- **Smooth expand/collapse**: List expansion uses AnimatePresence for seamless transitions
+
