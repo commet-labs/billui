@@ -187,7 +187,6 @@ const AnimatedUsageCardLabel = React.forwardRef<
 );
 AnimatedUsageCardLabel.displayName = "AnimatedUsageCardLabel";
 
-// Animated progress bar with spring physics
 interface AnimatedUsageCardProgressProps
   extends React.HTMLAttributes<HTMLDivElement> {
   value: number;
@@ -203,7 +202,6 @@ const AnimatedUsageCardProgress = React.forwardRef<
   const isOverage = value > max;
 
   const motionValue = useMotionValue(0);
-  // Bouncy spring para el progress bar
   const springValue = useSpring(motionValue, {
     stiffness: 120,
     damping: 14,
@@ -236,7 +234,6 @@ const AnimatedUsageCardProgress = React.forwardRef<
 });
 AnimatedUsageCardProgress.displayName = "AnimatedUsageCardProgress";
 
-// List context for expand/collapse state
 interface AnimatedUsageCardListContextValue {
   expanded: boolean;
   setExpanded: (expanded: boolean) => void;
@@ -258,7 +255,7 @@ function useAnimatedUsageCardList() {
   return context;
 }
 
-const ITEM_HEIGHT = 44; // Altura base de cada item en px
+const ITEM_HEIGHT = 44;
 
 interface AnimatedUsageCardListProps {
   className?: string;
@@ -293,7 +290,6 @@ const AnimatedUsageCardList = React.forwardRef<
     );
     const itemCount = childrenArray.length;
 
-    // Spring config estilo Apple - bounce cuando la card se expande/colapsa
     const bounceTransition = {
       type: "spring" as const,
       stiffness: 400,
@@ -301,7 +297,6 @@ const AnimatedUsageCardList = React.forwardRef<
       mass: 1,
     };
 
-    // Calcular alturas automáticamente basado en cantidad de items
     const collapsedHeight = visibleItems * ITEM_HEIGHT;
     const expandedHeight = itemCount * ITEM_HEIGHT;
 
@@ -321,7 +316,6 @@ const AnimatedUsageCardList = React.forwardRef<
           layout
           transition={bounceTransition}
         >
-          {/* Content container con animación de altura bouncy */}
           <motion.div
             className={cn(
               "overflow-hidden",
@@ -337,7 +331,6 @@ const AnimatedUsageCardList = React.forwardRef<
             {childrenArray}
           </motion.div>
 
-          {/* Fade overlay when collapsed - con animación */}
           {collapsible && (
             <motion.div
               className="pointer-events-none absolute inset-x-0 bottom-2 bg-linear-to-t from-card via-card/60 to-transparent"
@@ -352,7 +345,6 @@ const AnimatedUsageCardList = React.forwardRef<
             />
           )}
 
-          {/* Toggle button - círculo pequeño centrado en el borde inferior */}
           {collapsible && itemCount > 1 && (
             <motion.button
               type="button"
@@ -462,7 +454,6 @@ const AnimatedUsageCardItemValue = React.forwardRef<
 ));
 AnimatedUsageCardItemValue.displayName = "AnimatedUsageCardItemValue";
 
-// Animated metric bar
 interface AnimatedUsageCardMeterProps
   extends React.HTMLAttributes<HTMLDivElement> {
   used: number;
@@ -485,7 +476,6 @@ const AnimatedUsageCardMeter = React.forwardRef<
     const isCritical = percentage >= 95;
 
     const motionValue = useMotionValue(0);
-    // Bouncy spring estilo Apple
     const springValue = useSpring(motionValue, {
       stiffness: 120,
       damping: 12,
@@ -549,7 +539,6 @@ const AnimatedUsageCardMeter = React.forwardRef<
 );
 AnimatedUsageCardMeter.displayName = "AnimatedUsageCardMeter";
 
-// Helper component for animated numbers
 interface AnimatedNumberProps {
   value: number;
   decimals?: number;
@@ -557,7 +546,6 @@ interface AnimatedNumberProps {
 
 function AnimatedNumber({ value, decimals = 0 }: AnimatedNumberProps) {
   const motionValue = useMotionValue(0);
-  // Spring con bounce para números
   const springValue = useSpring(motionValue, {
     stiffness: 150,
     damping: 15,
@@ -574,7 +562,6 @@ function AnimatedNumber({ value, decimals = 0 }: AnimatedNumberProps) {
   return <motion.span>{display}</motion.span>;
 }
 
-// Total row
 interface AnimatedUsageCardTotalProps {
   className?: string;
   label?: string;
@@ -587,7 +574,6 @@ const AnimatedUsageCardTotal = React.forwardRef<
   AnimatedUsageCardTotalProps
 >(({ className, label = "Total", amount, currency = "$" }, ref) => {
   const motionValue = useMotionValue(0);
-  // Bouncy spring para el total
   const springValue = useSpring(motionValue, {
     stiffness: 150,
     damping: 15,

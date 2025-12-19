@@ -3,6 +3,9 @@ import path from "node:path";
 import { NextResponse } from "next/server";
 import { getRegistryItem } from "@/registry/registry";
 
+// Components that live in the animated/ folder instead of ui/
+const ANIMATED_COMPONENTS = ["animated-usage-card"];
+
 // Map component names to their exports for generating imports
 const componentExports: Record<string, string[]> = {
   "plan-card": [
@@ -54,6 +57,22 @@ const componentExports: Record<string, string[]> = {
     "UsageCardMeter",
     "UsageCardTotal",
   ],
+  "animated-usage-card": [
+    "AnimatedUsageCard",
+    "AnimatedUsageCardHeader",
+    "AnimatedUsageCardPeriod",
+    "AnimatedUsageCardAction",
+    "AnimatedUsageCardSummary",
+    "AnimatedUsageCardLabels",
+    "AnimatedUsageCardLabel",
+    "AnimatedUsageCardProgress",
+    "AnimatedUsageCardList",
+    "AnimatedUsageCardItem",
+    "AnimatedUsageCardItemLabel",
+    "AnimatedUsageCardItemValue",
+    "AnimatedUsageCardMeter",
+    "AnimatedUsageCardTotal",
+  ],
   "plan-group": [
     "PlanGroup",
     "PlanGroupHeader",
@@ -73,6 +92,10 @@ const componentExports: Record<string, string[]> = {
     "PlanCardAction",
   ],
 };
+
+function getComponentFolder(componentName: string): string {
+  return ANIMATED_COMPONENTS.includes(componentName) ? "animated" : "ui";
+}
 
 function generateDemoPage(componentName: string, exampleCode: string): string {
   const exports = componentExports[componentName] || [];
@@ -143,11 +166,12 @@ export async function GET(
 
   try {
     // Read the component source file
+    const folder = getComponentFolder(componentName);
     const componentPath = path.join(
       process.cwd(),
       "src",
       "registry",
-      "ui",
+      folder,
       `${componentName}.tsx`,
     );
 
@@ -156,7 +180,8 @@ export async function GET(
     // Transform imports for distribution
     const transformedComponentContent = componentContent
       .replace(/@\/registry\/shadcn\//g, "@/components/ui/")
-      .replace(/@\/registry\/ui\//g, "@/components/ui/");
+      .replace(/@\/registry\/ui\//g, "@/components/ui/")
+      .replace(/@\/registry\/animated\//g, "@/components/ui/");
 
     // Generate demo content - either from query param or use default
     let demoContent: string;
