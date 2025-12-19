@@ -199,6 +199,7 @@ interface UsageCardListContextValue {
   setExpanded: (expanded: boolean) => void;
   itemCount: number;
   collapsedHeight: number;
+  expandedHeight: number;
 }
 
 const UsageCardListContext =
@@ -212,10 +213,12 @@ function useUsageCardList() {
   return context;
 }
 
+const ITEM_HEIGHT = 44;
+
 interface UsageCardListProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultExpanded?: boolean;
-  /** Height in pixels when collapsed. Shows ~1.5 items by default */
-  collapsedHeight?: number;
+  /** Number of items to show when collapsed (can be decimal like 1.5 to show partial item) */
+  visibleItems?: number;
   /** Enable collapse/expand functionality */
   collapsible?: boolean;
   /** Show dividers between items */
@@ -227,7 +230,7 @@ const UsageCardList = React.forwardRef<HTMLDivElement, UsageCardListProps>(
     {
       className,
       defaultExpanded = false,
-      collapsedHeight = 88,
+      visibleItems = 1.5,
       collapsible = false,
       dividers = true,
       children,
@@ -241,9 +244,12 @@ const UsageCardList = React.forwardRef<HTMLDivElement, UsageCardListProps>(
     );
     const itemCount = childrenArray.length;
 
+    const collapsedHeight = visibleItems * ITEM_HEIGHT;
+    const expandedHeight = itemCount * ITEM_HEIGHT;
+
     return (
       <UsageCardListContext.Provider
-        value={{ expanded, setExpanded, itemCount, collapsedHeight }}
+        value={{ expanded, setExpanded, itemCount, collapsedHeight, expandedHeight }}
       >
         <div
           ref={ref}
@@ -260,7 +266,7 @@ const UsageCardList = React.forwardRef<HTMLDivElement, UsageCardListProps>(
               maxHeight:
                 collapsible && !expanded
                   ? `${collapsedHeight}px`
-                  : `${itemCount * 52}px`,
+                  : `${expandedHeight}px`,
             }}
           >
             {childrenArray}
@@ -273,7 +279,7 @@ const UsageCardList = React.forwardRef<HTMLDivElement, UsageCardListProps>(
                 "pointer-events-none absolute inset-x-0 bottom-4 bg-linear-to-t from-card via-card/80 to-transparent transition-opacity duration-300",
                 expanded ? "opacity-0" : "opacity-100",
               )}
-              style={{ height: `${collapsedHeight * 0.5}px` }}
+              style={{ height: `${collapsedHeight * 0.6}px` }}
             />
           )}
 
@@ -504,4 +510,5 @@ export type {
   UsageCardItemValueProps,
   UsageCardMeterProps,
   UsageCardTotalProps,
+  UsageCardListContextValue,
 };
