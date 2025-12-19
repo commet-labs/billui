@@ -68,7 +68,7 @@ export default function HomePage() {
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
-            href="/docs/components/payment-method"
+            href="/docs/components"
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg border bg-background hover:bg-accent transition-colors"
           >
             View Components

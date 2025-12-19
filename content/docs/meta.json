@@ -1,4 +1,13 @@
 {
   "title": "Documentation",
-  "pages": ["index", "components"]
+  "pages": [
+    "index",
+    "components",
+    "---Components---",
+    "components/plan-card",
+    "components/plan-group",
+    "components/invoice-card",
+    "components/payment-method",
+    "components/usage-card"
+  ]
 }

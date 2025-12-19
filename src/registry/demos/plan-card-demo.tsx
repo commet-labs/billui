@@ -24,11 +24,12 @@ export default function PlanCardDemo() {
           <PlanCardFeature included>Unlimited projects</PlanCardFeature>
           <PlanCardFeature included>Advanced analytics</PlanCardFeature>
           <PlanCardFeature included>Priority support</PlanCardFeature>
-          <PlanCardFeature included={false}>Custom integrations</PlanCardFeature>
+          <PlanCardFeature included={false}>
+            Custom integrations
+          </PlanCardFeature>
         </PlanCardFeatures>
         <PlanCardAction>Get Started</PlanCardAction>
       </PlanCard>
     </div>
   );
 }
-

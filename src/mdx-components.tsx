@@ -4,6 +4,7 @@ import { TypeTable } from "fumadocs-ui/components/type-table";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import type { MDXComponents } from "mdx/types";
 import { ComponentPreview } from "@/components/docs/component-preview";
+import { ComponentsList } from "@/components/docs/components-list";
 import {
   PaymentMethod,
   PaymentMethodAction,
@@ -40,6 +41,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Step,
     TypeTable,
     ComponentPreview,
+    ComponentsList,
     PaymentMethod,
     PaymentMethodIcon,
     PaymentMethodDetails,

@@ -85,6 +85,19 @@ export function createPageTreeRenderer({
           }
 
           if (item.type === "folder") {
+            // If folder has no children and has an index, render as a regular link
+            if (item.children.length === 0 && item.index) {
+              return (
+                <SidebarItem
+                  key={item.index.url}
+                  href={item.index.url}
+                  external={item.index.external}
+                  icon={item.icon}
+                >
+                  {item.name}
+                </SidebarItem>
+              );
+            }
             return (
               <Folder key={i} item={item}>
                 {renderSidebarList(item.children)}
