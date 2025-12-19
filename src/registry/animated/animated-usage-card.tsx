@@ -1,14 +1,8 @@
 "use client";
 
 import { cva, type VariantProps } from "class-variance-authority";
-import { ChevronDown, ChevronUp } from "lucide-react";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { ChevronDown } from "lucide-react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/registry/shadcn/button";
@@ -338,14 +332,14 @@ const AnimatedUsageCardList = React.forwardRef<
           {/* Fade overlay when collapsed - con animación */}
           {collapsible && (
             <motion.div
-              className="pointer-events-none absolute inset-x-0 bottom-4 bg-linear-to-t from-card via-card/80 to-transparent"
-              style={{ height: `${collapsedHeight * 0.5}px` }}
+              className="pointer-events-none absolute inset-x-0 bottom-2 bg-linear-to-t from-card via-card/60 to-transparent"
+              style={{ height: `${collapsedHeight * 0.6}px` }}
               initial={false}
               animate={{
                 opacity: expanded ? 0 : 1,
               }}
               transition={{
-                duration: 0.2,
+                duration: 0.25,
               }}
             />
           )}
@@ -366,25 +360,17 @@ const AnimatedUsageCardList = React.forwardRef<
               }}
               layout
             >
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={expanded ? "up" : "down"}
-                  initial={{ scale: 0.5, opacity: 0, rotate: -90 }}
-                  animate={{ scale: 1, opacity: 1, rotate: 0 }}
-                  exit={{ scale: 0.5, opacity: 0, rotate: 90 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 500,
-                    damping: 25,
-                  }}
-                >
-                  {expanded ? (
-                    <ChevronUp className="h-4 w-4" />
-                  ) : (
-                    <ChevronDown className="h-4 w-4" />
-                  )}
-                </motion.div>
-              </AnimatePresence>
+              <motion.div
+                initial={false}
+                animate={{ rotate: expanded ? 180 : 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 20,
+                }}
+              >
+                <ChevronDown className="h-4 w-4" />
+              </motion.div>
             </motion.button>
           )}
         </motion.div>
