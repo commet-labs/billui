@@ -241,6 +241,8 @@ interface AnimatedUsageCardListContextValue {
   expanded: boolean;
   setExpanded: (expanded: boolean) => void;
   itemCount: number;
+  collapsedHeight: number;
+  expandedHeight: number;
 }
 
 const AnimatedUsageCardListContext =
@@ -305,7 +307,13 @@ const AnimatedUsageCardList = React.forwardRef<
 
     return (
       <AnimatedUsageCardListContext.Provider
-        value={{ expanded, setExpanded, itemCount }}
+        value={{
+          expanded,
+          setExpanded,
+          itemCount,
+          collapsedHeight,
+          expandedHeight,
+        }}
       >
         <motion.div
           ref={ref}
@@ -656,4 +664,5 @@ export type {
   AnimatedUsageCardItemValueProps,
   AnimatedUsageCardMeterProps,
   AnimatedUsageCardTotalProps,
+  AnimatedUsageCardListContextValue,
 };

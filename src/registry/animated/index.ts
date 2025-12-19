@@ -6,6 +6,7 @@ export type {
   AnimatedUsageCardItemValueProps,
   AnimatedUsageCardLabelProps,
   AnimatedUsageCardLabelsProps,
+  AnimatedUsageCardListContextValue,
   AnimatedUsageCardListProps,
   AnimatedUsageCardMeterProps,
   AnimatedUsageCardPeriodProps,
