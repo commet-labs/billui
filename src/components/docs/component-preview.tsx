@@ -64,6 +64,7 @@ export function ComponentPreview({
     "preview",
   );
   const [previewKey, setPreviewKey] = React.useState(0);
+  const [isSpinning, setIsSpinning] = React.useState(false);
 
   // Generate v0 URL from component name and code
   const v0Url = React.useMemo(() => {
@@ -73,7 +74,9 @@ export function ComponentPreview({
   }, [registryUrl, component, code]);
 
   const handleReplay = () => {
+    setIsSpinning(true);
     setPreviewKey((prev) => prev + 1);
+    setTimeout(() => setIsSpinning(false), 500);
   };
 
   // If no code provided, render simple preview
@@ -89,7 +92,12 @@ export function ComponentPreview({
               aria-label="Replay animation"
               title="Replay animation"
             >
-              <RotateCcw className="h-4 w-4" />
+              <RotateCcw
+                className={cn(
+                  "h-4 w-4",
+                  isSpinning && "animate-[spin-once_0.5s_ease-out]",
+                )}
+              />
             </button>
           </div>
         )}
@@ -142,7 +150,12 @@ export function ComponentPreview({
               aria-label="Replay animation"
               title="Replay animation"
             >
-              <RotateCcw className="h-4 w-4" />
+              <RotateCcw
+                className={cn(
+                  "h-4 w-4",
+                  isSpinning && "animate-[spin-once_0.5s_ease-out]",
+                )}
+              />
             </button>
           )}
           {v0Url && <OpenInV0Button url={v0Url} />}
