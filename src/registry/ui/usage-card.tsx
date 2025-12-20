@@ -249,7 +249,13 @@ const UsageCardList = React.forwardRef<HTMLDivElement, UsageCardListProps>(
 
     return (
       <UsageCardListContext.Provider
-        value={{ expanded, setExpanded, itemCount, collapsedHeight, expandedHeight }}
+        value={{
+          expanded,
+          setExpanded,
+          itemCount,
+          collapsedHeight,
+          expandedHeight,
+        }}
       >
         <div
           ref={ref}

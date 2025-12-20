@@ -22,7 +22,50 @@ import {
   PlanCardAction,
 } from "@/registry/ui";
 
-<ComponentPreview>
+<ComponentPreview component="plan-group" code={`<PlanGroup>
+  <PlanGroupHeader>
+    <PlanGroupTitle>Simple, transparent pricing</PlanGroupTitle>
+    <PlanGroupDescription>
+      Choose the plan that works best for you. All plans include a 14-day free trial.
+    </PlanGroupDescription>
+    <PlanGroupToggle yearDiscount="Save 20%" />
+  </PlanGroupHeader>
+  <PlanGroupContent>
+    <PlanCard>
+      <PlanCardHeader>
+        <PlanCardTitle>Free</PlanCardTitle>
+        <PlanCardDescription>For individuals</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanPrice monthlyAmount={0} yearlyAmount={0} />
+      <PlanCardFeatures>
+        <PlanCardFeature included>Up to 3 projects</PlanCardFeature>
+        <PlanCardFeature included>Basic analytics</PlanCardFeature>
+        <PlanCardFeature included>Community support</PlanCardFeature>
+        <PlanCardFeature included={false}>Custom integrations</PlanCardFeature>
+        <PlanCardFeature included={false}>Priority support</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction variant="outline">Get Started</PlanCardAction>
+    </PlanCard>
+    <PlanCard variant="highlighted">
+      <PlanCardHeader>
+        <div className="flex items-center justify-between">
+          <PlanCardTitle>Pro</PlanCardTitle>
+          <PlanCardBadge>Most Popular</PlanCardBadge>
+        </div>
+        <PlanCardDescription>For growing teams</PlanCardDescription>
+      </PlanCardHeader>
+      <PlanPrice monthlyAmount={29} yearlyAmount={278} originalMonthlyAmount={49} originalYearlyAmount={470} />
+      <PlanCardFeatures>
+        <PlanCardFeature included>Unlimited projects</PlanCardFeature>
+        <PlanCardFeature included>Advanced analytics</PlanCardFeature>
+        <PlanCardFeature included>Priority support</PlanCardFeature>
+        <PlanCardFeature included>Custom integrations</PlanCardFeature>
+        <PlanCardFeature included>Dedicated manager</PlanCardFeature>
+      </PlanCardFeatures>
+      <PlanCardAction>Get Started</PlanCardAction>
+    </PlanCard>
+  </PlanGroupContent>
+</PlanGroup>`}>
   <PlanGroup>
     <PlanGroupHeader>
       <PlanGroupTitle>Simple, transparent pricing</PlanGroupTitle>
@@ -350,55 +393,6 @@ export type {
 
   </Tab>
 </Tabs>
-
-## Usage
-
-```tsx
-import {
-  PlanGroup,
-  PlanGroupHeader,
-  PlanGroupTitle,
-  PlanGroupDescription,
-  PlanGroupToggle,
-  PlanGroupContent,
-  PlanPrice,
-} from "@/components/ui/plan-group"
-import {
-  PlanCard,
-  PlanCardHeader,
-  PlanCardTitle,
-  PlanCardDescription,
-  PlanCardFeatures,
-  PlanCardFeature,
-  PlanCardAction,
-} from "@/components/ui/plan-card"
-```
-
-```tsx
-<PlanGroup>
-  <PlanGroupHeader>
-    <PlanGroupTitle>Simple pricing</PlanGroupTitle>
-    <PlanGroupDescription>Choose your plan</PlanGroupDescription>
-    <PlanGroupToggle yearDiscount="Save 20%" />
-  </PlanGroupHeader>
-  <PlanGroupContent>
-    <PlanCard>
-      <PlanCardHeader>
-        <PlanCardTitle>Free</PlanCardTitle>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={0} yearlyAmount={0} />
-      {/* features... */}
-    </PlanCard>
-    <PlanCard variant="highlighted">
-      <PlanCardHeader>
-        <PlanCardTitle>Pro</PlanCardTitle>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={29} yearlyAmount={278} />
-      {/* features... */}
-    </PlanCard>
-  </PlanGroupContent>
-</PlanGroup>
-```
 
 ## Examples
 

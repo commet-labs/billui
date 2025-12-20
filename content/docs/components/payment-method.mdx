@@ -14,7 +14,18 @@ import {
   PaymentMethodAction,
 } from "@/registry/ui";
 
-<ComponentPreview>
+<ComponentPreview component="payment-method" code={`<PaymentMethod>
+  <PaymentMethodIcon brand="visa" />
+  <PaymentMethodDetails>
+    <PaymentMethodNumber last4="4242" />
+    <PaymentMethodExpiry month={12} year={2026} />
+  </PaymentMethodDetails>
+  <PaymentMethodBadge>Default</PaymentMethodBadge>
+  <PaymentMethodActions>
+    <PaymentMethodAction action="edit" />
+    <PaymentMethodAction action="delete" />
+  </PaymentMethodActions>
+</PaymentMethod>`}>
   <div className="w-full max-w-md">
     <PaymentMethod>
       <PaymentMethodIcon brand="visa" />
@@ -394,36 +405,6 @@ export type {
 
   </Tab>
 </Tabs>
-
-## Usage
-
-```tsx
-import {
-  PaymentMethod,
-  PaymentMethodIcon,
-  PaymentMethodDetails,
-  PaymentMethodNumber,
-  PaymentMethodExpiry,
-  PaymentMethodBadge,
-  PaymentMethodActions,
-  PaymentMethodAction,
-} from "@/components/ui/payment-method"
-```
-
-```tsx
-<PaymentMethod>
-  <PaymentMethodIcon brand="visa" />
-  <PaymentMethodDetails>
-    <PaymentMethodNumber last4="4242" />
-    <PaymentMethodExpiry month={12} year={2026} />
-  </PaymentMethodDetails>
-  <PaymentMethodBadge>Default</PaymentMethodBadge>
-  <PaymentMethodActions>
-    <PaymentMethodAction action="edit" />
-    <PaymentMethodAction action="delete" />
-  </PaymentMethodActions>
-</PaymentMethod>
-```
 
 ## Examples
 

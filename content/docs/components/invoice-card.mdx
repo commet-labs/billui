@@ -16,7 +16,50 @@ import {
   InvoiceCardAction,
 } from "@/registry/ui";
 
-<ComponentPreview>
+<ComponentPreview component="invoice-card" code={`<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
+      <InvoiceCardStatus status="paid" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-01-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={29} />
+  <InvoiceCardActions>
+    <InvoiceCardAction action="download" />
+  </InvoiceCardActions>
+</InvoiceCard>
+
+<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-002</InvoiceCardNumber>
+      <InvoiceCardStatus status="pending" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-02-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={29} />
+  <InvoiceCardActions>
+    <InvoiceCardAction action="view" />
+  </InvoiceCardActions>
+</InvoiceCard>
+
+<InvoiceCard>
+  <InvoiceCardIcon />
+  <InvoiceCardContent>
+    <InvoiceCardHeader>
+      <InvoiceCardNumber>INV-2024-003</InvoiceCardNumber>
+      <InvoiceCardStatus status="failed" />
+    </InvoiceCardHeader>
+    <InvoiceCardDate date="2024-03-15" />
+  </InvoiceCardContent>
+  <InvoiceCardAmount amount={49} />
+  <InvoiceCardActions>
+    <InvoiceCardAction action="view" />
+  </InvoiceCardActions>
+</InvoiceCard>`}>
   <div className="w-full max-w-lg space-y-3">
     <InvoiceCard>
       <InvoiceCardIcon />
@@ -323,40 +366,6 @@ export type {
 
   </Tab>
 </Tabs>
-
-## Usage
-
-```tsx
-import {
-  InvoiceCard,
-  InvoiceCardIcon,
-  InvoiceCardContent,
-  InvoiceCardHeader,
-  InvoiceCardNumber,
-  InvoiceCardStatus,
-  InvoiceCardDate,
-  InvoiceCardAmount,
-  InvoiceCardActions,
-  InvoiceCardAction,
-} from "@/components/ui/invoice-card"
-```
-
-```tsx
-<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
-      <InvoiceCardStatus status="paid" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-01-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={29} />
-  <InvoiceCardActions>
-    <InvoiceCardAction action="download" />
-  </InvoiceCardActions>
-</InvoiceCard>
-```
 
 ## Examples
 
