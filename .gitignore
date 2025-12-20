@@ -3,6 +3,7 @@
 
 # generated content
 .source
+/public/r/
 
 # test & build
 /coverage

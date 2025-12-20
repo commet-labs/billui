@@ -191,12 +191,6 @@ export async function GET(
 
     const componentContent = await fs.readFile(componentPath, "utf-8");
 
-    // Transform imports for distribution
-    const transformedComponentContent = componentContent
-      .replace(/@\/registry\/shadcn\//g, "@/components/ui/")
-      .replace(/@\/registry\/ui\//g, "@/components/ui/")
-      .replace(/@\/registry\/animated\//g, "@/components/ui/");
-
     // Decode the base64 code (was encoded with encodeURIComponent + btoa)
     const decoded = Buffer.from(codeParam, "base64").toString("utf-8");
     const exampleCode = decodeURIComponent(decoded);
@@ -218,7 +212,7 @@ export async function GET(
         },
         {
           path: `registry/billui/${componentName}/${componentName}.tsx`,
-          content: transformedComponentContent,
+          content: componentContent,
           type: "registry:component",
           target: `components/ui/${componentName}.tsx`,
         },

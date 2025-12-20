@@ -1,0 +1,97 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "billui",
+  "homepage": "https://billui.com",
+  "items": [
+    {
+      "name": "plan-card",
+      "type": "registry:ui",
+      "title": "Plan Card",
+      "description": "A card for displaying pricing tiers and subscription plans.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "badge"],
+      "files": [
+        {
+          "path": "src/registry/ui/plan-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/plan-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "plan-group",
+      "type": "registry:ui",
+      "title": "Plan Group",
+      "description": "A container for displaying multiple pricing plans with a monthly/yearly toggle.",
+      "registryDependencies": ["https://billui.com/r/plan-card.json"],
+      "files": [
+        {
+          "path": "src/registry/ui/plan-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/plan-group.tsx"
+        }
+      ]
+    },
+    {
+      "name": "invoice-card",
+      "type": "registry:ui",
+      "title": "Invoice Card",
+      "description": "A card for displaying invoice details and billing history.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "badge"],
+      "files": [
+        {
+          "path": "src/registry/ui/invoice-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/invoice-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "payment-method",
+      "type": "registry:ui",
+      "title": "Payment Method",
+      "description": "A card for displaying saved payment methods like credit cards.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "badge"],
+      "files": [
+        {
+          "path": "src/registry/ui/payment-method.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/payment-method.tsx"
+        }
+      ]
+    },
+    {
+      "name": "usage-card",
+      "type": "registry:ui",
+      "title": "Usage Card",
+      "description": "A card for displaying usage metrics, billing cycle progress and itemized charges.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "progress"],
+      "files": [
+        {
+          "path": "src/registry/ui/usage-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/usage-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "animated-usage-card",
+      "type": "registry:ui",
+      "title": "Animated Usage Card",
+      "description": "An animated version of usage-card with smooth spring animations powered by motion.",
+      "dependencies": ["lucide-react", "motion"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/animated/animated-usage-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/animated-usage-card.tsx"
+        }
+      ]
+    }
+  ]
+}
+
