@@ -30,7 +30,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "../../../ui/collapsible";
+} from "@/components/docs/ui/collapsible";
 import { LayoutContext } from "../client";
 
 const TocPopoverContext = createContext<{

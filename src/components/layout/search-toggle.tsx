@@ -4,7 +4,7 @@ import { useSearchContext } from "fumadocs-ui/contexts/search";
 import { Search } from "lucide-react";
 import type { ComponentProps } from "react";
 import { cn } from "../../lib/cn";
-import { type ButtonProps, buttonVariants } from "../ui/button";
+import { type ButtonProps, buttonVariants } from "@/components/docs/ui/button";
 
 interface SearchToggleProps
   extends Omit<ComponentProps<"button">, "color">,

@@ -14,7 +14,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "../../navigation-menu";
-import { buttonVariants } from "../../ui/button";
+import { buttonVariants } from "@/components/docs/ui/button";
 import { LanguageToggle, LanguageToggleText } from "../language-toggle";
 import { LinkItem } from "../link-item";
 import { LargeSearchToggle, SearchToggle } from "../search-toggle";

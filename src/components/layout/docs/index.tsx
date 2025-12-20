@@ -13,7 +13,7 @@ import {
   useMemo,
 } from "react";
 import { cn } from "../../../lib/cn";
-import { buttonVariants } from "../../ui/button";
+import { buttonVariants } from "@/components/docs/ui/button";
 import { LanguageToggle, LanguageToggleText } from "../language-toggle";
 import { LinkItem, type LinkItemType } from "../link-item";
 import { LargeSearchToggle, SearchToggle } from "../search-toggle";

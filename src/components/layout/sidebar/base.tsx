@@ -29,8 +29,8 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "../../ui/collapsible";
-import { ScrollArea, ScrollViewport } from "../../ui/scroll-area";
+} from "@/components/docs/ui/collapsible";
+import { ScrollArea, ScrollViewport } from "@/components/docs/ui/scroll-area";
 
 interface SidebarContext {
   open: boolean;

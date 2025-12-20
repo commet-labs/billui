@@ -6,7 +6,7 @@ import { cn } from "../../../../lib/cn";
 import * as TocClerk from "../../../toc/clerk";
 import * as TocDefault from "../../../toc/default";
 import { TOCProvider, TOCScrollArea } from "../../../toc/index";
-import { buttonVariants } from "../../../ui/button";
+import { buttonVariants } from "@/components/docs/ui/button";
 import {
   type BreadcrumbProps,
   type FooterProps,
