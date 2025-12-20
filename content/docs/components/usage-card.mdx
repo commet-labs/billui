@@ -20,14 +20,47 @@ import {
   UsageCardTotal,
 } from "@/registry/ui";
 
-<ComponentPreview>
+<ComponentPreview component="usage-card" code={`<UsageCard>
+  <UsageCardHeader>
+    <UsageCardPeriod daysRemaining={12} />
+    <UsageCardAction>Buy Credits</UsageCardAction>
+  </UsageCardHeader>
+  <UsageCardSummary>
+    <UsageCardLabels>
+      <UsageCardLabel label="Credits Used" amount={347} limit={500} currency="" />
+      <UsageCardLabel label="Remaining" amount={153} currency="" align="right" />
+    </UsageCardLabels>
+    <UsageCardProgress value={347} max={500} />
+  </UsageCardSummary>
+  <UsageCardList collapsible dividers={false}>
+    <UsageCardItem highlighted>
+      <UsageCardItemLabel>Image Generation</UsageCardItemLabel>
+      <UsageCardItemValue>120 credits</UsageCardItemValue>
+    </UsageCardItem>
+    <UsageCardItem>
+      <UsageCardItemLabel>Video Generation</UsageCardItemLabel>
+      <UsageCardItemValue>85 credits</UsageCardItemValue>
+    </UsageCardItem>
+    <UsageCardItem highlighted>
+      <UsageCardItemLabel>Upscaling (4x)</UsageCardItemLabel>
+      <UsageCardItemValue>62 credits</UsageCardItemValue>
+    </UsageCardItem>
+    <UsageCardItem>
+      <UsageCardItemLabel>Background Removal</UsageCardItemLabel>
+      <UsageCardItemValue>45 credits</UsageCardItemValue>
+    </UsageCardItem>
+    <UsageCardItem highlighted>
+      <UsageCardItemLabel>Style Transfer</UsageCardItemLabel>
+      <UsageCardItemValue>35 credits</UsageCardItemValue>
+    </UsageCardItem>
+  </UsageCardList>
+</UsageCard>`}>
   <div className="w-full max-w-xl">
     <UsageCard>
       <UsageCardHeader>
         <UsageCardPeriod daysRemaining={12} />
         <UsageCardAction>Buy Credits</UsageCardAction>
       </UsageCardHeader>
-      
       <UsageCardSummary>
         <UsageCardLabels>
           <UsageCardLabel label="Credits Used" amount={347} limit={500} currency="" />
@@ -35,7 +68,6 @@ import {
         </UsageCardLabels>
         <UsageCardProgress value={347} max={500} />
       </UsageCardSummary>
-
       <UsageCardList collapsible dividers={false}>
         <UsageCardItem highlighted>
           <UsageCardItemLabel>Image Generation</UsageCardItemLabel>
@@ -574,53 +606,6 @@ export type {
 
   </Tab>
 </Tabs>
-
-## Usage
-
-```tsx
-import {
-  UsageCard,
-  UsageCardHeader,
-  UsageCardPeriod,
-  UsageCardAction,
-  UsageCardSummary,
-  UsageCardLabels,
-  UsageCardLabel,
-  UsageCardProgress,
-  UsageCardList,
-  UsageCardItem,
-  UsageCardItemLabel,
-  UsageCardItemValue,
-  UsageCardMeter,
-  UsageCardTotal,
-} from "@/components/ui/usage-card"
-```
-
-```tsx
-<UsageCard>
-  <UsageCardHeader>
-    <UsageCardPeriod daysRemaining={14} />
-    <UsageCardAction>Billing</UsageCardAction>
-  </UsageCardHeader>
-  <UsageCardSummary>
-    <UsageCardLabels>
-      <UsageCardLabel label="Used" amount={12.50} limit={20} />
-      <UsageCardLabel label="On-Demand" amount={0} align="right" />
-    </UsageCardLabels>
-    <UsageCardProgress value={12.50} max={20} />
-  </UsageCardSummary>
-  <UsageCardList>
-    <UsageCardItem>
-      <UsageCardItemLabel>API Calls</UsageCardItemLabel>
-      <UsageCardItemValue amount={8.50} />
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Storage</UsageCardItemLabel>
-      <UsageCardItemValue amount={4.00} />
-    </UsageCardItem>
-  </UsageCardList>
-</UsageCard>
-```
 
 ## Examples
 
