@@ -113,3 +113,31 @@ export {
   usageCardVariants,
   useUsageCardList,
 } from "./usage-card";
+export type {
+  CellValue,
+  PricingTableActionProps,
+  PricingTableBadgeProps,
+  PricingTableCellProps,
+  PricingTableHeaderProps,
+  PricingTablePlanProps,
+  PricingTablePriceProps,
+  PricingTableProps,
+  PricingTableRowProps,
+} from "./pricing-table";
+export {
+  PricingTable,
+  PricingTableAction,
+  PricingTableBadge,
+  PricingTableBody,
+  PricingTableCell,
+  PricingTableFeatureCell,
+  PricingTableFeatureLabel,
+  PricingTableHeader,
+  PricingTablePlan,
+  PricingTablePlanDescription,
+  PricingTablePlanName,
+  PricingTablePrice,
+  PricingTableRow,
+  PricingTableSpacer,
+  pricingTableVariants,
+} from "./pricing-table";

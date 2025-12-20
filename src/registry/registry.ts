@@ -52,6 +52,13 @@ export const registry: Record<string, RegistryItemMeta> = {
     dependencies: ["lucide-react", "motion"],
     registryDependencies: ["button"],
   },
+  "pricing-table": {
+    name: "pricing-table",
+    description:
+      "A comparison table for displaying multiple pricing plans side by side with feature comparison.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["button", "badge"],
+  },
 };
 
 // For components-list.tsx
