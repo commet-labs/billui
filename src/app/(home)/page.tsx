@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
 import {
   InvoiceCard,
@@ -61,18 +61,20 @@ export default function HomePage() {
         {/* CTA Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
           <Link
-            href="/docs"
+            href="/docs/components"
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            Get Started
+            Browse Components
             <ArrowRight className="w-4 h-4" />
           </Link>
-          <Link
-            href="/docs/components"
+          <a
+            href="https://github.com/commet-labs/billui"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg border bg-background hover:bg-accent transition-colors"
           >
-            View Components
-          </Link>
+            Give Star <Star className="w-4 h-4" />
+          </a>
         </div>
       </section>
 
