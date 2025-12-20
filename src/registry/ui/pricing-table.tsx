@@ -22,12 +22,25 @@ const pricingTableVariants = cva(
 
 interface PricingTableProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof pricingTableVariants> {}
+    VariantProps<typeof pricingTableVariants> {
+  /** Accessible label for the pricing table */
+  "aria-label"?: string;
+}
 
 const PricingTable = React.forwardRef<HTMLDivElement, PricingTableProps>(
-  ({ className, variant, ...props }, ref) => (
+  (
+    {
+      className,
+      variant,
+      "aria-label": ariaLabel = "Pricing comparison",
+      ...props
+    },
+    ref,
+  ) => (
     <div
       ref={ref}
+      role="table"
+      aria-label={ariaLabel}
       className={cn(pricingTableVariants({ variant, className }))}
       {...props}
     />
@@ -51,6 +64,7 @@ const PricingTableHeader = React.forwardRef<
   return (
     <div
       ref={ref}
+      role="rowgroup"
       className={cn("grid border-b bg-muted/30", colsClass[columns], className)}
       {...props}
     />
@@ -68,6 +82,7 @@ const PricingTablePlan = React.forwardRef<
 >(({ className, highlighted, ...props }, ref) => (
   <div
     ref={ref}
+    role="columnheader"
     className={cn(
       "flex flex-col items-center gap-1 p-6 text-center",
       highlighted && "bg-primary/5 ring-2 ring-inset ring-primary",
@@ -89,11 +104,17 @@ const PricingTableBadge = React.forwardRef<
 ));
 PricingTableBadge.displayName = "PricingTableBadge";
 
+interface PricingTablePlanNameProps
+  extends React.HTMLAttributes<HTMLHeadingElement> {
+  /** Heading level (default: 3) */
+  as?: "h2" | "h3" | "h4";
+}
+
 const PricingTablePlanName = React.forwardRef<
   HTMLHeadingElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h3
+  PricingTablePlanNameProps
+>(({ className, as: Component = "h3", ...props }, ref) => (
+  <Component
     ref={ref}
     className={cn("text-lg font-semibold tracking-tight", className)}
     {...props}
@@ -117,18 +138,31 @@ const PricingTablePrice = React.forwardRef<
     once: "",
   };
 
+  const periodFullLabel = {
+    month: "per month",
+    year: "per year",
+    once: "one-time payment",
+  };
+
+  // Screen reader friendly price
+  const srLabel =
+    period === "once"
+      ? `${currency}${amount}, ${periodFullLabel[period]}`
+      : `${currency}${amount} ${periodFullLabel[period]}`;
+
   return (
     <div
       ref={ref}
       className={cn("mt-2 flex items-baseline gap-0.5", className)}
       {...props}
     >
-      <span className="text-3xl font-bold tracking-tight">
+      <span className="sr-only">{srLabel}</span>
+      <span className="text-3xl font-bold tracking-tight" aria-hidden="true">
         {currency}
         {amount}
       </span>
       {period !== "once" && (
-        <span className="text-sm text-muted-foreground">
+        <span className="text-sm text-muted-foreground" aria-hidden="true">
           {periodLabel[period]}
         </span>
       )}
@@ -164,7 +198,12 @@ const PricingTableBody = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("divide-y", className)} {...props} />
+  <div
+    ref={ref}
+    role="rowgroup"
+    className={cn("divide-y", className)}
+    {...props}
+  />
 ));
 PricingTableBody.displayName = "PricingTableBody";
 
@@ -182,6 +221,7 @@ const PricingTableRow = React.forwardRef<HTMLDivElement, PricingTableRowProps>(
     return (
       <div
         ref={ref}
+        role="row"
         className={cn("grid items-stretch", colsClass[columns], className)}
         {...props}
       />
@@ -196,6 +236,7 @@ const PricingTableFeatureCell = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
+    role="rowheader"
     className={cn(
       "flex items-center self-stretch px-6 py-4 text-sm font-medium",
       className,
@@ -210,7 +251,13 @@ const PricingTableSpacer = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6", className)} {...props} />
+  <div
+    ref={ref}
+    role="columnheader"
+    aria-hidden="true"
+    className={cn("p-6", className)}
+    {...props}
+  />
 ));
 PricingTableSpacer.displayName = "PricingTableSpacer";
 
@@ -228,20 +275,37 @@ const PricingTableCell = React.forwardRef<
   const renderValue = () => {
     if (typeof value === "boolean") {
       return value ? (
-        <Check className="h-5 w-5 text-primary" />
+        <Check className="h-5 w-5 text-primary" aria-hidden="true" />
       ) : (
-        <X className="h-5 w-5 text-muted-foreground/50" />
+        <X className="h-5 w-5 text-muted-foreground/50" aria-hidden="true" />
       );
     }
     if (value === "partial") {
-      return <Minus className="h-5 w-5 text-muted-foreground" />;
+      return (
+        <Minus className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+      );
     }
     return <span className="text-sm">{value}</span>;
   };
 
+  // Screen reader friendly value
+  const getAriaLabel = () => {
+    if (typeof value === "boolean") {
+      return value ? "Included" : "Not included";
+    }
+    if (value === "partial") {
+      return "Partially included";
+    }
+    return undefined; // Let the text content speak for itself
+  };
+
+  const ariaLabel = getAriaLabel();
+
   return (
     <div
       ref={ref}
+      role="cell"
+      aria-label={ariaLabel}
       className={cn(
         "flex items-center justify-center self-stretch px-6 py-4",
         highlighted && "bg-primary/5",
@@ -255,18 +319,27 @@ const PricingTableCell = React.forwardRef<
 });
 PricingTableCell.displayName = "PricingTableCell";
 
+interface PricingTableFeatureLabelProps
+  extends React.HTMLAttributes<HTMLDivElement> {}
+
 const PricingTableFeatureLabel = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+  PricingTableFeatureLabelProps
+>(({ className, children, ...props }, ref) => (
   <div
     ref={ref}
+    role="row"
+    aria-label={
+      typeof children === "string" ? `${children} section` : undefined
+    }
     className={cn(
       "px-6 py-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground bg-muted/50",
       className,
     )}
     {...props}
-  />
+  >
+    {children}
+  </div>
 ));
 PricingTableFeatureLabel.displayName = "PricingTableFeatureLabel";
 
@@ -294,8 +367,10 @@ export type {
   PricingTablePlanProps,
   PricingTableBadgeProps,
   PricingTablePriceProps,
+  PricingTablePlanNameProps,
   PricingTableActionProps,
   PricingTableRowProps,
   PricingTableCellProps,
+  PricingTableFeatureLabelProps,
   CellValue,
 };

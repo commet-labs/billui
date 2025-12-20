@@ -80,6 +80,36 @@ export {
   usePlanGroup,
 } from "./plan-group";
 export type {
+  CellValue,
+  PricingTableActionProps,
+  PricingTableBadgeProps,
+  PricingTableCellProps,
+  PricingTableFeatureLabelProps,
+  PricingTableHeaderProps,
+  PricingTablePlanNameProps,
+  PricingTablePlanProps,
+  PricingTablePriceProps,
+  PricingTableProps,
+  PricingTableRowProps,
+} from "./pricing-table";
+export {
+  PricingTable,
+  PricingTableAction,
+  PricingTableBadge,
+  PricingTableBody,
+  PricingTableCell,
+  PricingTableFeatureCell,
+  PricingTableFeatureLabel,
+  PricingTableHeader,
+  PricingTablePlan,
+  PricingTablePlanDescription,
+  PricingTablePlanName,
+  PricingTablePrice,
+  PricingTableRow,
+  PricingTableSpacer,
+  pricingTableVariants,
+} from "./pricing-table";
+export type {
   UsageCardActionProps,
   UsageCardHeaderProps,
   UsageCardItemLabelProps,
@@ -113,31 +143,3 @@ export {
   usageCardVariants,
   useUsageCardList,
 } from "./usage-card";
-export type {
-  CellValue,
-  PricingTableActionProps,
-  PricingTableBadgeProps,
-  PricingTableCellProps,
-  PricingTableHeaderProps,
-  PricingTablePlanProps,
-  PricingTablePriceProps,
-  PricingTableProps,
-  PricingTableRowProps,
-} from "./pricing-table";
-export {
-  PricingTable,
-  PricingTableAction,
-  PricingTableBadge,
-  PricingTableBody,
-  PricingTableCell,
-  PricingTableFeatureCell,
-  PricingTableFeatureLabel,
-  PricingTableHeader,
-  PricingTablePlan,
-  PricingTablePlanDescription,
-  PricingTablePlanName,
-  PricingTablePrice,
-  PricingTableRow,
-  PricingTableSpacer,
-  pricingTableVariants,
-} from "./pricing-table";

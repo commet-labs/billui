@@ -9,6 +9,7 @@
     "components/invoice-card",
     "components/payment-method",
     "components/usage-card",
+    "components/pricing-table",
     "---Animated---",
     "animated/animated-usage-card"
   ]

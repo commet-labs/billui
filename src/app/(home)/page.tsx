@@ -395,7 +395,16 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="py-6 px-4 border-t">
         <div className="max-w-6xl mx-auto text-center text-sm text-muted-foreground">
-          Built with {"<3"}. The source code is available on{" "}
+          Built by{" "}
+          <a
+            href="https://x.com/0xDecker"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium underline underline-offset-4 hover:text-foreground transition-colors"
+          >
+            0xDecker
+          </a>{" "}
+          with {"<3"}. The source code is available on{" "}
           <a
             href="https://github.com/commet-labs/billui"
             target="_blank"
