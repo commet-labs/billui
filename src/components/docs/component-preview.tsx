@@ -1,7 +1,7 @@
 "use client";
 
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
-import { Code, Eye } from "lucide-react";
+import { Code, Eye, RotateCcw } from "lucide-react";
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +12,8 @@ interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   component?: string;
   /** @deprecated Use `component` prop instead */
   registryUrl?: string;
+  /** Enable replay button to restart animations */
+  animated?: boolean;
 }
 
 function OpenInV0Button({ url }: { url: string }) {
@@ -21,7 +23,7 @@ function OpenInV0Button({ url }: { url: string }) {
       target="_blank"
       rel="noreferrer"
       aria-label="Open in v0"
-      className="ml-auto flex h-7 items-center gap-1.5 rounded-md bg-zinc-950 px-2.5 text-xs font-medium text-white transition-colors hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
+      className="flex h-7 items-center gap-1.5 rounded-md bg-zinc-950 px-2.5 text-xs font-medium text-white transition-colors hover:bg-zinc-800 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200"
     >
       Open in
       <svg
@@ -54,12 +56,14 @@ export function ComponentPreview({
   code,
   component,
   registryUrl,
+  animated = false,
   className,
   ...props
 }: ComponentPreviewProps) {
   const [activeTab, setActiveTab] = React.useState<"preview" | "code">(
     "preview",
   );
+  const [previewKey, setPreviewKey] = React.useState(0);
 
   // Generate v0 URL from component name and code
   const v0Url = React.useMemo(() => {
@@ -68,17 +72,33 @@ export function ComponentPreview({
     return null;
   }, [registryUrl, component, code]);
 
+  const handleReplay = () => {
+    setPreviewKey((prev) => prev + 1);
+  };
+
   // If no code provided, render simple preview
   if (!code) {
     return (
-      <div
-        className={cn(
-          "not-prose my-8 flex min-h-[300px] w-full items-center justify-center rounded-xl border bg-background p-10 md:p-16",
-          className,
+      <div className={cn("not-prose my-8 w-full", className)} {...props}>
+        {animated && (
+          <div className="flex justify-end pb-2">
+            <button
+              type="button"
+              onClick={handleReplay}
+              className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              aria-label="Replay animation"
+              title="Replay animation"
+            >
+              <RotateCcw className="h-4 w-4" />
+            </button>
+          </div>
         )}
-        {...props}
-      >
-        {children}
+        <div
+          key={previewKey}
+          className="flex min-h-[300px] w-full items-center justify-center rounded-xl border bg-background p-10 md:p-16"
+        >
+          {children}
+        </div>
       </div>
     );
   }
@@ -113,13 +133,29 @@ export function ComponentPreview({
           <Code className="h-4 w-4" />
           Code
         </button>
-        {v0Url && <OpenInV0Button url={v0Url} />}
+        <div className="ml-auto flex items-center gap-1">
+          {animated && activeTab === "preview" && (
+            <button
+              type="button"
+              onClick={handleReplay}
+              className="flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              aria-label="Replay animation"
+              title="Replay animation"
+            >
+              <RotateCcw className="h-4 w-4" />
+            </button>
+          )}
+          {v0Url && <OpenInV0Button url={v0Url} />}
+        </div>
       </div>
 
       {/* Content area */}
       <div className="overflow-hidden rounded-b-xl border">
         {activeTab === "preview" ? (
-          <div className="flex min-h-[300px] w-full items-center justify-center bg-background p-10 md:p-16">
+          <div
+            key={previewKey}
+            className="flex min-h-[300px] w-full items-center justify-center bg-background p-10 md:p-16"
+          >
             {children}
           </div>
         ) : (
