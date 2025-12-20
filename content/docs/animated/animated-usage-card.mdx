@@ -765,49 +765,6 @@ export type {
   </Tab>
 </Tabs>
 
-## Usage
-
-```tsx
-import {
-  AnimatedUsageCard,
-  AnimatedUsageCardHeader,
-  AnimatedUsageCardPeriod,
-  AnimatedUsageCardAction,
-  AnimatedUsageCardSummary,
-  AnimatedUsageCardLabels,
-  AnimatedUsageCardLabel,
-  AnimatedUsageCardProgress,
-  AnimatedUsageCardList,
-  AnimatedUsageCardItem,
-  AnimatedUsageCardItemLabel,
-  AnimatedUsageCardItemValue,
-  AnimatedUsageCardMeter,
-  AnimatedUsageCardTotal,
-} from "@/components/ui/animated-usage-card"
-```
-
-```tsx
-<AnimatedUsageCard>
-  <AnimatedUsageCardHeader>
-    <AnimatedUsageCardPeriod daysRemaining={14} />
-    <AnimatedUsageCardAction>Billing</AnimatedUsageCardAction>
-  </AnimatedUsageCardHeader>
-  <AnimatedUsageCardSummary>
-    <AnimatedUsageCardLabels>
-      <AnimatedUsageCardLabel label="Used" amount={12.50} limit={20} />
-      <AnimatedUsageCardLabel label="On-Demand" amount={0} align="right" />
-    </AnimatedUsageCardLabels>
-    <AnimatedUsageCardProgress value={12.50} max={20} />
-  </AnimatedUsageCardSummary>
-  <AnimatedUsageCardList>
-    <AnimatedUsageCardItem>
-      <AnimatedUsageCardItemLabel>API Calls</AnimatedUsageCardItemLabel>
-      <AnimatedUsageCardItemValue amount={8.50} />
-    </AnimatedUsageCardItem>
-  </AnimatedUsageCardList>
-</AnimatedUsageCard>
-```
-
 ## Examples
 
 ### Basic Usage
