@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "pnpm build:registry && next build",
+    "build": "pnpm build:registry && pnpm build:demos && next build",
     "build:registry": "pnpm dlx shadcn@latest build",
+    "build:demos": "tsx scripts/build-demos.ts",
     "dev": "next dev",
     "start": "next start",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.8",
+    "tsx": "^4.19.0",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/mdx": "^2.0.13",
     "@types/node": "^24.10.2",

@@ -10,6 +10,8 @@ interface ComponentPreviewProps extends React.HTMLAttributes<HTMLDivElement> {
   code?: string;
   /** Component name for generating v0 demo URL (e.g., "plan-card") */
   component?: string;
+  /** Example identifier for the demo URL (e.g., "preview", "basic", "elevated") */
+  example?: string;
   /** @deprecated Use `component` prop instead */
   registryUrl?: string;
   /** Enable replay button to restart animations */
@@ -45,16 +47,11 @@ function OpenInV0Button({ url }: { url: string }) {
   );
 }
 
-function generateV0Url(componentName: string, code: string): string {
-  // Use encodeURIComponent + btoa for proper UTF-8 handling
-  const base64Code = btoa(encodeURIComponent(code));
-  return `https://billui.com/r/${componentName}/demo?code=${base64Code}`;
-}
-
 export function ComponentPreview({
   children,
   code,
   component,
+  example,
   registryUrl,
   animated = false,
   className,
@@ -66,12 +63,14 @@ export function ComponentPreview({
   const [previewKey, setPreviewKey] = React.useState(0);
   const [isSpinning, setIsSpinning] = React.useState(false);
 
-  // Generate v0 URL from component name and code
+  // Generate v0 URL from component name and example id
   const v0Url = React.useMemo(() => {
     if (registryUrl) return registryUrl;
-    if (component && code) return generateV0Url(component, code);
+    if (component && example) {
+      return `https://billui.com/r/${component}-demo-${example}.json`;
+    }
     return null;
-  }, [registryUrl, component, code]);
+  }, [registryUrl, component, example]);
 
   const handleReplay = () => {
     setIsSpinning(true);
