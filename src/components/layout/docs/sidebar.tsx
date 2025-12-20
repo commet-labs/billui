@@ -2,9 +2,9 @@
 import { cva } from "class-variance-authority";
 import { Sidebar as SidebarIcon } from "lucide-react";
 import { type ComponentProps, useRef } from "react";
+import { buttonVariants } from "@/components/docs/ui/button";
 import { cn } from "../../../lib/cn";
 import { mergeRefs } from "../../../lib/merge-refs";
-import { buttonVariants } from "@/components/docs/ui/button";
 import { SearchToggle } from "../search-toggle";
 import * as Base from "../sidebar/base";
 import { createLinkItemRenderer } from "../sidebar/link-item";

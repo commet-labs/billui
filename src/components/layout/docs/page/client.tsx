@@ -23,14 +23,14 @@ import {
   useRef,
   useState,
 } from "react";
-import { cn } from "../../../../lib/cn";
-import { isActive } from "../../../../lib/is-active";
-import { useTOCItems } from "../../../toc/index";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/docs/ui/collapsible";
+import { cn } from "../../../../lib/cn";
+import { isActive } from "../../../../lib/is-active";
+import { useTOCItems } from "../../../toc/index";
 import { LayoutContext } from "../client";
 
 const TocPopoverContext = createContext<{

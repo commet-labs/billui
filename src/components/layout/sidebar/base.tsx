@@ -23,14 +23,14 @@ import {
   useState,
 } from "react";
 import scrollIntoView from "scroll-into-view-if-needed";
-import { cn } from "../../../lib/cn";
-import { isActive } from "../../../lib/is-active";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/docs/ui/collapsible";
 import { ScrollArea, ScrollViewport } from "@/components/docs/ui/scroll-area";
+import { cn } from "../../../lib/cn";
+import { isActive } from "../../../lib/is-active";
 
 interface SidebarContext {
   open: boolean;

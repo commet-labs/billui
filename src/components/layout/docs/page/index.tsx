@@ -2,11 +2,11 @@ import type { AnchorProviderProps, TOCItemType } from "fumadocs-core/toc";
 import { I18nLabel } from "fumadocs-ui/contexts/i18n";
 import { Edit, Text } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
+import { buttonVariants } from "@/components/docs/ui/button";
 import { cn } from "../../../../lib/cn";
 import * as TocClerk from "../../../toc/clerk";
 import * as TocDefault from "../../../toc/default";
 import { TOCProvider, TOCScrollArea } from "../../../toc/index";
-import { buttonVariants } from "@/components/docs/ui/button";
 import {
   type BreadcrumbProps,
   type FooterProps,

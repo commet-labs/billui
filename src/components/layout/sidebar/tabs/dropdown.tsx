@@ -3,13 +3,13 @@ import { usePathname } from "fumadocs-core/framework";
 import Link from "fumadocs-core/link";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { type ComponentProps, type ReactNode, useMemo, useState } from "react";
-import { cn } from "../../../../lib/cn";
-import { isTabActive } from "../../../../lib/is-active";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/docs/ui/popover";
+import { cn } from "../../../../lib/cn";
+import { isTabActive } from "../../../../lib/is-active";
 import { useSidebar } from "../base";
 import type { SidebarTab } from "./index";
 

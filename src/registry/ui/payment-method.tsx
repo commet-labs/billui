@@ -1,9 +1,9 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { CreditCard, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import * as React from "react";
-import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const paymentMethodVariants = cva(
   "relative flex items-center gap-4 rounded-xl border bg-card p-4 text-card-foreground transition-colors",

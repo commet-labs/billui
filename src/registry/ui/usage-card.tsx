@@ -3,9 +3,9 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import * as React from "react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
 const usageCardVariants = cva(
   "relative min-w-[280px] rounded-2xl border bg-card text-card-foreground",

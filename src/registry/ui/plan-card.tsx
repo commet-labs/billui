@@ -1,9 +1,9 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { Check, X } from "lucide-react";
 import * as React from "react";
-import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const planCardVariants = cva(
   "relative rounded-2xl border bg-card text-card-foreground transition-all duration-200",

@@ -1,13 +1,13 @@
 "use client";
 import { useI18n } from "fumadocs-ui/contexts/i18n";
 import type { ComponentProps } from "react";
-import { cn } from "../../lib/cn";
 import { buttonVariants } from "@/components/docs/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/docs/ui/popover";
+import { cn } from "../../lib/cn";
 
 export type LanguageSelectProps = ComponentProps<"button">;
 

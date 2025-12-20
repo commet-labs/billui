@@ -12,8 +12,8 @@ import {
   type ReactNode,
   useMemo,
 } from "react";
-import { cn } from "../../../lib/cn";
 import { buttonVariants } from "@/components/docs/ui/button";
+import { cn } from "../../../lib/cn";
 import { LanguageToggle, LanguageToggleText } from "../language-toggle";
 import { LinkItem, type LinkItemType } from "../link-item";
 import { LargeSearchToggle, SearchToggle } from "../search-toggle";
