@@ -2,6 +2,8 @@ export interface RegistryItem {
   name: string;
   type: "registry:ui" | "registry:component" | "registry:block";
   description: string;
+  /** Source folder within src/registry/ (defaults to "ui") */
+  folder?: "ui" | "animated";
   dependencies?: string[];
   devDependencies?: string[];
   registryDependencies?: string[];

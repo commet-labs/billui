@@ -1,10 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { NextResponse } from "next/server";
-import { getRegistryItem } from "@/registry/registry";
-
-// Components that live in the animated/ folder instead of ui/
-const ANIMATED_COMPONENTS = ["animated-usage-card"];
+import { getRegistryItem, registry } from "@/registry/registry";
 
 // Map component names to their exports for generating imports
 const componentExports: Record<string, string[]> = {
@@ -93,10 +90,6 @@ const componentExports: Record<string, string[]> = {
   ],
 };
 
-function getComponentFolder(componentName: string): string {
-  return ANIMATED_COMPONENTS.includes(componentName) ? "animated" : "ui";
-}
-
 function generateDemoPage(componentName: string, exampleCode: string): string {
   const exports = componentExports[componentName] || [];
 
@@ -142,6 +135,18 @@ export default function Page() {
 `;
 }
 
+/**
+ * Dynamic demo block generator for shadcn registry.
+ *
+ * This endpoint generates registry:block JSON dynamically from inline code examples.
+ * Instead of pre-generating static demo files, the example code is passed via
+ * base64-encoded query parameter, allowing documentation examples to work
+ * directly with v0's "Open in v0" feature.
+ *
+ * Usage: /r/[component]/demo?code=[base64EncodedJSX]
+ *
+ * The base64 should be: btoa(encodeURIComponent(jsxCode))
+ */
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ name: string }> },
@@ -164,14 +169,23 @@ export async function GET(
     );
   }
 
+  // Require code parameter - no fallback to static files
+  if (!codeParam) {
+    return NextResponse.json(
+      {
+        error: `Missing ?code= parameter. Encode your JSX with btoa(encodeURIComponent(code))`,
+      },
+      { status: 400 },
+    );
+  }
+
   try {
     // Read the component source file
-    const folder = getComponentFolder(componentName);
     const componentPath = path.join(
       process.cwd(),
       "src",
       "registry",
-      folder,
+      item.folder ?? "ui",
       `${componentName}.tsx`,
     );
 
@@ -183,41 +197,10 @@ export async function GET(
       .replace(/@\/registry\/ui\//g, "@/components/ui/")
       .replace(/@\/registry\/animated\//g, "@/components/ui/");
 
-    // Generate demo content - either from query param or use default
-    let demoContent: string;
-
-    if (codeParam) {
-      // Decode the base64 code (was encoded with encodeURIComponent + btoa)
-      const decoded = Buffer.from(codeParam, "base64").toString("utf-8");
-      const exampleCode = decodeURIComponent(decoded);
-      demoContent = generateDemoPage(componentName, exampleCode);
-    } else {
-      // Try to read the default demo file
-      const demoPath = path.join(
-        process.cwd(),
-        "src",
-        "registry",
-        "demos",
-        `${componentName}-demo.tsx`,
-      );
-
-      const defaultDemo = await fs
-        .readFile(demoPath, "utf-8")
-        .catch(() => null);
-
-      if (defaultDemo) {
-        demoContent = defaultDemo
-          .replace(/@\/registry\/ui\//g, "@/components/ui/")
-          .replace(/@\/registry\/shadcn\//g, "@/components/ui/");
-      } else {
-        return NextResponse.json(
-          {
-            error: `Demo for "${componentName}" not found. Provide ?code= parameter.`,
-          },
-          { status: 404 },
-        );
-      }
-    }
+    // Decode the base64 code (was encoded with encodeURIComponent + btoa)
+    const decoded = Buffer.from(codeParam, "base64").toString("utf-8");
+    const exampleCode = decodeURIComponent(decoded);
+    const demoContent = generateDemoPage(componentName, exampleCode);
 
     const registryBlock = {
       $schema: "https://ui.shadcn.com/schema/registry-item.json",
@@ -254,4 +237,13 @@ export async function GET(
       { status: 500 },
     );
   }
+}
+
+/**
+ * Generate static params for all registry components.
+ * This enables static generation at build time when combined with
+ * a build script that pre-generates the demo JSONs.
+ */
+export function generateStaticParams() {
+  return Object.keys(registry).map((name) => ({ name }));
 }

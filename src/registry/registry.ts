@@ -96,6 +96,7 @@ export const registry: Record<string, RegistryItem> = {
     type: "registry:ui",
     description:
       "An animated version of usage-card with smooth spring animations powered by motion.",
+    folder: "animated",
     dependencies: ["lucide-react", "motion"],
     registryDependencies: ["button"],
     files: [], // Will be populated dynamically from source files

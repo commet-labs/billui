@@ -4,13 +4,6 @@ import { NextResponse } from "next/server";
 import { getRegistryItem } from "@/registry/registry";
 import type { RegistryItem } from "@/registry/types";
 
-// Components that live in the animated/ folder instead of ui/
-const ANIMATED_COMPONENTS = ["animated-usage-card"];
-
-function getComponentFolder(componentName: string): string {
-  return ANIMATED_COMPONENTS.includes(componentName) ? "animated" : "ui";
-}
-
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ name: string }> },
@@ -30,13 +23,12 @@ export async function GET(
   }
 
   try {
-    // Read the component source file
-    const folder = getComponentFolder(componentName);
+    // Read the component source file (use folder from registry, default to "ui")
     const componentPath = path.join(
       process.cwd(),
       "src",
       "registry",
-      folder,
+      item.folder ?? "ui",
       `${componentName}.tsx`,
     );
 
