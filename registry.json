@@ -91,6 +91,21 @@
           "target": "components/ui/animated-usage-card.tsx"
         }
       ]
+    },
+    {
+      "name": "pricing-table",
+      "type": "registry:ui",
+      "title": "Pricing Table",
+      "description": "A comparison table for displaying multiple pricing plans side by side with feature comparison.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "badge"],
+      "files": [
+        {
+          "path": "src/registry/ui/pricing-table.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pricing-table.tsx"
+        }
+      ]
     }
   ]
 }

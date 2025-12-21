@@ -50,6 +50,12 @@ const componentExports: Record<string, string[]> = {
     "PlanGroup", "PlanGroupHeader", "PlanGroupTitle", "PlanGroupDescription",
     "PlanGroupToggle", "PlanGroupContent", "PlanPrice",
   ],
+  "pricing-table": [
+    "PricingTable", "PricingTableHeader", "PricingTablePlan", "PricingTableBadge",
+    "PricingTablePlanName", "PricingTablePrice", "PricingTablePlanDescription",
+    "PricingTableAction", "PricingTableBody", "PricingTableRow", "PricingTableFeatureCell",
+    "PricingTableSpacer", "PricingTableCell", "PricingTableFeatureLabel",
+  ],
 };
 
 function generateDemoPage(componentName: string, exampleCode: string): string {

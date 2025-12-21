@@ -20,7 +20,82 @@ import {
   PricingTableFeatureLabel,
 } from "@/registry/ui";
 
-<ComponentPreview component="pricing-table" example="preview">
+<ComponentPreview component="pricing-table" example="preview" code={`<PricingTable className="max-w-4xl">
+  <PricingTableHeader columns={4}>
+    <PricingTableSpacer />
+    <PricingTablePlan>
+      <PricingTablePlanName>Free</PricingTablePlanName>
+      <PricingTablePrice amount={0} />
+      <PricingTablePlanDescription>For individuals</PricingTablePlanDescription>
+      <PricingTableAction variant="outline">Get Started</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan highlighted>
+      <PricingTableBadge>Popular</PricingTableBadge>
+      <PricingTablePlanName>Pro</PricingTablePlanName>
+      <PricingTablePrice amount={29} />
+      <PricingTablePlanDescription>For small teams</PricingTablePlanDescription>
+      <PricingTableAction>Start Trial</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan>
+      <PricingTablePlanName>Enterprise</PricingTablePlanName>
+      <PricingTablePrice amount={99} />
+      <PricingTablePlanDescription>For large orgs</PricingTablePlanDescription>
+      <PricingTableAction variant="outline">Contact Sales</PricingTableAction>
+    </PricingTablePlan>
+  </PricingTableHeader>
+  <PricingTableBody>
+    <PricingTableFeatureLabel>Usage</PricingTableFeatureLabel>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Projects</PricingTableFeatureCell>
+      <PricingTableCell value="3" />
+      <PricingTableCell value="Unlimited" highlighted />
+      <PricingTableCell value="Unlimited" />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Team members</PricingTableFeatureCell>
+      <PricingTableCell value="1" />
+      <PricingTableCell value="10" highlighted />
+      <PricingTableCell value="Unlimited" />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Storage</PricingTableFeatureCell>
+      <PricingTableCell value="1 GB" />
+      <PricingTableCell value="100 GB" highlighted />
+      <PricingTableCell value="Unlimited" />
+    </PricingTableRow>
+    <PricingTableFeatureLabel>Features</PricingTableFeatureLabel>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Analytics</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={true} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Custom domains</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={true} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>API access</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value="partial" highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Priority support</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={false} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>SSO</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={false} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+  </PricingTableBody>
+</PricingTable>`}>
   <PricingTable className="max-w-4xl">
     <PricingTableHeader columns={4}>
       <PricingTableSpacer />
@@ -99,11 +174,429 @@ import {
   </PricingTable>
 </ComponentPreview>
 
+## Installation
+
+<Tabs items={["CLI", "Manual"]}>
+  <Tab value="CLI">
+```bash
+npx shadcn@latest add "https://billui.com/r/pricing-table.json"
+```
+  </Tab>
+  <Tab value="Manual">
+
+```tsx title="components/ui/pricing-table.tsx"
+import { cva, type VariantProps } from "class-variance-authority";
+import { Check, Minus, X } from "lucide-react";
+import * as React from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+const GRID_COLS = {
+  3: "grid-cols-3",
+  4: "grid-cols-4",
+  5: "grid-cols-5",
+} as const;
+
+type ColumnCount = keyof typeof GRID_COLS;
+
+const pricingTableVariants = cva(
+  "relative w-full overflow-hidden rounded-2xl border bg-card text-card-foreground",
+  {
+    variants: {
+      variant: {
+        default: "border-border",
+        elevated: "border-border shadow-lg",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+);
+
+interface PricingTableProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof pricingTableVariants> {
+  /** Accessible label for the pricing table */
+  "aria-label"?: string;
+}
+
+const PricingTable = React.forwardRef<HTMLDivElement, PricingTableProps>(
+  (
+    {
+      className,
+      variant,
+      "aria-label": ariaLabel = "Pricing comparison",
+      ...props
+    },
+    ref,
+  ) => (
+    <div
+      ref={ref}
+      role="table"
+      aria-label={ariaLabel}
+      className={cn(pricingTableVariants({ variant, className }))}
+      {...props}
+    />
+  ),
+);
+PricingTable.displayName = "PricingTable";
+
+interface PricingTableHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  columns?: ColumnCount;
+}
+
+const PricingTableHeader = React.forwardRef<
+  HTMLDivElement,
+  PricingTableHeaderProps
+>(({ className, columns = 4, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="rowgroup"
+    className={cn("grid border-b bg-muted/30", GRID_COLS[columns], className)}
+    {...props}
+  />
+));
+PricingTableHeader.displayName = "PricingTableHeader";
+
+interface PricingTablePlanProps extends React.HTMLAttributes<HTMLDivElement> {
+  highlighted?: boolean;
+}
+
+const PricingTablePlan = React.forwardRef<
+  HTMLDivElement,
+  PricingTablePlanProps
+>(({ className, highlighted, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="columnheader"
+    className={cn(
+      "flex flex-col items-center gap-1 p-6 text-center",
+      highlighted && "bg-primary/5 ring-2 ring-inset ring-primary",
+      className,
+    )}
+    {...props}
+  />
+));
+PricingTablePlan.displayName = "PricingTablePlan";
+
+interface PricingTableBadgeProps
+  extends React.ComponentPropsWithoutRef<typeof Badge> {}
+
+const PricingTableBadge = React.forwardRef<
+  HTMLDivElement,
+  PricingTableBadgeProps
+>(({ className, ...props }, ref) => (
+  <Badge ref={ref} className={cn("mb-2", className)} {...props} />
+));
+PricingTableBadge.displayName = "PricingTableBadge";
+
+interface PricingTablePlanNameProps
+  extends React.HTMLAttributes<HTMLHeadingElement> {
+  /** Heading level (default: 3) */
+  as?: "h2" | "h3" | "h4";
+}
+
+const PricingTablePlanName = React.forwardRef<
+  HTMLHeadingElement,
+  PricingTablePlanNameProps
+>(({ className, as: Component = "h3", ...props }, ref) => (
+  <Component
+    ref={ref}
+    className={cn("text-lg font-semibold tracking-tight", className)}
+    {...props}
+  />
+));
+PricingTablePlanName.displayName = "PricingTablePlanName";
+
+interface PricingTablePriceProps extends React.HTMLAttributes<HTMLDivElement> {
+  amount: number;
+  currency?: string;
+  period?: "month" | "year" | "once";
+}
+
+const PricingTablePrice = React.forwardRef<
+  HTMLDivElement,
+  PricingTablePriceProps
+>(({ className, amount, currency = "$", period = "month", ...props }, ref) => {
+  const periodLabel = {
+    month: "/mo",
+    year: "/yr",
+    once: "",
+  };
+
+  const periodFullLabel = {
+    month: "per month",
+    year: "per year",
+    once: "one-time payment",
+  };
+
+  const srLabel =
+    period === "once"
+      ? `${currency}${amount}, ${periodFullLabel[period]}`
+      : `${currency}${amount} ${periodFullLabel[period]}`;
+
+  return (
+    <div
+      ref={ref}
+      className={cn("mt-2 flex items-baseline gap-0.5", className)}
+      {...props}
+    >
+      <span className="sr-only">{srLabel}</span>
+      <span className="text-3xl font-bold tracking-tight" aria-hidden="true">
+        {currency}
+        {amount}
+      </span>
+      {period !== "once" && (
+        <span className="text-sm text-muted-foreground" aria-hidden="true">
+          {periodLabel[period]}
+        </span>
+      )}
+    </div>
+  );
+});
+PricingTablePrice.displayName = "PricingTablePrice";
+
+const PricingTablePlanDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("mt-1 text-sm text-muted-foreground", className)}
+    {...props}
+  />
+));
+PricingTablePlanDescription.displayName = "PricingTablePlanDescription";
+
+interface PricingTableActionProps
+  extends React.ComponentPropsWithoutRef<typeof Button> {}
+
+const PricingTableAction = React.forwardRef<
+  HTMLButtonElement,
+  PricingTableActionProps
+>(({ className, ...props }, ref) => (
+  <Button ref={ref} className={cn("mt-4 w-full", className)} {...props} />
+));
+PricingTableAction.displayName = "PricingTableAction";
+
+const PricingTableBody = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="rowgroup"
+    className={cn("divide-y", className)}
+    {...props}
+  />
+));
+PricingTableBody.displayName = "PricingTableBody";
+
+interface PricingTableRowProps extends React.HTMLAttributes<HTMLDivElement> {
+  columns?: ColumnCount;
+}
+
+const PricingTableRow = React.forwardRef<HTMLDivElement, PricingTableRowProps>(
+  ({ className, columns = 4, ...props }, ref) => (
+    <div
+      ref={ref}
+      role="row"
+      className={cn("grid items-stretch", GRID_COLS[columns], className)}
+      {...props}
+    />
+  ),
+);
+PricingTableRow.displayName = "PricingTableRow";
+
+const PricingTableFeatureCell = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="rowheader"
+    className={cn(
+      "flex items-center self-stretch px-6 py-4 text-sm font-medium",
+      className,
+    )}
+    {...props}
+  />
+));
+PricingTableFeatureCell.displayName = "PricingTableFeatureCell";
+
+const PricingTableSpacer = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="columnheader"
+    aria-hidden="true"
+    className={cn("p-6", className)}
+    {...props}
+  />
+));
+PricingTableSpacer.displayName = "PricingTableSpacer";
+
+type CellValue = boolean | string | "partial";
+
+interface PricingTableCellProps extends React.HTMLAttributes<HTMLDivElement> {
+  value: CellValue;
+  highlighted?: boolean;
+}
+
+const PricingTableCell = React.forwardRef<
+  HTMLDivElement,
+  PricingTableCellProps
+>(({ className, value, highlighted, ...props }, ref) => {
+  const renderValue = () => {
+    if (typeof value === "boolean") {
+      return value ? (
+        <Check className="h-5 w-5 text-primary" aria-hidden="true" />
+      ) : (
+        <X className="h-5 w-5 text-muted-foreground/50" aria-hidden="true" />
+      );
+    }
+    if (value === "partial") {
+      return (
+        <Minus className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+      );
+    }
+    return <span className="text-sm">{value}</span>;
+  };
+
+  const getAriaLabel = () => {
+    if (typeof value === "boolean") {
+      return value ? "Included" : "Not included";
+    }
+    if (value === "partial") {
+      return "Partially included";
+    }
+    return undefined;
+  };
+
+  const ariaLabel = getAriaLabel();
+
+  return (
+    <div
+      ref={ref}
+      role="cell"
+      aria-label={ariaLabel}
+      className={cn(
+        "flex items-center justify-center self-stretch px-6 py-4",
+        highlighted && "bg-primary/5",
+        className,
+      )}
+      {...props}
+    >
+      {renderValue()}
+    </div>
+  );
+});
+PricingTableCell.displayName = "PricingTableCell";
+
+interface PricingTableFeatureLabelProps
+  extends React.HTMLAttributes<HTMLDivElement> {}
+
+const PricingTableFeatureLabel = React.forwardRef<
+  HTMLDivElement,
+  PricingTableFeatureLabelProps
+>(({ className, children, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="row"
+    aria-label={
+      typeof children === "string" ? `${children} section` : undefined
+    }
+    className={cn(
+      "px-6 py-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground bg-muted/50",
+      className,
+    )}
+    {...props}
+  >
+    {children}
+  </div>
+));
+PricingTableFeatureLabel.displayName = "PricingTableFeatureLabel";
+
+export {
+  PricingTable,
+  PricingTableHeader,
+  PricingTablePlan,
+  PricingTableBadge,
+  PricingTablePlanName,
+  PricingTablePrice,
+  PricingTablePlanDescription,
+  PricingTableAction,
+  PricingTableBody,
+  PricingTableRow,
+  PricingTableFeatureCell,
+  PricingTableSpacer,
+  PricingTableCell,
+  PricingTableFeatureLabel,
+  pricingTableVariants,
+};
+
+export type {
+  PricingTableProps,
+  PricingTableHeaderProps,
+  PricingTablePlanProps,
+  PricingTableBadgeProps,
+  PricingTablePriceProps,
+  PricingTablePlanNameProps,
+  PricingTableActionProps,
+  PricingTableRowProps,
+  PricingTableCellProps,
+  PricingTableFeatureLabelProps,
+  CellValue,
+  ColumnCount,
+};
+```
+
+  </Tab>
+</Tabs>
+
 ## Examples
 
 ### Compact (2 Plans)
 
-<ComponentPreview component="pricing-table" example="compact">
+Use 3 columns for a compact table with 2 plans.
+
+<ComponentPreview component="pricing-table" example="compact" code={`<PricingTable className="max-w-3xl">
+  <PricingTableHeader columns={3}>
+    <PricingTableSpacer />
+    <PricingTablePlan>
+      <PricingTablePlanName>Starter</PricingTablePlanName>
+      <PricingTablePrice amount={9} />
+      <PricingTableAction variant="outline" size="sm">Select</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan highlighted>
+      <PricingTableBadge>Best Value</PricingTableBadge>
+      <PricingTablePlanName>Pro</PricingTablePlanName>
+      <PricingTablePrice amount={29} />
+      <PricingTableAction size="sm">Select</PricingTableAction>
+    </PricingTablePlan>
+  </PricingTableHeader>
+  <PricingTableBody>
+    <PricingTableRow columns={3}>
+      <PricingTableFeatureCell>API calls</PricingTableFeatureCell>
+      <PricingTableCell value="1,000/mo" />
+      <PricingTableCell value="100,000/mo" highlighted />
+    </PricingTableRow>
+    <PricingTableRow columns={3}>
+      <PricingTableFeatureCell>Webhooks</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={true} highlighted />
+    </PricingTableRow>
+    <PricingTableRow columns={3}>
+      <PricingTableFeatureCell>Support</PricingTableFeatureCell>
+      <PricingTableCell value="Email" />
+      <PricingTableCell value="Priority" highlighted />
+    </PricingTableRow>
+  </PricingTableBody>
+</PricingTable>`}>
   <PricingTable className="max-w-3xl">
     <PricingTableHeader columns={3}>
       <PricingTableSpacer />
@@ -141,7 +634,58 @@ import {
 
 ### Yearly Pricing
 
-<ComponentPreview component="pricing-table" example="yearly">
+Use `period="year"` for annual billing with the elevated variant.
+
+<ComponentPreview component="pricing-table" example="yearly" code={`<PricingTable variant="elevated" className="max-w-4xl">
+  <PricingTableHeader columns={4}>
+    <PricingTableSpacer />
+    <PricingTablePlan>
+      <PricingTablePlanName>Basic</PricingTablePlanName>
+      <PricingTablePrice amount={79} period="year" />
+      <PricingTablePlanDescription>$6.58/mo billed yearly</PricingTablePlanDescription>
+      <PricingTableAction variant="outline">Choose Basic</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan highlighted>
+      <PricingTableBadge variant="secondary">Save 20%</PricingTableBadge>
+      <PricingTablePlanName>Professional</PricingTablePlanName>
+      <PricingTablePrice amount={279} period="year" />
+      <PricingTablePlanDescription>$23.25/mo billed yearly</PricingTablePlanDescription>
+      <PricingTableAction>Choose Pro</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan>
+      <PricingTablePlanName>Business</PricingTablePlanName>
+      <PricingTablePrice amount={599} period="year" />
+      <PricingTablePlanDescription>$49.92/mo billed yearly</PricingTablePlanDescription>
+      <PricingTableAction variant="outline">Choose Business</PricingTableAction>
+    </PricingTablePlan>
+  </PricingTableHeader>
+  <PricingTableBody>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Seats included</PricingTableFeatureCell>
+      <PricingTableCell value="1" />
+      <PricingTableCell value="5" highlighted />
+      <PricingTableCell value="20" />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Projects</PricingTableFeatureCell>
+      <PricingTableCell value="5" />
+      <PricingTableCell value="Unlimited" highlighted />
+      <PricingTableCell value="Unlimited" />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Advanced reports</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={true} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Audit logs</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={false} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+  </PricingTableBody>
+</PricingTable>`}>
   <PricingTable variant="elevated" className="max-w-4xl">
     <PricingTableHeader columns={4}>
       <PricingTableSpacer />
@@ -193,3 +737,424 @@ import {
     </PricingTableBody>
   </PricingTable>
 </ComponentPreview>
+
+### Expanded (4 Plans)
+
+Use 5 columns for comparing more plans.
+
+<ComponentPreview component="pricing-table" example="expanded" code={`<PricingTable className="max-w-5xl">
+  <PricingTableHeader columns={5}>
+    <PricingTableSpacer />
+    <PricingTablePlan>
+      <PricingTablePlanName>Free</PricingTablePlanName>
+      <PricingTablePrice amount={0} />
+      <PricingTableAction variant="outline" size="sm">Start Free</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan>
+      <PricingTablePlanName>Starter</PricingTablePlanName>
+      <PricingTablePrice amount={19} />
+      <PricingTableAction variant="outline" size="sm">Get Started</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan highlighted>
+      <PricingTableBadge>Popular</PricingTableBadge>
+      <PricingTablePlanName>Pro</PricingTablePlanName>
+      <PricingTablePrice amount={49} />
+      <PricingTableAction size="sm">Start Trial</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan>
+      <PricingTablePlanName>Enterprise</PricingTablePlanName>
+      <PricingTablePrice amount={199} />
+      <PricingTableAction variant="outline" size="sm">Contact Sales</PricingTableAction>
+    </PricingTablePlan>
+  </PricingTableHeader>
+  <PricingTableBody>
+    <PricingTableRow columns={5}>
+      <PricingTableFeatureCell>Users</PricingTableFeatureCell>
+      <PricingTableCell value="1" />
+      <PricingTableCell value="5" />
+      <PricingTableCell value="25" highlighted />
+      <PricingTableCell value="Unlimited" />
+    </PricingTableRow>
+    <PricingTableRow columns={5}>
+      <PricingTableFeatureCell>Storage</PricingTableFeatureCell>
+      <PricingTableCell value="500 MB" />
+      <PricingTableCell value="10 GB" />
+      <PricingTableCell value="100 GB" highlighted />
+      <PricingTableCell value="Unlimited" />
+    </PricingTableRow>
+    <PricingTableRow columns={5}>
+      <PricingTableFeatureCell>Custom branding</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={false} />
+      <PricingTableCell value={true} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+    <PricingTableRow columns={5}>
+      <PricingTableFeatureCell>Dedicated support</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={false} />
+      <PricingTableCell value="partial" highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+  </PricingTableBody>
+</PricingTable>`}>
+  <PricingTable className="max-w-5xl">
+    <PricingTableHeader columns={5}>
+      <PricingTableSpacer />
+      <PricingTablePlan>
+        <PricingTablePlanName>Free</PricingTablePlanName>
+        <PricingTablePrice amount={0} />
+        <PricingTableAction variant="outline" size="sm">Start Free</PricingTableAction>
+      </PricingTablePlan>
+      <PricingTablePlan>
+        <PricingTablePlanName>Starter</PricingTablePlanName>
+        <PricingTablePrice amount={19} />
+        <PricingTableAction variant="outline" size="sm">Get Started</PricingTableAction>
+      </PricingTablePlan>
+      <PricingTablePlan highlighted>
+        <PricingTableBadge>Popular</PricingTableBadge>
+        <PricingTablePlanName>Pro</PricingTablePlanName>
+        <PricingTablePrice amount={49} />
+        <PricingTableAction size="sm">Start Trial</PricingTableAction>
+      </PricingTablePlan>
+      <PricingTablePlan>
+        <PricingTablePlanName>Enterprise</PricingTablePlanName>
+        <PricingTablePrice amount={199} />
+        <PricingTableAction variant="outline" size="sm">Contact Sales</PricingTableAction>
+      </PricingTablePlan>
+    </PricingTableHeader>
+    <PricingTableBody>
+      <PricingTableRow columns={5}>
+        <PricingTableFeatureCell>Users</PricingTableFeatureCell>
+        <PricingTableCell value="1" />
+        <PricingTableCell value="5" />
+        <PricingTableCell value="25" highlighted />
+        <PricingTableCell value="Unlimited" />
+      </PricingTableRow>
+      <PricingTableRow columns={5}>
+        <PricingTableFeatureCell>Storage</PricingTableFeatureCell>
+        <PricingTableCell value="500 MB" />
+        <PricingTableCell value="10 GB" />
+        <PricingTableCell value="100 GB" highlighted />
+        <PricingTableCell value="Unlimited" />
+      </PricingTableRow>
+      <PricingTableRow columns={5}>
+        <PricingTableFeatureCell>Custom branding</PricingTableFeatureCell>
+        <PricingTableCell value={false} />
+        <PricingTableCell value={false} />
+        <PricingTableCell value={true} highlighted />
+        <PricingTableCell value={true} />
+      </PricingTableRow>
+      <PricingTableRow columns={5}>
+        <PricingTableFeatureCell>Dedicated support</PricingTableFeatureCell>
+        <PricingTableCell value={false} />
+        <PricingTableCell value={false} />
+        <PricingTableCell value="partial" highlighted />
+        <PricingTableCell value={true} />
+      </PricingTableRow>
+    </PricingTableBody>
+  </PricingTable>
+</ComponentPreview>
+
+### One-time Pricing
+
+Use `period="once"` for one-time purchase pricing.
+
+<ComponentPreview component="pricing-table" example="once" code={`<PricingTable className="max-w-3xl">
+  <PricingTableHeader columns={3}>
+    <PricingTableSpacer />
+    <PricingTablePlan>
+      <PricingTablePlanName>Standard</PricingTablePlanName>
+      <PricingTablePrice amount={99} period="once" />
+      <PricingTablePlanDescription>One-time payment</PricingTablePlanDescription>
+      <PricingTableAction variant="outline">Buy Now</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan highlighted>
+      <PricingTableBadge>Best Value</PricingTableBadge>
+      <PricingTablePlanName>Extended</PricingTablePlanName>
+      <PricingTablePrice amount={249} period="once" />
+      <PricingTablePlanDescription>Lifetime access</PricingTablePlanDescription>
+      <PricingTableAction>Buy Now</PricingTableAction>
+    </PricingTablePlan>
+  </PricingTableHeader>
+  <PricingTableBody>
+    <PricingTableRow columns={3}>
+      <PricingTableFeatureCell>License type</PricingTableFeatureCell>
+      <PricingTableCell value="Single site" />
+      <PricingTableCell value="Unlimited sites" highlighted />
+    </PricingTableRow>
+    <PricingTableRow columns={3}>
+      <PricingTableFeatureCell>Updates</PricingTableFeatureCell>
+      <PricingTableCell value="1 year" />
+      <PricingTableCell value="Lifetime" highlighted />
+    </PricingTableRow>
+    <PricingTableRow columns={3}>
+      <PricingTableFeatureCell>Premium support</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={true} highlighted />
+    </PricingTableRow>
+  </PricingTableBody>
+</PricingTable>`}>
+  <PricingTable className="max-w-3xl">
+    <PricingTableHeader columns={3}>
+      <PricingTableSpacer />
+      <PricingTablePlan>
+        <PricingTablePlanName>Standard</PricingTablePlanName>
+        <PricingTablePrice amount={99} period="once" />
+        <PricingTablePlanDescription>One-time payment</PricingTablePlanDescription>
+        <PricingTableAction variant="outline">Buy Now</PricingTableAction>
+      </PricingTablePlan>
+      <PricingTablePlan highlighted>
+        <PricingTableBadge>Best Value</PricingTableBadge>
+        <PricingTablePlanName>Extended</PricingTablePlanName>
+        <PricingTablePrice amount={249} period="once" />
+        <PricingTablePlanDescription>Lifetime access</PricingTablePlanDescription>
+        <PricingTableAction>Buy Now</PricingTableAction>
+      </PricingTablePlan>
+    </PricingTableHeader>
+    <PricingTableBody>
+      <PricingTableRow columns={3}>
+        <PricingTableFeatureCell>License type</PricingTableFeatureCell>
+        <PricingTableCell value="Single site" />
+        <PricingTableCell value="Unlimited sites" highlighted />
+      </PricingTableRow>
+      <PricingTableRow columns={3}>
+        <PricingTableFeatureCell>Updates</PricingTableFeatureCell>
+        <PricingTableCell value="1 year" />
+        <PricingTableCell value="Lifetime" highlighted />
+      </PricingTableRow>
+      <PricingTableRow columns={3}>
+        <PricingTableFeatureCell>Premium support</PricingTableFeatureCell>
+        <PricingTableCell value={false} />
+        <PricingTableCell value={true} highlighted />
+      </PricingTableRow>
+    </PricingTableBody>
+  </PricingTable>
+</ComponentPreview>
+
+### With Feature Sections
+
+Group features using `PricingTableFeatureLabel` for better organization.
+
+<ComponentPreview component="pricing-table" example="sections" code={`<PricingTable variant="elevated" className="max-w-4xl">
+  <PricingTableHeader columns={4}>
+    <PricingTableSpacer />
+    <PricingTablePlan>
+      <PricingTablePlanName>Hobby</PricingTablePlanName>
+      <PricingTablePrice amount={0} />
+      <PricingTableAction variant="outline">Start Free</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan highlighted>
+      <PricingTableBadge>Most Popular</PricingTableBadge>
+      <PricingTablePlanName>Team</PricingTablePlanName>
+      <PricingTablePrice amount={39} />
+      <PricingTableAction>Start Trial</PricingTableAction>
+    </PricingTablePlan>
+    <PricingTablePlan>
+      <PricingTablePlanName>Enterprise</PricingTablePlanName>
+      <PricingTablePrice amount={149} />
+      <PricingTableAction variant="outline">Contact Us</PricingTableAction>
+    </PricingTablePlan>
+  </PricingTableHeader>
+  <PricingTableBody>
+    <PricingTableFeatureLabel>Core Features</PricingTableFeatureLabel>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Workspaces</PricingTableFeatureCell>
+      <PricingTableCell value="1" />
+      <PricingTableCell value="5" highlighted />
+      <PricingTableCell value="Unlimited" />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>File storage</PricingTableFeatureCell>
+      <PricingTableCell value="1 GB" />
+      <PricingTableCell value="50 GB" highlighted />
+      <PricingTableCell value="500 GB" />
+    </PricingTableRow>
+    <PricingTableFeatureLabel>Collaboration</PricingTableFeatureLabel>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Real-time editing</PricingTableFeatureCell>
+      <PricingTableCell value={true} />
+      <PricingTableCell value={true} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>Guest access</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={true} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+    <PricingTableFeatureLabel>Security</PricingTableFeatureLabel>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>2FA</PricingTableFeatureCell>
+      <PricingTableCell value={true} />
+      <PricingTableCell value={true} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+    <PricingTableRow columns={4}>
+      <PricingTableFeatureCell>SAML SSO</PricingTableFeatureCell>
+      <PricingTableCell value={false} />
+      <PricingTableCell value={false} highlighted />
+      <PricingTableCell value={true} />
+    </PricingTableRow>
+  </PricingTableBody>
+</PricingTable>`}>
+  <PricingTable variant="elevated" className="max-w-4xl">
+    <PricingTableHeader columns={4}>
+      <PricingTableSpacer />
+      <PricingTablePlan>
+        <PricingTablePlanName>Hobby</PricingTablePlanName>
+        <PricingTablePrice amount={0} />
+        <PricingTableAction variant="outline">Start Free</PricingTableAction>
+      </PricingTablePlan>
+      <PricingTablePlan highlighted>
+        <PricingTableBadge>Most Popular</PricingTableBadge>
+        <PricingTablePlanName>Team</PricingTablePlanName>
+        <PricingTablePrice amount={39} />
+        <PricingTableAction>Start Trial</PricingTableAction>
+      </PricingTablePlan>
+      <PricingTablePlan>
+        <PricingTablePlanName>Enterprise</PricingTablePlanName>
+        <PricingTablePrice amount={149} />
+        <PricingTableAction variant="outline">Contact Us</PricingTableAction>
+      </PricingTablePlan>
+    </PricingTableHeader>
+    <PricingTableBody>
+      <PricingTableFeatureLabel>Core Features</PricingTableFeatureLabel>
+      <PricingTableRow columns={4}>
+        <PricingTableFeatureCell>Workspaces</PricingTableFeatureCell>
+        <PricingTableCell value="1" />
+        <PricingTableCell value="5" highlighted />
+        <PricingTableCell value="Unlimited" />
+      </PricingTableRow>
+      <PricingTableRow columns={4}>
+        <PricingTableFeatureCell>File storage</PricingTableFeatureCell>
+        <PricingTableCell value="1 GB" />
+        <PricingTableCell value="50 GB" highlighted />
+        <PricingTableCell value="500 GB" />
+      </PricingTableRow>
+      <PricingTableFeatureLabel>Collaboration</PricingTableFeatureLabel>
+      <PricingTableRow columns={4}>
+        <PricingTableFeatureCell>Real-time editing</PricingTableFeatureCell>
+        <PricingTableCell value={true} />
+        <PricingTableCell value={true} highlighted />
+        <PricingTableCell value={true} />
+      </PricingTableRow>
+      <PricingTableRow columns={4}>
+        <PricingTableFeatureCell>Guest access</PricingTableFeatureCell>
+        <PricingTableCell value={false} />
+        <PricingTableCell value={true} highlighted />
+        <PricingTableCell value={true} />
+      </PricingTableRow>
+      <PricingTableFeatureLabel>Security</PricingTableFeatureLabel>
+      <PricingTableRow columns={4}>
+        <PricingTableFeatureCell>2FA</PricingTableFeatureCell>
+        <PricingTableCell value={true} />
+        <PricingTableCell value={true} highlighted />
+        <PricingTableCell value={true} />
+      </PricingTableRow>
+      <PricingTableRow columns={4}>
+        <PricingTableFeatureCell>SAML SSO</PricingTableFeatureCell>
+        <PricingTableCell value={false} />
+        <PricingTableCell value={false} highlighted />
+        <PricingTableCell value={true} />
+      </PricingTableRow>
+    </PricingTableBody>
+  </PricingTable>
+</ComponentPreview>
+
+## API Reference
+
+### PricingTable
+
+The root container component.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "elevated"` | `"default"` |
+| `aria-label` | `string` | `"Pricing comparison"` |
+
+### PricingTableHeader
+
+Container for plan headers. Must specify number of columns.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `columns` | `3 \| 4 \| 5` | `4` |
+
+### PricingTablePlan
+
+Individual plan column header.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `highlighted` | `boolean` | `false` |
+
+### PricingTableBadge
+
+Optional badge for highlighting plans (e.g., "Popular", "Best Value").
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "secondary" \| "outline"` | `"default"` |
+
+### PricingTablePlanName
+
+The plan name heading.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `as` | `"h2" \| "h3" \| "h4"` | `"h3"` |
+
+### PricingTablePrice
+
+Displays the price with optional period indicator.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `amount` | `number` | — |
+| `currency` | `string` | `"$"` |
+| `period` | `"month" \| "year" \| "once"` | `"month"` |
+
+### PricingTableAction
+
+CTA button for the plan.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "outline" \| "secondary"` | `"default"` |
+| `size` | `"default" \| "sm" \| "lg"` | `"default"` |
+
+### PricingTableRow
+
+A feature row. Must specify same number of columns as header.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `columns` | `3 \| 4 \| 5` | `4` |
+
+### PricingTableCell
+
+Individual cell for feature values.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `boolean \| string \| "partial"` | — |
+| `highlighted` | `boolean` | `false` |
+
+The `value` prop supports:
+- `true` — Shows a check icon (✓)
+- `false` — Shows an X icon (✗)
+- `"partial"` — Shows a minus icon (−) for partial support
+- `string` — Shows the text value
+
+### PricingTableFeatureLabel
+
+Section header for grouping features.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `children` | `React.ReactNode` | — |
+
+### PricingTableSpacer
+
+Empty spacer cell for the header's first column (where feature names appear in rows).
