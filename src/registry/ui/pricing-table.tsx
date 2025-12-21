@@ -5,6 +5,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+const GRID_COLS = {
+  3: "grid-cols-3",
+  4: "grid-cols-4",
+  5: "grid-cols-5",
+} as const;
+
+type ColumnCount = keyof typeof GRID_COLS;
+
 const pricingTableVariants = cva(
   "relative w-full overflow-hidden rounded-2xl border bg-card text-card-foreground",
   {
@@ -49,27 +57,20 @@ const PricingTable = React.forwardRef<HTMLDivElement, PricingTableProps>(
 PricingTable.displayName = "PricingTable";
 
 interface PricingTableHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-  columns?: 3 | 4 | 5;
+  columns?: ColumnCount;
 }
 
 const PricingTableHeader = React.forwardRef<
   HTMLDivElement,
   PricingTableHeaderProps
->(({ className, columns = 4, ...props }, ref) => {
-  const colsClass = {
-    3: "grid-cols-3",
-    4: "grid-cols-4",
-    5: "grid-cols-5",
-  };
-  return (
-    <div
-      ref={ref}
-      role="rowgroup"
-      className={cn("grid border-b bg-muted/30", colsClass[columns], className)}
-      {...props}
-    />
-  );
-});
+>(({ className, columns = 4, ...props }, ref) => (
+  <div
+    ref={ref}
+    role="rowgroup"
+    className={cn("grid border-b bg-muted/30", GRID_COLS[columns], className)}
+    {...props}
+  />
+));
 PricingTableHeader.displayName = "PricingTableHeader";
 
 interface PricingTablePlanProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -208,25 +209,18 @@ const PricingTableBody = React.forwardRef<
 PricingTableBody.displayName = "PricingTableBody";
 
 interface PricingTableRowProps extends React.HTMLAttributes<HTMLDivElement> {
-  columns?: 3 | 4 | 5;
+  columns?: ColumnCount;
 }
 
 const PricingTableRow = React.forwardRef<HTMLDivElement, PricingTableRowProps>(
-  ({ className, columns = 4, ...props }, ref) => {
-    const colsClass = {
-      3: "grid-cols-3",
-      4: "grid-cols-4",
-      5: "grid-cols-5",
-    };
-    return (
-      <div
-        ref={ref}
-        role="row"
-        className={cn("grid items-stretch", colsClass[columns], className)}
-        {...props}
-      />
-    );
-  },
+  ({ className, columns = 4, ...props }, ref) => (
+    <div
+      ref={ref}
+      role="row"
+      className={cn("grid items-stretch", GRID_COLS[columns], className)}
+      {...props}
+    />
+  ),
 );
 PricingTableRow.displayName = "PricingTableRow";
 
@@ -373,4 +367,5 @@ export type {
   PricingTableCellProps,
   PricingTableFeatureLabelProps,
   CellValue,
+  ColumnCount,
 };
