@@ -51,7 +51,7 @@ const componentExports: Record<string, string[]> = {
     "PlanGroupToggle", "PlanGroupContent", "PlanPrice",
   ],
   "pricing-table": [
-    "PricingTable", "PricingTableHeader", "PricingTablePlan", "PricingTableBadge",
+    "PricingTable", "PricingTableHeader", "PricingTablePlan",
     "PricingTablePlanName", "PricingTablePrice", "PricingTablePlanDescription",
     "PricingTableAction", "PricingTableBody", "PricingTableRow", "PricingTableFeatureCell",
     "PricingTableSpacer", "PricingTableCell", "PricingTableFeatureLabel",

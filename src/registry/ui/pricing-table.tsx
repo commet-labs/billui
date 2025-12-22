@@ -1,7 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { Check, Minus, X } from "lucide-react";
 import * as React from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -93,17 +92,6 @@ const PricingTablePlan = React.forwardRef<
   />
 ));
 PricingTablePlan.displayName = "PricingTablePlan";
-
-interface PricingTableBadgeProps
-  extends React.ComponentPropsWithoutRef<typeof Badge> {}
-
-const PricingTableBadge = React.forwardRef<
-  HTMLDivElement,
-  PricingTableBadgeProps
->(({ className, ...props }, ref) => (
-  <Badge ref={ref} className={cn("mb-2", className)} {...props} />
-));
-PricingTableBadge.displayName = "PricingTableBadge";
 
 interface PricingTablePlanNameProps
   extends React.HTMLAttributes<HTMLHeadingElement> {
@@ -341,7 +329,6 @@ export {
   PricingTable,
   PricingTableHeader,
   PricingTablePlan,
-  PricingTableBadge,
   PricingTablePlanName,
   PricingTablePrice,
   PricingTablePlanDescription,
@@ -359,7 +346,6 @@ export type {
   PricingTableProps,
   PricingTableHeaderProps,
   PricingTablePlanProps,
-  PricingTableBadgeProps,
   PricingTablePriceProps,
   PricingTablePlanNameProps,
   PricingTableActionProps,

@@ -82,7 +82,6 @@ export {
 export type {
   CellValue,
   PricingTableActionProps,
-  PricingTableBadgeProps,
   PricingTableCellProps,
   PricingTableFeatureLabelProps,
   PricingTableHeaderProps,
@@ -95,7 +94,6 @@ export type {
 export {
   PricingTable,
   PricingTableAction,
-  PricingTableBadge,
   PricingTableBody,
   PricingTableCell,
   PricingTableFeatureCell,

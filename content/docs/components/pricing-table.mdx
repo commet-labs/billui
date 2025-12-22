@@ -7,7 +7,6 @@ import {
   PricingTable,
   PricingTableHeader,
   PricingTablePlan,
-  PricingTableBadge,
   PricingTablePlanName,
   PricingTablePrice,
   PricingTablePlanDescription,
@@ -30,7 +29,6 @@ import {
       <PricingTableAction variant="outline">Get Started</PricingTableAction>
     </PricingTablePlan>
     <PricingTablePlan highlighted>
-      <PricingTableBadge>Popular</PricingTableBadge>
       <PricingTablePlanName>Pro</PricingTablePlanName>
       <PricingTablePrice amount={29} />
       <PricingTablePlanDescription>For small teams</PricingTablePlanDescription>
@@ -106,7 +104,6 @@ import {
         <PricingTableAction variant="outline">Get Started</PricingTableAction>
       </PricingTablePlan>
       <PricingTablePlan highlighted>
-        <PricingTableBadge>Popular</PricingTableBadge>
         <PricingTablePlanName>Pro</PricingTablePlanName>
         <PricingTablePrice amount={29} />
         <PricingTablePlanDescription>For small teams</PricingTablePlanDescription>
@@ -188,7 +185,6 @@ npx shadcn@latest add "https://billui.com/r/pricing-table.json"
 import { cva, type VariantProps } from "class-variance-authority";
 import { Check, Minus, X } from "lucide-react";
 import * as React from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -280,17 +276,6 @@ const PricingTablePlan = React.forwardRef<
   />
 ));
 PricingTablePlan.displayName = "PricingTablePlan";
-
-interface PricingTableBadgeProps
-  extends React.ComponentPropsWithoutRef<typeof Badge> {}
-
-const PricingTableBadge = React.forwardRef<
-  HTMLDivElement,
-  PricingTableBadgeProps
->(({ className, ...props }, ref) => (
-  <Badge ref={ref} className={cn("mb-2", className)} {...props} />
-));
-PricingTableBadge.displayName = "PricingTableBadge";
 
 interface PricingTablePlanNameProps
   extends React.HTMLAttributes<HTMLHeadingElement> {
@@ -525,7 +510,6 @@ export {
   PricingTable,
   PricingTableHeader,
   PricingTablePlan,
-  PricingTableBadge,
   PricingTablePlanName,
   PricingTablePrice,
   PricingTablePlanDescription,
@@ -543,7 +527,6 @@ export type {
   PricingTableProps,
   PricingTableHeaderProps,
   PricingTablePlanProps,
-  PricingTableBadgeProps,
   PricingTablePriceProps,
   PricingTablePlanNameProps,
   PricingTableActionProps,
@@ -573,7 +556,6 @@ Use 3 columns for a compact table with 2 plans.
       <PricingTableAction variant="outline" size="sm">Select</PricingTableAction>
     </PricingTablePlan>
     <PricingTablePlan highlighted>
-      <PricingTableBadge>Best Value</PricingTableBadge>
       <PricingTablePlanName>Pro</PricingTablePlanName>
       <PricingTablePrice amount={29} />
       <PricingTableAction size="sm">Select</PricingTableAction>
@@ -606,7 +588,6 @@ Use 3 columns for a compact table with 2 plans.
         <PricingTableAction variant="outline" size="sm">Select</PricingTableAction>
       </PricingTablePlan>
       <PricingTablePlan highlighted>
-        <PricingTableBadge>Best Value</PricingTableBadge>
         <PricingTablePlanName>Pro</PricingTablePlanName>
         <PricingTablePrice amount={29} />
         <PricingTableAction size="sm">Select</PricingTableAction>
@@ -646,7 +627,6 @@ Use `period="year"` for annual billing with the elevated variant.
       <PricingTableAction variant="outline">Choose Basic</PricingTableAction>
     </PricingTablePlan>
     <PricingTablePlan highlighted>
-      <PricingTableBadge variant="secondary">Save 20%</PricingTableBadge>
       <PricingTablePlanName>Professional</PricingTablePlanName>
       <PricingTablePrice amount={279} period="year" />
       <PricingTablePlanDescription>$23.25/mo billed yearly</PricingTablePlanDescription>
@@ -696,7 +676,6 @@ Use `period="year"` for annual billing with the elevated variant.
         <PricingTableAction variant="outline">Choose Basic</PricingTableAction>
       </PricingTablePlan>
       <PricingTablePlan highlighted>
-        <PricingTableBadge variant="secondary">Save 20%</PricingTableBadge>
         <PricingTablePlanName>Professional</PricingTablePlanName>
         <PricingTablePrice amount={279} period="year" />
         <PricingTablePlanDescription>$23.25/mo billed yearly</PricingTablePlanDescription>
@@ -756,7 +735,6 @@ Use 5 columns for comparing more plans.
       <PricingTableAction variant="outline" size="sm">Get Started</PricingTableAction>
     </PricingTablePlan>
     <PricingTablePlan highlighted>
-      <PricingTableBadge>Popular</PricingTableBadge>
       <PricingTablePlanName>Pro</PricingTablePlanName>
       <PricingTablePrice amount={49} />
       <PricingTableAction size="sm">Start Trial</PricingTableAction>
@@ -812,7 +790,6 @@ Use 5 columns for comparing more plans.
         <PricingTableAction variant="outline" size="sm">Get Started</PricingTableAction>
       </PricingTablePlan>
       <PricingTablePlan highlighted>
-        <PricingTableBadge>Popular</PricingTableBadge>
         <PricingTablePlanName>Pro</PricingTablePlanName>
         <PricingTablePrice amount={49} />
         <PricingTableAction size="sm">Start Trial</PricingTableAction>
@@ -870,7 +847,6 @@ Use `period="once"` for one-time purchase pricing.
       <PricingTableAction variant="outline">Buy Now</PricingTableAction>
     </PricingTablePlan>
     <PricingTablePlan highlighted>
-      <PricingTableBadge>Best Value</PricingTableBadge>
       <PricingTablePlanName>Extended</PricingTablePlanName>
       <PricingTablePrice amount={249} period="once" />
       <PricingTablePlanDescription>Lifetime access</PricingTablePlanDescription>
@@ -905,7 +881,6 @@ Use `period="once"` for one-time purchase pricing.
         <PricingTableAction variant="outline">Buy Now</PricingTableAction>
       </PricingTablePlan>
       <PricingTablePlan highlighted>
-        <PricingTableBadge>Best Value</PricingTableBadge>
         <PricingTablePlanName>Extended</PricingTablePlanName>
         <PricingTablePrice amount={249} period="once" />
         <PricingTablePlanDescription>Lifetime access</PricingTablePlanDescription>
@@ -945,7 +920,6 @@ Group features using `PricingTableFeatureLabel` for better organization.
       <PricingTableAction variant="outline">Start Free</PricingTableAction>
     </PricingTablePlan>
     <PricingTablePlan highlighted>
-      <PricingTableBadge>Most Popular</PricingTableBadge>
       <PricingTablePlanName>Team</PricingTablePlanName>
       <PricingTablePrice amount={39} />
       <PricingTableAction>Start Trial</PricingTableAction>
@@ -1007,7 +981,6 @@ Group features using `PricingTableFeatureLabel` for better organization.
         <PricingTableAction variant="outline">Start Free</PricingTableAction>
       </PricingTablePlan>
       <PricingTablePlan highlighted>
-        <PricingTableBadge>Most Popular</PricingTableBadge>
         <PricingTablePlanName>Team</PricingTablePlanName>
         <PricingTablePrice amount={39} />
         <PricingTableAction>Start Trial</PricingTableAction>
@@ -1088,14 +1061,6 @@ Individual plan column header.
 | Prop | Type | Default |
 | --- | --- | --- |
 | `highlighted` | `boolean` | `false` |
-
-### PricingTableBadge
-
-Optional badge for highlighting plans (e.g., "Popular", "Best Value").
-
-| Prop | Type | Default |
-| --- | --- | --- |
-| `variant` | `"default" \| "secondary" \| "outline"` | `"default"` |
 
 ### PricingTablePlanName
 

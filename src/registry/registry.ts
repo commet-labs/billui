@@ -57,7 +57,7 @@ export const registry: Record<string, RegistryItemMeta> = {
     description:
       "A comparison table for displaying multiple pricing plans side by side with feature comparison.",
     dependencies: ["lucide-react"],
-    registryDependencies: ["button", "badge"],
+    registryDependencies: ["button"],
   },
 };
 

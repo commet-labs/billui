@@ -98,7 +98,7 @@
       "title": "Pricing Table",
       "description": "A comparison table for displaying multiple pricing plans side by side with feature comparison.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["button", "badge"],
+      "registryDependencies": ["button"],
       "files": [
         {
           "path": "src/registry/ui/pricing-table.tsx",
