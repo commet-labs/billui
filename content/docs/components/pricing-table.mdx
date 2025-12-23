@@ -269,7 +269,8 @@ const PricingTablePlan = React.forwardRef<
     role="columnheader"
     className={cn(
       "flex flex-col items-center gap-1 p-6 text-center",
-      highlighted && "bg-primary/5 ring-2 ring-inset ring-primary",
+      highlighted &&
+        "bg-primary/5 ring-2 ring-inset ring-primary first:rounded-tl-2xl last:rounded-tr-2xl",
       className,
     )}
     {...props}
@@ -373,7 +374,13 @@ const PricingTableBody = React.forwardRef<
   <div
     ref={ref}
     role="rowgroup"
-    className={cn("divide-y", className)}
+    className={cn(
+      "divide-y",
+      // Apply rounded corners to highlighted cells in last row
+      "[&>:last-child>[data-highlighted]:first-child]:rounded-bl-2xl",
+      "[&>:last-child>[data-highlighted]:last-child]:rounded-br-2xl",
+      className,
+    )}
     {...props}
   />
 ));
@@ -459,7 +466,7 @@ const PricingTableCell = React.forwardRef<
     if (value === "partial") {
       return "Partially included";
     }
-    return undefined;
+    return undefined; // Let the text content speak for itself
   };
 
   const ariaLabel = getAriaLabel();
@@ -469,6 +476,7 @@ const PricingTableCell = React.forwardRef<
       ref={ref}
       role="cell"
       aria-label={ariaLabel}
+      data-highlighted={highlighted || undefined}
       className={cn(
         "flex items-center justify-center self-stretch px-6 py-4",
         highlighted && "bg-primary/5",
