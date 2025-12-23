@@ -1,19 +1,17 @@
 # billui
 
-Billing UI components for React.
+Open source billing UI components for React. Built on top of shadcn/ui and distributed via the shadcn registry.
 
-## Quick Start
+![billui banner](public/billui-banner.png)
 
-```bash
-pnpm dev
-```
+## Documentation
 
-Open [localhost:3000](http://localhost:3000)
+Visit [billui.com](https://billui.com) to view the documentation.
 
-## Components
+## Contributing
 
-- `InvoiceCard` – Display invoice details
-- `PaymentMethod` – Payment method selector
-- `PlanCard` – Pricing plan display
-- `PlanGroup` – Group multiple plans
+Please read the [contributing guide](CONTRIBUTING.md).
 
+## License
+
+Licensed under the [MIT license](LICENSE).
