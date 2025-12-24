@@ -72,7 +72,6 @@ export type {
 } from "./payment-method";
 export {
   brandLabels,
-  CardLogos,
   PaymentMethod,
   PaymentMethodAction,
   PaymentMethodActions,
