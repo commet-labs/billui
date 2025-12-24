@@ -28,3 +28,210 @@ import {
     </CardInputGroup>
   </div>
 </ComponentPreview>
+
+## Installation
+
+<Tabs items={["CLI", "Manual"]}>
+  <Tab value="CLI">
+```bash
+npx shadcn@latest add "https://billui.com/r/card-input.json"
+```
+  </Tab>
+  <Tab value="Manual">
+
+```tsx title="components/ui/card-input.tsx"
+"use client";
+
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { CardBrandIcons, type CardBrand } from "./card-icons";
+
+// ... component code
+```
+
+  </Tab>
+</Tabs>
+
+## Examples
+
+### Basic Grouped Inputs
+
+Use `CardInputGroup` to combine all card inputs into a single grouped component with shared focus states.
+
+<ComponentPreview component="card-input" example="basic" code={`<CardInputGroup>
+  <CardNumberInput />
+  <CardExpiryInput />
+  <CardCvcInput />
+</CardInputGroup>`}>
+  <div className="w-full max-w-md">
+    <CardInputGroup>
+      <CardNumberInput />
+      <CardExpiryInput />
+      <CardCvcInput />
+    </CardInputGroup>
+  </div>
+</ComponentPreview>
+
+### Individual Inputs
+
+Use each input component separately for custom layouts with individual labels and styling.
+
+<ComponentPreview component="card-input" example="individual" code={`<div className="space-y-4">
+  <div>
+    <label className="text-sm font-medium">Card Number</label>
+    <div className="mt-1 rounded-lg border px-3">
+      <CardNumberInput />
+    </div>
+  </div>
+  <div className="flex gap-4">
+    <div className="flex-1">
+      <label className="text-sm font-medium">Expiry</label>
+      <div className="mt-1 rounded-lg border px-3">
+        <CardExpiryInput />
+      </div>
+    </div>
+    <div className="w-24">
+      <label className="text-sm font-medium">CVC</label>
+      <div className="mt-1 rounded-lg border px-3">
+        <CardCvcInput />
+      </div>
+    </div>
+  </div>
+</div>`}>
+  <div className="w-full max-w-md space-y-4">
+    <div>
+      <label className="text-sm font-medium">Card Number</label>
+      <div className="mt-1 rounded-lg border px-3">
+        <CardNumberInput />
+      </div>
+    </div>
+    <div className="flex gap-4">
+      <div className="flex-1">
+        <label className="text-sm font-medium">Expiry</label>
+        <div className="mt-1 rounded-lg border px-3">
+          <CardExpiryInput />
+        </div>
+      </div>
+      <div className="w-24">
+        <label className="text-sm font-medium">CVC</label>
+        <div className="mt-1 rounded-lg border px-3">
+          <CardCvcInput />
+        </div>
+      </div>
+    </div>
+  </div>
+</ComponentPreview>
+
+### With PaymentForm
+
+Combine with `PaymentForm` components for a complete checkout experience.
+
+<ComponentPreview component="card-input" example="with-form" code={`<PaymentForm>
+  <PaymentFormSection>
+    <PaymentFormField label="Card details">
+      <CardInputGroup>
+        <CardNumberInput />
+        <CardExpiryInput />
+        <CardCvcInput />
+      </CardInputGroup>
+    </PaymentFormField>
+  </PaymentFormSection>
+  <PaymentFormFooter>
+    <PaymentFormSubmit>Pay $99.00</PaymentFormSubmit>
+  </PaymentFormFooter>
+</PaymentForm>`}>
+  <div className="w-full max-w-md">
+    <PaymentForm>
+      <PaymentFormSection>
+        <PaymentFormField label="Card details">
+          <CardInputGroup>
+            <CardNumberInput />
+            <CardExpiryInput />
+            <CardCvcInput />
+          </CardInputGroup>
+        </PaymentFormField>
+      </PaymentFormSection>
+      <PaymentFormFooter>
+        <PaymentFormSubmit>Pay $99.00</PaymentFormSubmit>
+      </PaymentFormFooter>
+    </PaymentForm>
+  </div>
+</ComponentPreview>
+
+## API Reference
+
+### CardInputGroup
+
+Container that groups card inputs together with shared focus states and border styling.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `error` | `boolean` | `false` |
+
+### CardNumberInput
+
+Card number input with automatic formatting, brand detection, and Luhn validation.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `onChange` | `(value: string) => void` | — |
+| `onBrandChange` | `(brand: CardBrand) => void` | — |
+| `onValidationChange` | `(validation: { isValid: boolean; isComplete: boolean }) => void` | — |
+| `showBrandIcon` | `boolean` | `true` |
+| `showValidation` | `boolean` | `true` |
+| `placeholder` | `string` | `"1234 1234 1234 1234"` |
+
+### CardExpiryInput
+
+Expiry date input with MM/YY formatting and expiration validation.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `onChange` | `(value: string) => void` | — |
+| `onValidationChange` | `(validation: { isValid: boolean; isComplete: boolean; isExpired: boolean }) => void` | — |
+| `showValidation` | `boolean` | `true` |
+| `placeholder` | `string` | `"MM/YY"` |
+
+### CardCvcInput
+
+CVC/CVV input that adapts to card brand (3 digits for most cards, 4 for Amex).
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string` | — |
+| `onChange` | `(value: string) => void` | — |
+| `brand` | `CardBrand` | `"unknown"` |
+| `placeholder` | `string` | `"CVC"` |
+
+### CardBrand
+
+Type representing supported card brands.
+
+```tsx
+type CardBrand =
+  | "visa"
+  | "mastercard"
+  | "amex"
+  | "discover"
+  | "diners"
+  | "jcb"
+  | "unionpay"
+  | "unknown";
+```
+
+### Utility Functions
+
+The component exports several utility functions for custom implementations:
+
+| Function | Description |
+| --- | --- |
+| `detectCardBrand(cardNumber: string)` | Returns the card brand based on the card number prefix |
+| `validateLuhn(cardNumber: string)` | Validates a card number using the Luhn algorithm |
+| `validateCardNumber(cardNumber: string)` | Returns `{ isValid, isComplete, brand }` for a card number |
+| `validateExpiry(expiry: string)` | Returns `{ isValid, isComplete, isExpired }` for an expiry date |
+| `formatCardNumber(value: string, brand: CardBrand)` | Formats a card number with proper spacing |
+| `formatExpiry(value: string)` | Formats an expiry date as MM/YY |
+| `getCardMaxLength(brand: CardBrand)` | Returns max digits for a card brand (15 for Amex, 16 for others) |
+| `getCvcMaxLength(brand: CardBrand)` | Returns CVC length for a card brand (4 for Amex, 3 for others) |
