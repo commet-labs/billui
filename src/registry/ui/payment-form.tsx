@@ -1,4 +1,3 @@
-import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Loader2, Lock } from "lucide-react";
 import * as React from "react";
@@ -81,33 +80,36 @@ const PaymentFormDescription = React.forwardRef<
 ));
 PaymentFormDescription.displayName = "PaymentFormDescription";
 
-const paymentFormFieldVariants = cva(
-  "rounded-lg border bg-background transition-all",
-  {
-    variants: {
-      variant: {
-        default:
-          "border-input focus-within:ring-2 focus-within:ring-ring focus-within:border-ring",
-        error:
-          "border-destructive focus-within:ring-2 focus-within:ring-destructive",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
+const paymentFormFieldVariants = cva("", {
+  variants: {
+    variant: {
+      default:
+        "rounded-lg border bg-background transition-all border-input focus-within:ring-2 focus-within:ring-ring focus-within:border-ring px-3 py-2.5",
+      error:
+        "rounded-lg border bg-background transition-all border-destructive focus-within:ring-2 focus-within:ring-destructive px-3 py-2.5",
+      native: "", // No styles - child component handles its own styling
     },
   },
-);
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 interface PaymentFormFieldProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof paymentFormFieldVariants> {
+  /** Label text displayed above the field */
   label?: string;
+  /** HTML for attribute for the label. Use "" for group inputs like CardInputGroup */
   htmlFor?: string;
+  /** Field name for generating IDs */
   name?: string;
+  /** Error message to display */
   error?: string;
+  /** Helper text displayed below the field */
   description?: string;
+  /** Mark field as required */
   required?: boolean;
-  asChild?: boolean;
 }
 
 const PaymentFormField = React.forwardRef<
@@ -123,7 +125,6 @@ const PaymentFormField = React.forwardRef<
       error,
       description,
       required,
-      asChild,
       children,
       variant,
       ...props
@@ -135,7 +136,10 @@ const PaymentFormField = React.forwardRef<
     const errorId = `${fieldId}-error`;
     const descriptionId = `${fieldId}-description`;
     const hasError = !!error;
-    const Comp = asChild ? Slot : "div";
+
+    // Determine effective variant
+    const effectiveVariant =
+      hasError && variant !== "native" ? "error" : variant;
 
     // htmlFor prop allows explicit control:
     // - undefined: use auto-generated fieldId (default)
@@ -143,6 +147,8 @@ const PaymentFormField = React.forwardRef<
     // - string value: use that value
     const labelFor =
       htmlFor === "" ? undefined : htmlFor !== undefined ? htmlFor : fieldId;
+
+    const fieldStyles = paymentFormFieldVariants({ variant: effectiveVariant });
 
     return (
       <div
@@ -163,21 +169,11 @@ const PaymentFormField = React.forwardRef<
             )}
           </label>
         )}
-        <Comp
-          className={cn(
-            paymentFormFieldVariants({
-              variant: hasError ? "error" : variant,
-            }),
-            "px-3 py-2.5",
-          )}
-          aria-describedby={
-            hasError ? errorId : description ? descriptionId : undefined
-          }
-          aria-invalid={hasError ? "true" : undefined}
-          aria-required={required ? "true" : undefined}
-        >
-          {children}
-        </Comp>
+        {variant === "native" ? (
+          children
+        ) : (
+          <div className={fieldStyles}>{children}</div>
+        )}
         {description && !hasError && (
           <p id={descriptionId} className="text-sm text-muted-foreground">
             {description}
