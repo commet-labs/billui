@@ -178,9 +178,6 @@ Card number input with automatic formatting, brand detection, and Luhn validatio
 | `onChange` | `(value: string) => void` | — |
 | `onBrandChange` | `(brand: CardBrand) => void` | — |
 | `onValidationChange` | `(validation: { isValid: boolean; isComplete: boolean }) => void` | — |
-| `showBrandIcon` | `boolean` | `true` |
-| `showValidation` | `boolean` | `true` |
-| `placeholder` | `string` | `"1234 1234 1234 1234"` |
 
 ### CardExpiryInput
 
@@ -191,19 +188,15 @@ Expiry date input with MM/YY formatting and expiration validation.
 | `value` | `string` | — |
 | `onChange` | `(value: string) => void` | — |
 | `onValidationChange` | `(validation: { isValid: boolean; isComplete: boolean; isExpired: boolean }) => void` | — |
-| `showValidation` | `boolean` | `true` |
-| `placeholder` | `string` | `"MM/YY"` |
 
 ### CardCvcInput
 
-CVC/CVV input that adapts to card brand (3 digits for most cards, 4 for Amex).
+CVC/CVV input that adapts to card brand (3 digits for most cards, 4 for Amex). When used inside `CardInputGroup`, automatically gets the brand from context.
 
 | Prop | Type | Default |
 | --- | --- | --- |
 | `value` | `string` | — |
 | `onChange` | `(value: string) => void` | — |
-| `brand` | `CardBrand` | `"unknown"` |
-| `placeholder` | `string` | `"CVC"` |
 
 ### CardBrand
 
