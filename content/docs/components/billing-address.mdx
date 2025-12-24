@@ -1,123 +1,159 @@
 ---
 title: Billing Address
-description: Composable address form fields with correct autocomplete attributes for optimal browser autofill.
+description: Composable address form with correct autocomplete attributes. Country and state selects are automatically linked.
 ---
 
+import { Label } from "@/components/ui/label";
 import {
   BillingAddress,
-  BillingAddressField,
-  BillingAddressRow,
-  BillingAddressLabel,
   BillingAddressInput,
-  BillingAddressSelect,
-  BillingAddressSelectTrigger,
-  BillingAddressSelectContent,
-  BillingAddressSelectItem,
-  BillingAddressSelectValue,
+  BillingAddressCountry,
+  BillingAddressState,
 } from "@/registry/ui";
 
-<ComponentPreview component="billing-address" example="preview" code={`<BillingAddress>
-  <BillingAddressField>
-    <BillingAddressLabel htmlFor="name">Full Name</BillingAddressLabel>
+<ComponentPreview component="billing-address" example="preview" code={`<BillingAddress defaultCountry="US">
+  <div className="flex flex-col gap-1.5">
+    <Label htmlFor="name">Full Name</Label>
     <BillingAddressInput id="name" name="name" field="name" placeholder="Name" />
-  </BillingAddressField>
-  <BillingAddressField>
-    <BillingAddressLabel htmlFor="country">Country Or Region</BillingAddressLabel>
-    <BillingAddressSelect name="country">
-      <BillingAddressSelectTrigger id="country">
-        <BillingAddressSelectValue placeholder="Select country" />
-      </BillingAddressSelectTrigger>
-      <BillingAddressSelectContent>
-        <BillingAddressSelectItem value="US">United States</BillingAddressSelectItem>
-        <BillingAddressSelectItem value="CA">Canada</BillingAddressSelectItem>
-        <BillingAddressSelectItem value="GB">United Kingdom</BillingAddressSelectItem>
-        <BillingAddressSelectItem value="AR">Argentina</BillingAddressSelectItem>
-      </BillingAddressSelectContent>
-    </BillingAddressSelect>
-  </BillingAddressField>
-  <BillingAddressField>
-    <BillingAddressLabel htmlFor="line1">Address Line 1</BillingAddressLabel>
+  </div>
+  <div className="flex flex-col gap-1.5">
+    <Label htmlFor="country">Country</Label>
+    <BillingAddressCountry />
+  </div>
+  <div className="flex flex-col gap-1.5">
+    <Label htmlFor="line1">Address</Label>
     <BillingAddressInput id="line1" name="line1" field="line1" placeholder="Street address" />
-  </BillingAddressField>
-  <BillingAddressField>
-    <BillingAddressLabel htmlFor="line2">Address Line 2</BillingAddressLabel>
+  </div>
+  <div className="flex flex-col gap-1.5">
+    <Label htmlFor="line2">Apartment, suite, etc.</Label>
     <BillingAddressInput id="line2" name="line2" field="line2" placeholder="Apt, suite, etc. (optional)" />
-  </BillingAddressField>
-  <BillingAddressField>
-    <BillingAddressLabel htmlFor="city">City</BillingAddressLabel>
+  </div>
+  <div className="flex flex-col gap-1.5">
+    <Label htmlFor="city">City</Label>
     <BillingAddressInput id="city" name="city" field="city" placeholder="City" />
-  </BillingAddressField>
-  <BillingAddressRow>
-    <BillingAddressField>
-      <BillingAddressLabel htmlFor="state">State</BillingAddressLabel>
-      <BillingAddressSelect name="state">
-        <BillingAddressSelectTrigger id="state">
-          <BillingAddressSelectValue placeholder="Select state" />
-        </BillingAddressSelectTrigger>
-        <BillingAddressSelectContent>
-          <BillingAddressSelectItem value="NY">New York</BillingAddressSelectItem>
-          <BillingAddressSelectItem value="CA">California</BillingAddressSelectItem>
-          <BillingAddressSelectItem value="TX">Texas</BillingAddressSelectItem>
-        </BillingAddressSelectContent>
-      </BillingAddressSelect>
-    </BillingAddressField>
-    <BillingAddressField>
-      <BillingAddressLabel htmlFor="postal">ZIP Code</BillingAddressLabel>
+  </div>
+  <div className="grid grid-cols-2 gap-3">
+    <div className="flex flex-col gap-1.5">
+      <Label htmlFor="state">State</Label>
+      <BillingAddressState name="state" />
+    </div>
+    <div className="flex flex-col gap-1.5">
+      <Label htmlFor="postal">ZIP Code</Label>
       <BillingAddressInput id="postal" name="postal" field="postalCode" placeholder="ZIP code" />
-    </BillingAddressField>
-  </BillingAddressRow>
+    </div>
+  </div>
 </BillingAddress>`}>
   <div className="w-full max-w-md">
-    <BillingAddress>
-      <BillingAddressField>
-        <BillingAddressLabel htmlFor="name">Full Name</BillingAddressLabel>
+    <BillingAddress defaultCountry="US">
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="name">Full Name</Label>
         <BillingAddressInput id="name" name="name" field="name" placeholder="Name" />
-      </BillingAddressField>
-      <BillingAddressField>
-        <BillingAddressLabel htmlFor="country">Country Or Region</BillingAddressLabel>
-        <BillingAddressSelect name="country">
-          <BillingAddressSelectTrigger id="country">
-            <BillingAddressSelectValue placeholder="Select country" />
-          </BillingAddressSelectTrigger>
-          <BillingAddressSelectContent>
-            <BillingAddressSelectItem value="US">United States</BillingAddressSelectItem>
-            <BillingAddressSelectItem value="CA">Canada</BillingAddressSelectItem>
-            <BillingAddressSelectItem value="GB">United Kingdom</BillingAddressSelectItem>
-            <BillingAddressSelectItem value="AR">Argentina</BillingAddressSelectItem>
-          </BillingAddressSelectContent>
-        </BillingAddressSelect>
-      </BillingAddressField>
-      <BillingAddressField>
-        <BillingAddressLabel htmlFor="line1">Address Line 1</BillingAddressLabel>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="country">Country</Label>
+        <BillingAddressCountry />
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="line1">Address</Label>
         <BillingAddressInput id="line1" name="line1" field="line1" placeholder="Street address" />
-      </BillingAddressField>
-      <BillingAddressField>
-        <BillingAddressLabel htmlFor="line2">Address Line 2</BillingAddressLabel>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="line2">Apartment, suite, etc.</Label>
         <BillingAddressInput id="line2" name="line2" field="line2" placeholder="Apt, suite, etc. (optional)" />
-      </BillingAddressField>
-      <BillingAddressField>
-        <BillingAddressLabel htmlFor="city">City</BillingAddressLabel>
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="city">City</Label>
         <BillingAddressInput id="city" name="city" field="city" placeholder="City" />
-      </BillingAddressField>
-      <BillingAddressRow>
-        <BillingAddressField>
-          <BillingAddressLabel htmlFor="state">State</BillingAddressLabel>
-          <BillingAddressSelect name="state">
-            <BillingAddressSelectTrigger id="state">
-              <BillingAddressSelectValue placeholder="Select state" />
-            </BillingAddressSelectTrigger>
-            <BillingAddressSelectContent>
-              <BillingAddressSelectItem value="NY">New York</BillingAddressSelectItem>
-              <BillingAddressSelectItem value="CA">California</BillingAddressSelectItem>
-              <BillingAddressSelectItem value="TX">Texas</BillingAddressSelectItem>
-            </BillingAddressSelectContent>
-          </BillingAddressSelect>
-        </BillingAddressField>
-        <BillingAddressField>
-          <BillingAddressLabel htmlFor="postal">ZIP Code</BillingAddressLabel>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="state">State</Label>
+          <BillingAddressState name="state" />
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="postal">ZIP Code</Label>
           <BillingAddressInput id="postal" name="postal" field="postalCode" placeholder="ZIP code" />
-        </BillingAddressField>
-      </BillingAddressRow>
+        </div>
+      </div>
     </BillingAddress>
   </div>
 </ComponentPreview>
+
+## Usage
+
+```tsx
+import { Label } from "@/components/ui/label";
+import {
+  BillingAddress,
+  BillingAddressInput,
+  BillingAddressCountry,
+  BillingAddressState,
+} from "@/registry/ui";
+```
+
+```tsx
+<BillingAddress defaultCountry="US">
+  <Label>Country</Label>
+  <BillingAddressCountry />
+  
+  <Label>Address</Label>
+  <BillingAddressInput field="line1" placeholder="Street address" />
+  
+  <Label>City</Label>
+  <BillingAddressInput field="city" placeholder="City" />
+  
+  <div className="grid grid-cols-2 gap-3">
+    <div>
+      <Label>State</Label>
+      <BillingAddressState />
+    </div>
+    <div>
+      <Label>ZIP</Label>
+      <BillingAddressInput field="postalCode" placeholder="ZIP" />
+    </div>
+  </div>
+</BillingAddress>
+```
+
+## Components
+
+### BillingAddress
+
+Root component that provides context for country/state synchronization.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultCountry` | `string` | `"US"` | Default country code (ISO 3166-1 alpha-2) |
+
+### BillingAddressInput
+
+Input with correct `autocomplete` value based on field type.
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `field` | `"name" \| "line1" \| "line2" \| "city" \| "postalCode"` | Sets the correct autocomplete value |
+
+### BillingAddressCountry
+
+Select with all countries included. Automatically updates context when changed.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `placeholder` | `string` | `"Select country"` | Placeholder text |
+| `onValueChange` | `(value: string) => void` | - | Callback when country changes |
+
+### BillingAddressState
+
+Select with states for the selected country. Automatically syncs with country selection and hides when no states are available.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `placeholder` | `string` | `"Select state"` | Placeholder text |
+| `onValueChange` | `(value: string) => void` | - | Callback when state changes |
+
+## Features
+
+- **Correct autocomplete values** - Browser autofill works correctly for billing addresses
+- **Country/State sync** - States update automatically when country changes
+- **Composable layout** - Use your own divs, grids, and spacing
+- **Uses shadcn components** - `Label`, layouts, etc. from your existing components

@@ -44,6 +44,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      country-state-city:
+        specifier: ^3.2.1
+        version: 3.2.1
       fumadocs-core:
         specifier: 16.2.5
         version: 16.2.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.3))(next@16.0.10(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zod@4.2.1)
@@ -53,9 +56,6 @@ importers:
       fumadocs-ui:
         specifier: 16.2.5
         version: 16.2.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.3))(next@16.0.10(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)(zod@4.2.1)
-      i18n-iso-countries:
-        specifier: ^7.14.0
-        version: 7.14.0
       lucide-react:
         specifier: ^0.556.0
         version: 0.556.0(react@19.2.3)
@@ -1244,6 +1244,9 @@ packages:
   compute-scroll-into-view@3.1.1:
     resolution: {integrity: sha512-VRhuHOLoKYOy4UbilLbUzbYg93XLjv2PncJC50EuTWPA3gaja1UjBsUP/D/9/juV3vQFr6XBEzn9KCAHdUvOHw==}
 
+  country-state-city@3.2.1:
+    resolution: {integrity: sha512-kxbanqMc6izjhc/EHkGPCTabSPZ2G6eG4/97akAYHJUN4stzzFEvQPZoF8oXDQ+10gM/O/yUmISCR1ZVxyb6EA==}
+
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
@@ -1277,9 +1280,6 @@ packages:
 
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
-
-  diacritics@1.3.0:
-    resolution: {integrity: sha512-wlwEkqcsaxvPJML+rDh/2iS824jbREk6DUMUKkEaSlxdYHeS43cClJtsWglvw2RfeXGm6ohKDqsXteJ5sP5enA==}
 
   enhanced-resolve@5.18.4:
     resolution: {integrity: sha512-LgQMM4WXU3QI+SYgEc2liRgznaD5ojbmY3sb8LxyguVkIg5FxdpTkvk72te2R38/TGKxH634oLxXRGY6d7AP+Q==}
@@ -1461,10 +1461,6 @@ packages:
 
   html-void-elements@3.0.0:
     resolution: {integrity: sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==}
-
-  i18n-iso-countries@7.14.0:
-    resolution: {integrity: sha512-nXHJZYtNrfsi1UQbyRqm3Gou431elgLjKl//CYlnBGt5aTWdRPH1PiS2T/p/n8Q8LnqYqzQJik3Q7mkwvLokeg==}
-    engines: {node: '>= 12'}
 
   image-size@2.0.2:
     resolution: {integrity: sha512-IRqXKlaXwgSMAMtpNzZa1ZAe8m+Sa1770Dhk8VkSsP9LS+iHD62Zd8FQKs8fbPiagBE7BzoFX23cxFnwshpV6w==}
@@ -3037,6 +3033,8 @@ snapshots:
 
   compute-scroll-into-view@3.1.1: {}
 
+  country-state-city@3.2.1: {}
+
   cssesc@3.0.0: {}
 
   csstype@3.2.3: {}
@@ -3058,8 +3056,6 @@ snapshots:
   devlop@1.1.0:
     dependencies:
       dequal: 2.0.3
-
-  diacritics@1.3.0: {}
 
   enhanced-resolve@5.18.4:
     dependencies:
@@ -3334,10 +3330,6 @@ snapshots:
       '@types/hast': 3.0.4
 
   html-void-elements@3.0.0: {}
-
-  i18n-iso-countries@7.14.0:
-    dependencies:
-      diacritics: 1.3.0
 
   image-size@2.0.2: {}
 
