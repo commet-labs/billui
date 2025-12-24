@@ -18,6 +18,16 @@ const OUTPUT_DIR = path.join(ROOT, "public", "r");
 
 // Map component names to their exports for generating imports
 const componentExports: Record<string, string[]> = {
+  "card-input": [
+    "CardInputGroup", "CardNumberInput", "CardExpiryInput", "CardCvcInput",
+    "CardBrandIcons", "detectCardBrand", "formatCardNumber", "formatExpiry",
+    "getCardMaxLength", "getCvcMaxLength",
+  ],
+  "payment-form": [
+    "PaymentForm", "PaymentFormSection", "PaymentFormHeader", "PaymentFormTitle",
+    "PaymentFormDescription", "PaymentFormField", "PaymentFormRow",
+    "PaymentFormFooter", "PaymentFormSubmit", "PaymentFormDivider",
+  ],
   "plan-card": [
     "PlanCard", "PlanCardHeader", "PlanCardBadge", "PlanCardTitle",
     "PlanCardDescription", "PlanCardPrice", "PlanCardFeatures",

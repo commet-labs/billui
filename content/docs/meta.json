@@ -10,6 +10,7 @@
     "components/payment-method",
     "components/usage-card",
     "components/pricing-table",
+    "components/card-input",
     "---Animated---",
     "animated/animated-usage-card"
   ]

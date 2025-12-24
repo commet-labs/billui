@@ -1,0 +1,323 @@
+---
+title: Payment Form
+description: A composable, provider-agnostic payment form wrapper for Stripe, Braintree, or native inputs.
+---
+
+import {
+  PaymentForm,
+  PaymentFormSection,
+  PaymentFormHeader,
+  PaymentFormTitle,
+  PaymentFormDescription,
+  PaymentFormField,
+  PaymentFormRow,
+  PaymentFormFooter,
+  PaymentFormSubmit,
+  PaymentFormDivider,
+  CardInputGroup,
+  CardNumberInput,
+  CardExpiryInput,
+  CardCvcInput,
+} from "@/registry/ui";
+
+<ComponentPreview component="payment-form" example="preview" code={`<PaymentForm>
+  <PaymentFormSection>
+    <PaymentFormHeader>
+      <PaymentFormTitle>Payment method</PaymentFormTitle>
+      <PaymentFormDescription>All transactions are secure and encrypted</PaymentFormDescription>
+    </PaymentFormHeader>
+    <PaymentFormField label="Card details">
+      <CardInputGroup>
+        <CardNumberInput />
+        <CardExpiryInput />
+        <CardCvcInput />
+      </CardInputGroup>
+    </PaymentFormField>
+  </PaymentFormSection>
+  <PaymentFormFooter>
+    <PaymentFormSubmit>Pay $99.00</PaymentFormSubmit>
+  </PaymentFormFooter>
+</PaymentForm>`}>
+  <PaymentForm className="w-full max-w-md">
+    <PaymentFormSection>
+      <PaymentFormHeader>
+        <PaymentFormTitle>Payment method</PaymentFormTitle>
+        <PaymentFormDescription>All transactions are secure and encrypted</PaymentFormDescription>
+      </PaymentFormHeader>
+      <PaymentFormField label="Card details">
+        <CardInputGroup>
+          <CardNumberInput />
+          <CardExpiryInput />
+          <CardCvcInput />
+        </CardInputGroup>
+      </PaymentFormField>
+    </PaymentFormSection>
+    <PaymentFormFooter>
+      <PaymentFormSubmit>Pay $99.00</PaymentFormSubmit>
+    </PaymentFormFooter>
+  </PaymentForm>
+</ComponentPreview>
+
+## Overview
+
+Payment Form provides composable layout components that wrap any payment provider (Stripe Elements, Braintree Hosted Fields) or native inputs. billui controls layout, styling, and accessibility—you control what goes inside.
+
+### What billui controls
+
+- Layout and spacing
+- Labels and typography
+- Error, loading, and disabled states
+- Focus rings and borders
+- Accessibility (aria attributes, focus management)
+
+### What you control
+
+- The payment provider (Stripe, Braintree, native, etc.)
+- Payment logic and tokenization
+- Form submission handling
+
+## Installation
+
+<Tabs items={["CLI", "Manual"]}>
+  <Tab value="CLI">
+```bash
+npx shadcn@latest add "https://billui.com/r/payment-form.json"
+```
+  </Tab>
+  <Tab value="Manual">
+
+Copy the component source from [GitHub](https://github.com/commet/billui/blob/main/src/registry/ui/payment-form.tsx).
+
+  </Tab>
+</Tabs>
+
+## Usage with Stripe Elements
+
+The components are designed to work seamlessly with Stripe Elements:
+
+```tsx
+import { CardElement } from "@stripe/react-stripe-js";
+import {
+  PaymentForm,
+  PaymentFormSection,
+  PaymentFormField,
+  PaymentFormSubmit,
+} from "@/components/ui/payment-form";
+
+function CheckoutForm() {
+  const [error, setError] = useState<string>();
+
+  return (
+    <PaymentForm onSubmit={handleSubmit}>
+      <PaymentFormSection>
+        <PaymentFormField label="Card details" error={error}>
+          <CardElement
+            onChange={(e) => setError(e.error?.message)}
+            options={{
+              style: {
+                base: {
+                  fontSize: "16px",
+                  color: "hsl(var(--foreground))",
+                  "::placeholder": { color: "hsl(var(--muted-foreground))" },
+                },
+              },
+            }}
+          />
+        </PaymentFormField>
+      </PaymentFormSection>
+      <PaymentFormFooter>
+        <PaymentFormSubmit>Pay</PaymentFormSubmit>
+      </PaymentFormFooter>
+    </PaymentForm>
+  );
+}
+```
+
+## Examples
+
+### With Native Card Inputs
+
+Use the [Card Input](/docs/components/card-input) components for demos or custom PSP integrations:
+
+<ComponentPreview component="payment-form" example="native" code={`<PaymentForm>
+  <PaymentFormSection>
+    <PaymentFormField label="Card details">
+      <CardInputGroup>
+        <CardNumberInput />
+        <CardExpiryInput />
+        <CardCvcInput />
+      </CardInputGroup>
+    </PaymentFormField>
+  </PaymentFormSection>
+  <PaymentFormFooter>
+    <PaymentFormSubmit>Pay $49.00</PaymentFormSubmit>
+  </PaymentFormFooter>
+</PaymentForm>`}>
+  <PaymentForm className="w-full max-w-md">
+    <PaymentFormSection>
+      <PaymentFormField label="Card details">
+        <CardInputGroup>
+          <CardNumberInput />
+          <CardExpiryInput />
+          <CardCvcInput />
+        </CardInputGroup>
+      </PaymentFormField>
+    </PaymentFormSection>
+    <PaymentFormFooter>
+      <PaymentFormSubmit>Pay $49.00</PaymentFormSubmit>
+    </PaymentFormFooter>
+  </PaymentForm>
+</ComponentPreview>
+
+### With Error State
+
+<ComponentPreview component="payment-form" example="error" code={`<PaymentForm>
+  <PaymentFormSection>
+    <PaymentFormField label="Card details" error="Your card was declined">
+      <CardInputGroup>
+        <CardNumberInput />
+        <CardExpiryInput />
+        <CardCvcInput />
+      </CardInputGroup>
+    </PaymentFormField>
+  </PaymentFormSection>
+  <PaymentFormFooter>
+    <PaymentFormSubmit>Try Again</PaymentFormSubmit>
+  </PaymentFormFooter>
+</PaymentForm>`}>
+  <PaymentForm className="w-full max-w-md">
+    <PaymentFormSection>
+      <PaymentFormField label="Card details" error="Your card was declined">
+        <CardInputGroup>
+          <CardNumberInput />
+          <CardExpiryInput />
+          <CardCvcInput />
+        </CardInputGroup>
+      </PaymentFormField>
+    </PaymentFormSection>
+    <PaymentFormFooter>
+      <PaymentFormSubmit>Try Again</PaymentFormSubmit>
+    </PaymentFormFooter>
+  </PaymentForm>
+</ComponentPreview>
+
+### Loading State
+
+<ComponentPreview component="payment-form" example="loading" code={`<PaymentForm>
+  <PaymentFormSection>
+    <PaymentFormField label="Card details">
+      <CardInputGroup>
+        <CardNumberInput />
+        <CardExpiryInput />
+        <CardCvcInput />
+      </CardInputGroup>
+    </PaymentFormField>
+  </PaymentFormSection>
+  <PaymentFormFooter>
+    <PaymentFormSubmit loading>Processing...</PaymentFormSubmit>
+  </PaymentFormFooter>
+</PaymentForm>`}>
+  <PaymentForm className="w-full max-w-md">
+    <PaymentFormSection>
+      <PaymentFormField label="Card details">
+        <CardInputGroup>
+          <CardNumberInput />
+          <CardExpiryInput />
+          <CardCvcInput />
+        </CardInputGroup>
+      </PaymentFormField>
+    </PaymentFormSection>
+    <PaymentFormFooter>
+      <PaymentFormSubmit loading>Processing...</PaymentFormSubmit>
+    </PaymentFormFooter>
+  </PaymentForm>
+</ComponentPreview>
+
+### Elevated Section
+
+<ComponentPreview component="payment-form" example="elevated" code={`<PaymentForm>
+  <PaymentFormSection variant="elevated">
+    <PaymentFormHeader>
+      <PaymentFormTitle>Secure Checkout</PaymentFormTitle>
+      <PaymentFormDescription>256-bit SSL encryption</PaymentFormDescription>
+    </PaymentFormHeader>
+    <PaymentFormField label="Card details">
+      <CardInputGroup>
+        <CardNumberInput />
+        <CardExpiryInput />
+        <CardCvcInput />
+      </CardInputGroup>
+    </PaymentFormField>
+  </PaymentFormSection>
+  <PaymentFormFooter>
+    <PaymentFormSubmit>Pay $199.00</PaymentFormSubmit>
+  </PaymentFormFooter>
+</PaymentForm>`}>
+  <PaymentForm className="w-full max-w-md">
+    <PaymentFormSection variant="elevated">
+      <PaymentFormHeader>
+        <PaymentFormTitle>Secure Checkout</PaymentFormTitle>
+        <PaymentFormDescription>256-bit SSL encryption</PaymentFormDescription>
+      </PaymentFormHeader>
+      <PaymentFormField label="Card details">
+        <CardInputGroup>
+          <CardNumberInput />
+          <CardExpiryInput />
+          <CardCvcInput />
+        </CardInputGroup>
+      </PaymentFormField>
+    </PaymentFormSection>
+    <PaymentFormFooter>
+      <PaymentFormSubmit>Pay $199.00</PaymentFormSubmit>
+    </PaymentFormFooter>
+  </PaymentForm>
+</ComponentPreview>
+
+## API Reference
+
+### PaymentForm
+
+The root form container.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `onSubmit` | `(e: FormEvent) => void` | — |
+
+### PaymentFormSection
+
+Groups related fields with a card-like container.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "elevated"` | `"default"` |
+
+### PaymentFormField
+
+Wrapper for form fields with label and error support.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `label` | `string` | — |
+| `name` | `string` | — |
+| `error` | `string` | — |
+| `description` | `string` | — |
+| `required` | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |
+
+### PaymentFormRow
+
+Horizontal layout for multiple fields.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `columns` | `2 \| 3 \| 4` | `2` |
+
+### PaymentFormSubmit
+
+Submit button with loading state.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `loading` | `boolean` | `false` |
+| `showSecureIcon` | `boolean` | `true` |
+

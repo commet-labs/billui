@@ -4,6 +4,35 @@
   "homepage": "https://billui.com",
   "items": [
     {
+      "name": "card-input",
+      "type": "registry:ui",
+      "title": "Card Input",
+      "description": "Native formatted card inputs with auto-formatting, brand detection, and masking for demos and custom PSPs.",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/ui/card-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/card-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "payment-form",
+      "type": "registry:ui",
+      "title": "Payment Form",
+      "description": "A composable, provider-agnostic payment form wrapper for Stripe, Braintree, or native inputs.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "src/registry/ui/payment-form.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/payment-form.tsx"
+        }
+      ]
+    },
+    {
       "name": "plan-card",
       "type": "registry:ui",
       "title": "Plan Card",

@@ -12,6 +12,26 @@ export interface RegistryItemMeta {
 }
 
 export const registry: Record<string, RegistryItemMeta> = {
+  "card-icons": {
+    name: "card-icons",
+    description: "Shared card brand icons and types for billing components.",
+    dependencies: ["lucide-react"],
+    registryDependencies: [],
+  },
+  "card-input": {
+    name: "card-input",
+    description:
+      "Native formatted card inputs with auto-formatting, brand detection, and masking for demos and custom PSPs.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["https://billui.com/r/card-icons.json"],
+  },
+  "payment-form": {
+    name: "payment-form",
+    description:
+      "A composable, provider-agnostic payment form wrapper for Stripe, Braintree, or native inputs.",
+    dependencies: ["lucide-react"],
+    registryDependencies: ["button", "https://billui.com/r/card-input.json"],
+  },
   "plan-card": {
     name: "plan-card",
     description: "A card for displaying pricing tiers and subscription plans.",
@@ -35,7 +55,11 @@ export const registry: Record<string, RegistryItemMeta> = {
     description:
       "A card for displaying saved payment methods like credit cards.",
     dependencies: ["lucide-react"],
-    registryDependencies: ["button", "badge"],
+    registryDependencies: [
+      "button",
+      "badge",
+      "https://billui.com/r/card-icons.json",
+    ],
   },
   "usage-card": {
     name: "usage-card",
