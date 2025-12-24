@@ -417,7 +417,7 @@ const CardExpiryInput = React.forwardRef<
     };
 
     return (
-      <div className="relative flex items-center">
+      <div className={cn("relative flex items-center", !isGrouped && "flex-1")}>
         <input
           ref={ref}
           id={inputId}
@@ -430,8 +430,8 @@ const CardExpiryInput = React.forwardRef<
           placeholder={placeholder}
           maxLength={5}
           className={cn(
-            "h-10 w-20 border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
-            isGrouped && "text-center",
+            "h-10 border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
+            isGrouped ? "w-20 text-center" : "w-full",
             hasError && "text-destructive",
             className,
           )}
@@ -526,24 +526,26 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
     };
 
     return (
-      <input
-        ref={ref}
-        id={inputId}
-        name={inputName}
-        type="text"
-        inputMode="numeric"
-        autoComplete="cc-csc"
-        value={value}
-        onChange={handleChange}
-        placeholder={brand === "amex" ? "CVVC" : placeholder}
-        maxLength={maxLength}
-        className={cn(
-          "h-10 w-16 border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
-          isGrouped && "text-center",
-          className,
-        )}
-        {...props}
-      />
+      <div className={cn("relative flex items-center", !isGrouped && "flex-1")}>
+        <input
+          ref={ref}
+          id={inputId}
+          name={inputName}
+          type="text"
+          inputMode="numeric"
+          autoComplete="cc-csc"
+          value={value}
+          onChange={handleChange}
+          placeholder={brand === "amex" ? "CVVC" : placeholder}
+          maxLength={maxLength}
+          className={cn(
+            "h-10 border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
+            isGrouped ? "w-16 text-center" : "w-full",
+            className,
+          )}
+          {...props}
+        />
+      </div>
     );
   },
 );

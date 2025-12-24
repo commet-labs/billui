@@ -78,43 +78,43 @@ Use each input component separately for custom layouts with individual labels an
 
 <ComponentPreview component="card-input" example="individual" code={`<div className="space-y-4">
   <div>
-    <label className="text-sm font-medium">Card Number</label>
-    <div className="mt-1 rounded-lg border px-3">
+    <label className="mb-2 block text-sm font-medium">Card Number</label>
+    <div className="rounded-lg border bg-background px-3">
       <CardNumberInput />
     </div>
   </div>
-  <div className="flex gap-4">
-    <div className="flex-1">
-      <label className="text-sm font-medium">Expiry</label>
-      <div className="mt-1 rounded-lg border px-3">
+  <div className="grid grid-cols-2 gap-4">
+    <div>
+      <label className="mb-2 block text-sm font-medium">Expiration Date</label>
+      <div className="rounded-lg border bg-background px-3">
         <CardExpiryInput />
       </div>
     </div>
-    <div className="w-24">
-      <label className="text-sm font-medium">CVC</label>
-      <div className="mt-1 rounded-lg border px-3">
+    <div>
+      <label className="mb-2 block text-sm font-medium">Security Code</label>
+      <div className="rounded-lg border bg-background px-3">
         <CardCvcInput />
       </div>
     </div>
   </div>
 </div>`}>
-  <div className="w-full max-w-md space-y-4">
+  <div className="w-full max-w-lg space-y-4">
     <div>
-      <label className="text-sm font-medium">Card Number</label>
-      <div className="mt-1 rounded-lg border px-3">
+      <label className="mb-2 block text-sm font-medium">Card Number</label>
+      <div className="rounded-lg border bg-background px-3">
         <CardNumberInput />
       </div>
     </div>
-    <div className="flex gap-4">
-      <div className="flex-1">
-        <label className="text-sm font-medium">Expiry</label>
-        <div className="mt-1 rounded-lg border px-3">
+    <div className="grid grid-cols-2 gap-4">
+      <div>
+        <label className="mb-2 block text-sm font-medium">Expiration Date</label>
+        <div className="rounded-lg border bg-background px-3">
           <CardExpiryInput />
         </div>
       </div>
-      <div className="w-24">
-        <label className="text-sm font-medium">CVC</label>
-        <div className="mt-1 rounded-lg border px-3">
+      <div>
+        <label className="mb-2 block text-sm font-medium">Security Code</label>
+        <div className="rounded-lg border bg-background px-3">
           <CardCvcInput />
         </div>
       </div>
