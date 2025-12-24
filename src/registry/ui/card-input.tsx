@@ -4,6 +4,20 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { CardBrandIcons, type CardBrand } from "./card-icons";
 
+// Context to share card brand between components in a CardInputGroup
+interface CardInputContextValue {
+  brand: CardBrand;
+  setBrand: (brand: CardBrand) => void;
+}
+
+const CardInputContext = React.createContext<CardInputContextValue | null>(
+  null,
+);
+
+function useCardInputContext() {
+  return React.useContext(CardInputContext);
+}
+
 function detectCardBrand(cardNumber: string): CardBrand {
   const number = cardNumber.replace(/\s/g, "");
 
@@ -35,27 +49,27 @@ function detectCardBrand(cardNumber: string): CardBrand {
 
 function validateLuhn(cardNumber: string): boolean {
   const number = cardNumber.replace(/\s/g, "");
-  
+
   if (!number || !/^\d+$/.test(number)) return false;
-  
+
   let sum = 0;
   let isEven = false;
-  
+
   // Loop through digits from right to left
   for (let i = number.length - 1; i >= 0; i--) {
     let digit = parseInt(number[i], 10);
-    
+
     if (isEven) {
       digit *= 2;
       if (digit > 9) {
         digit -= 9;
       }
     }
-    
+
     sum += digit;
     isEven = !isEven;
   }
-  
+
   return sum % 10 === 0;
 }
 
@@ -65,11 +79,15 @@ function isCardNumberComplete(cardNumber: string, brand: CardBrand): boolean {
   return number.length === maxLength;
 }
 
-function validateCardNumber(cardNumber: string): { isValid: boolean; isComplete: boolean; brand: CardBrand } {
+function validateCardNumber(cardNumber: string): {
+  isValid: boolean;
+  isComplete: boolean;
+  brand: CardBrand;
+} {
   const brand = detectCardBrand(cardNumber);
   const isComplete = isCardNumberComplete(cardNumber, brand);
   const isValid = isComplete && validateLuhn(cardNumber);
-  
+
   return { isValid, isComplete, brand };
 }
 
@@ -113,21 +131,66 @@ function formatExpiry(value: string): string {
   return truncated;
 }
 
-interface CardInputGroupProps extends React.HTMLAttributes<HTMLDivElement> {}
+function validateExpiry(expiry: string): {
+  isValid: boolean;
+  isComplete: boolean;
+  isExpired: boolean;
+} {
+  const cleaned = expiry.replace(/\D/g, "");
+
+  // Not complete until we have 4 digits (MMYY)
+  if (cleaned.length < 4) {
+    return { isValid: false, isComplete: false, isExpired: false };
+  }
+
+  const month = parseInt(cleaned.slice(0, 2), 10);
+  const year = parseInt(cleaned.slice(2, 4), 10);
+
+  // Invalid month
+  if (month < 1 || month > 12) {
+    return { isValid: false, isComplete: true, isExpired: false };
+  }
+
+  // Check if expired
+  const now = new Date();
+  const currentYear = now.getFullYear() % 100; // Get last 2 digits
+  const currentMonth = now.getMonth() + 1; // 1-indexed
+
+  const isExpired =
+    year < currentYear || (year === currentYear && month < currentMonth);
+
+  return {
+    isValid: !isExpired,
+    isComplete: true,
+    isExpired,
+  };
+}
+
+interface CardInputGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  error?: boolean;
+}
 
 const CardInputGroup = React.forwardRef<HTMLDivElement, CardInputGroupProps>(
-  ({ className, children, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        "flex items-center divide-x divide-border overflow-hidden rounded-lg border bg-background transition-all focus-within:ring-2 focus-within:ring-ring focus-within:border-ring",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </div>
-  ),
+  ({ className, children, error, ...props }, ref) => {
+    const [brand, setBrand] = React.useState<CardBrand>("unknown");
+
+    return (
+      <CardInputContext.Provider value={{ brand, setBrand }}>
+        <div
+          ref={ref}
+          className={cn(
+            "flex items-center divide-x divide-border overflow-hidden rounded-lg border bg-background transition-all focus-within:ring-2 focus-within:ring-ring focus-within:border-ring",
+            error &&
+              "border-destructive focus-within:border-destructive focus-within:ring-destructive/20",
+            className,
+          )}
+          {...props}
+        >
+          {children}
+        </div>
+      </CardInputContext.Provider>
+    );
+  },
 );
 CardInputGroup.displayName = "CardInputGroup";
 
@@ -139,8 +202,12 @@ interface CardNumberInputProps
   value?: string;
   onChange?: (value: string) => void;
   onBrandChange?: (brand: CardBrand) => void;
-  onValidationChange?: (validation: { isValid: boolean; isComplete: boolean }) => void;
+  onValidationChange?: (validation: {
+    isValid: boolean;
+    isComplete: boolean;
+  }) => void;
   showBrandIcon?: boolean;
+  showValidation?: boolean;
 }
 
 const CardNumberInput = React.forwardRef<
@@ -155,26 +222,53 @@ const CardNumberInput = React.forwardRef<
       onBrandChange,
       onValidationChange,
       showBrandIcon = true,
+      showValidation = true,
       placeholder = "1234 1234 1234 1234",
       ...props
     },
     ref,
   ) => {
+    const context = useCardInputContext();
     const isControlled = controlledValue !== undefined;
     const [internalValue, setInternalValue] = React.useState("");
-    const [brand, setBrand] = React.useState<CardBrand>("unknown");
+    const [internalBrand, setInternalBrand] =
+      React.useState<CardBrand>("unknown");
+    const [validationState, setValidationState] = React.useState<{
+      isComplete: boolean;
+      isValid: boolean;
+    }>({ isComplete: false, isValid: false });
+
+    // Use context brand if available, otherwise use internal state
+    const brand = context?.brand ?? internalBrand;
     const BrandIcon = CardBrandIcons[brand];
 
     const value = isControlled ? controlledValue : internalValue;
+    const hasError =
+      showValidation && validationState.isComplete && !validationState.isValid;
+    const isValidComplete =
+      showValidation && validationState.isComplete && validationState.isValid;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const rawValue = e.target.value;
-      const validation = validateCardNumber(rawValue);
-      const formatted = formatCardNumber(rawValue, validation.brand);
+      // Detect brand first to know how to format
+      const detectedBrand = detectCardBrand(rawValue);
+      // Format (and truncate) the value
+      const formatted = formatCardNumber(rawValue, detectedBrand);
+      // Validate with the formatted/truncated value to ensure correct state
+      const validation = validateCardNumber(formatted);
 
-      setBrand(validation.brand);
+      // Update both context (if available) and internal state
+      context?.setBrand(validation.brand);
+      setInternalBrand(validation.brand);
+      setValidationState({
+        isComplete: validation.isComplete,
+        isValid: validation.isValid,
+      });
       onBrandChange?.(validation.brand);
-      onValidationChange?.({ isValid: validation.isValid, isComplete: validation.isComplete });
+      onValidationChange?.({
+        isValid: validation.isValid,
+        isComplete: validation.isComplete,
+      });
 
       if (isControlled) {
         onChange?.(formatted);
@@ -193,19 +287,56 @@ const CardNumberInput = React.forwardRef<
           value={value}
           onChange={handleChange}
           placeholder={placeholder}
-          className="h-10 w-full border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground"
+          className={cn(
+            "h-10 w-full border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
+            hasError && "text-destructive",
+          )}
+          aria-invalid={hasError}
           {...props}
         />
-        {showBrandIcon && (
-          <div className="pointer-events-none absolute right-3 flex h-6 w-9 items-center justify-center">
-            <BrandIcon
-              className={cn(
-                "h-full w-full",
-                brand === "unknown" && "h-5 w-5 text-muted-foreground",
-              )}
-            />
-          </div>
-        )}
+        <div className="pointer-events-none absolute right-3 flex items-center gap-2">
+          {showValidation && validationState.isComplete && (
+            <div className="flex h-5 w-5 items-center justify-center">
+              {hasError ? (
+                <svg
+                  className="h-4 w-4 text-destructive"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="15" y1="9" x2="9" y2="15" />
+                  <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+              ) : isValidComplete ? (
+                <svg
+                  className="h-4 w-4 text-emerald-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              ) : null}
+            </div>
+          )}
+          {showBrandIcon && (
+            <div className="flex h-6 w-9 items-center justify-center">
+              <BrandIcon
+                className={cn(
+                  "h-full w-full",
+                  brand === "unknown" && "h-5 w-5 text-muted-foreground",
+                )}
+              />
+            </div>
+          )}
+        </div>
       </div>
     );
   },
@@ -219,6 +350,12 @@ interface CardExpiryInputProps
   > {
   value?: string;
   onChange?: (value: string) => void;
+  onValidationChange?: (validation: {
+    isValid: boolean;
+    isComplete: boolean;
+    isExpired: boolean;
+  }) => void;
+  showValidation?: boolean;
 }
 
 const CardExpiryInput = React.forwardRef<
@@ -230,6 +367,8 @@ const CardExpiryInput = React.forwardRef<
       className,
       value: controlledValue,
       onChange,
+      onValidationChange,
+      showValidation = true,
       placeholder = "MM/YY",
       ...props
     },
@@ -237,11 +376,22 @@ const CardExpiryInput = React.forwardRef<
   ) => {
     const isControlled = controlledValue !== undefined;
     const [internalValue, setInternalValue] = React.useState("");
+    const [validationState, setValidationState] = React.useState<{
+      isComplete: boolean;
+      isValid: boolean;
+      isExpired: boolean;
+    }>({ isComplete: false, isValid: false, isExpired: false });
 
     const value = isControlled ? controlledValue : internalValue;
+    const hasError =
+      showValidation && validationState.isComplete && !validationState.isValid;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const formatted = formatExpiry(e.target.value);
+      const validation = validateExpiry(formatted);
+
+      setValidationState(validation);
+      onValidationChange?.(validation);
 
       if (isControlled) {
         onChange?.(formatted);
@@ -251,21 +401,56 @@ const CardExpiryInput = React.forwardRef<
     };
 
     return (
-      <input
-        ref={ref}
-        type="text"
-        inputMode="numeric"
-        autoComplete="cc-exp"
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-        maxLength={5}
-        className={cn(
-          "h-10 w-20 border-0 bg-transparent px-3 text-center text-sm outline-none placeholder:text-muted-foreground",
-          className,
+      <div className="relative flex items-center">
+        <input
+          ref={ref}
+          type="text"
+          inputMode="numeric"
+          autoComplete="cc-exp"
+          value={value}
+          onChange={handleChange}
+          placeholder={placeholder}
+          maxLength={5}
+          className={cn(
+            "h-10 w-20 border-0 bg-transparent px-3 text-center text-sm outline-none placeholder:text-muted-foreground",
+            hasError && "text-destructive",
+            className,
+          )}
+          aria-invalid={hasError}
+          {...props}
+        />
+        {showValidation && validationState.isComplete && (
+          <div className="pointer-events-none absolute right-1 flex h-4 w-4 items-center justify-center">
+            {hasError ? (
+              <svg
+                className="h-3.5 w-3.5 text-destructive"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="15" y1="9" x2="9" y2="15" />
+                <line x1="9" y1="9" x2="15" y2="15" />
+              </svg>
+            ) : (
+              <svg
+                className="h-3.5 w-3.5 text-emerald-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            )}
+          </div>
         )}
-        {...props}
-      />
+      </div>
     );
   },
 );
@@ -287,14 +472,18 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
       className,
       value: controlledValue,
       onChange,
-      brand = "unknown",
+      brand: brandProp,
       placeholder = "CVC",
       ...props
     },
     ref,
   ) => {
+    const context = useCardInputContext();
     const isControlled = controlledValue !== undefined;
     const [internalValue, setInternalValue] = React.useState("");
+
+    // Priority: explicit prop > context > default
+    const brand = brandProp ?? context?.brand ?? "unknown";
     const maxLength = getCvcMaxLength(brand);
 
     const value = isControlled ? controlledValue : internalValue;
@@ -317,7 +506,7 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
         autoComplete="cc-csc"
         value={value}
         onChange={handleChange}
-        placeholder={placeholder}
+        placeholder={brand === "amex" ? "CVVC" : placeholder}
         maxLength={maxLength}
         className={cn(
           "h-10 w-16 border-0 bg-transparent px-3 text-center text-sm outline-none placeholder:text-muted-foreground",
@@ -339,6 +528,7 @@ export {
   detectCardBrand,
   validateLuhn,
   validateCardNumber,
+  validateExpiry,
   isCardNumberComplete,
   formatCardNumber,
   formatExpiry,
