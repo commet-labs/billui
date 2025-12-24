@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { CardBrandIcons, type CardBrand } from "./card-icons";
+import { type CardBrand, CardBrandIcons } from "./card-icons";
 
 // Context to share card brand between components in a CardInputGroup
 interface CardInputContextValue {

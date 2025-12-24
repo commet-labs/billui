@@ -4,7 +4,7 @@ import * as React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CardBrandIcons, brandLabels, type CardBrand } from "./card-icons";
+import { brandLabels, type CardBrand, CardBrandIcons } from "./card-icons";
 
 const paymentMethodVariants = cva(
   "relative flex items-center gap-4 rounded-xl border bg-card p-4 text-card-foreground transition-colors",
