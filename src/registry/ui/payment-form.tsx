@@ -83,11 +83,17 @@ PaymentFormDescription.displayName = "PaymentFormDescription";
 const paymentFormFieldVariants = cva("", {
   variants: {
     variant: {
+      /** For simple inputs without their own container styling */
       default:
         "rounded-lg border bg-background transition-all border-input focus-within:ring-2 focus-within:ring-ring focus-within:border-ring px-3 py-2.5",
+      /** Error state for default variant */
       error:
         "rounded-lg border bg-background transition-all border-destructive focus-within:ring-2 focus-within:ring-destructive px-3 py-2.5",
-      native: "", // No styles - child component handles its own styling
+      /**
+       * For components with their own styling (CardInputGroup, Stripe Elements, etc.)
+       * Only renders label + children, no wrapper styles
+       */
+      unstyled: "",
     },
   },
   defaultVariants: {
@@ -139,7 +145,7 @@ const PaymentFormField = React.forwardRef<
 
     // Determine effective variant
     const effectiveVariant =
-      hasError && variant !== "native" ? "error" : variant;
+      hasError && variant !== "unstyled" ? "error" : variant;
 
     // htmlFor prop allows explicit control:
     // - undefined: use auto-generated fieldId (default)
@@ -169,7 +175,7 @@ const PaymentFormField = React.forwardRef<
             )}
           </label>
         )}
-        {variant === "native" ? (
+        {variant === "unstyled" ? (
           children
         ) : (
           <div className={fieldStyles}>{children}</div>
