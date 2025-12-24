@@ -4,11 +4,26 @@
   "homepage": "https://billui.com",
   "items": [
     {
+      "name": "card-icons",
+      "type": "registry:ui",
+      "title": "Card Icons",
+      "description": "Shared card brand icons and types for billing components.",
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "src/registry/ui/card-icons.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/card-icons.tsx"
+        }
+      ]
+    },
+    {
       "name": "card-input",
       "type": "registry:ui",
       "title": "Card Input",
       "description": "Native formatted card inputs with auto-formatting, brand detection, and masking for demos and custom PSPs.",
       "dependencies": ["lucide-react"],
+      "registryDependencies": ["https://billui.com/r/card-icons.json"],
       "files": [
         {
           "path": "src/registry/ui/card-input.tsx",
@@ -82,7 +97,7 @@
       "title": "Payment Method",
       "description": "A card for displaying saved payment methods like credit cards.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["button", "badge"],
+      "registryDependencies": ["button", "badge", "https://billui.com/r/card-icons.json"],
       "files": [
         {
           "path": "src/registry/ui/payment-method.tsx",
