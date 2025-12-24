@@ -217,6 +217,8 @@ const CardNumberInput = React.forwardRef<
   (
     {
       className,
+      id,
+      name,
       value: controlledValue,
       onChange,
       onBrandChange,
@@ -229,6 +231,9 @@ const CardNumberInput = React.forwardRef<
     ref,
   ) => {
     const context = useCardInputContext();
+    const generatedId = React.useId();
+    const inputId = id ?? generatedId;
+    const inputName = name ?? "cc-number";
     const isControlled = controlledValue !== undefined;
     const [internalValue, setInternalValue] = React.useState("");
     const [internalBrand, setInternalBrand] =
@@ -281,6 +286,8 @@ const CardNumberInput = React.forwardRef<
       <div className={cn("relative flex flex-1 items-center", className)}>
         <input
           ref={ref}
+          id={inputId}
+          name={inputName}
           type="text"
           inputMode="numeric"
           autoComplete="cc-number"
@@ -365,6 +372,8 @@ const CardExpiryInput = React.forwardRef<
   (
     {
       className,
+      id,
+      name,
       value: controlledValue,
       onChange,
       onValidationChange,
@@ -374,6 +383,10 @@ const CardExpiryInput = React.forwardRef<
     },
     ref,
   ) => {
+    const context = useCardInputContext();
+    const generatedId = React.useId();
+    const inputId = id ?? generatedId;
+    const inputName = name ?? "cc-exp";
     const isControlled = controlledValue !== undefined;
     const [internalValue, setInternalValue] = React.useState("");
     const [validationState, setValidationState] = React.useState<{
@@ -381,6 +394,9 @@ const CardExpiryInput = React.forwardRef<
       isValid: boolean;
       isExpired: boolean;
     }>({ isComplete: false, isValid: false, isExpired: false });
+
+    // When inside CardInputGroup, center text; otherwise left-align
+    const isGrouped = context !== null;
 
     const value = isControlled ? controlledValue : internalValue;
     const hasError =
@@ -404,6 +420,8 @@ const CardExpiryInput = React.forwardRef<
       <div className="relative flex items-center">
         <input
           ref={ref}
+          id={inputId}
+          name={inputName}
           type="text"
           inputMode="numeric"
           autoComplete="cc-exp"
@@ -412,7 +430,8 @@ const CardExpiryInput = React.forwardRef<
           placeholder={placeholder}
           maxLength={5}
           className={cn(
-            "h-10 w-20 border-0 bg-transparent px-3 text-center text-sm outline-none placeholder:text-muted-foreground",
+            "h-10 w-20 border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
+            isGrouped && "text-center",
             hasError && "text-destructive",
             className,
           )}
@@ -470,6 +489,8 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
   (
     {
       className,
+      id,
+      name,
       value: controlledValue,
       onChange,
       brand: brandProp,
@@ -479,12 +500,18 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
     ref,
   ) => {
     const context = useCardInputContext();
+    const generatedId = React.useId();
+    const inputId = id ?? generatedId;
+    const inputName = name ?? "cc-csc";
     const isControlled = controlledValue !== undefined;
     const [internalValue, setInternalValue] = React.useState("");
 
     // Priority: explicit prop > context > default
     const brand = brandProp ?? context?.brand ?? "unknown";
     const maxLength = getCvcMaxLength(brand);
+
+    // When inside CardInputGroup, center text; otherwise left-align
+    const isGrouped = context !== null;
 
     const value = isControlled ? controlledValue : internalValue;
 
@@ -501,6 +528,8 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
     return (
       <input
         ref={ref}
+        id={inputId}
+        name={inputName}
         type="text"
         inputMode="numeric"
         autoComplete="cc-csc"
@@ -509,7 +538,8 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
         placeholder={brand === "amex" ? "CVVC" : placeholder}
         maxLength={maxLength}
         className={cn(
-          "h-10 w-16 border-0 bg-transparent px-3 text-center text-sm outline-none placeholder:text-muted-foreground",
+          "h-10 w-16 border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
+          isGrouped && "text-center",
           className,
         )}
         {...props}

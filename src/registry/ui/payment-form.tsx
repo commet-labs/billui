@@ -102,6 +102,7 @@ interface PaymentFormFieldProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof paymentFormFieldVariants> {
   label?: string;
+  htmlFor?: string;
   name?: string;
   error?: string;
   description?: string;
@@ -117,6 +118,7 @@ const PaymentFormField = React.forwardRef<
     {
       className,
       label,
+      htmlFor,
       name,
       error,
       description,
@@ -135,6 +137,13 @@ const PaymentFormField = React.forwardRef<
     const hasError = !!error;
     const Comp = asChild ? Slot : "div";
 
+    // htmlFor prop allows explicit control:
+    // - undefined: use auto-generated fieldId (default)
+    // - empty string "": no htmlFor (for group labels like CardInputGroup)
+    // - string value: use that value
+    const labelFor =
+      htmlFor === "" ? undefined : htmlFor !== undefined ? htmlFor : fieldId;
+
     return (
       <div
         ref={ref}
@@ -143,7 +152,7 @@ const PaymentFormField = React.forwardRef<
       >
         {label && (
           <label
-            htmlFor={fieldId}
+            htmlFor={labelFor}
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             {label}
