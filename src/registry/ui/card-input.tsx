@@ -283,7 +283,12 @@ const CardNumberInput = React.forwardRef<
     };
 
     return (
-      <div className={cn("relative flex min-w-[200px] flex-1 items-center", className)}>
+      <div
+        className={cn(
+          "relative flex min-w-[200px] flex-1 items-center",
+          className,
+        )}
+      >
         <input
           ref={ref}
           id={inputId}
@@ -296,7 +301,7 @@ const CardNumberInput = React.forwardRef<
           placeholder={placeholder}
           className={cn(
             "h-10 w-full border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
-            showBrandIcon && showValidation && "pr-[4.5rem]",
+            showBrandIcon && showValidation && "pr-18",
             showBrandIcon && !showValidation && "pr-14",
             hasError && "text-destructive",
           )}
