@@ -42,6 +42,12 @@ const registry: Record<string, RegistryItem> = Object.fromEntries(
 
 // Map component names to their exports for generating imports
 const componentExports: Record<string, string[]> = {
+  "billing-address": [
+    "BillingAddress",
+    "BillingAddressField",
+    "BillingAddressRow",
+    "billingAutocomplete",
+  ],
   "card-input": [
     "CardInputGroup",
     "CardNumberInput",

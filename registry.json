@@ -4,6 +4,21 @@
   "homepage": "https://billui.com",
   "items": [
     {
+      "name": "billing-address",
+      "type": "registry:ui",
+      "title": "Billing Address",
+      "description": "Composable address form fields with correct autocomplete attributes for browser autofill.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["input", "label", "select"],
+      "files": [
+        {
+          "path": "src/registry/ui/billing-address.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/billing-address.tsx"
+        }
+      ]
+    },
+    {
       "name": "card-icons",
       "type": "registry:ui",
       "title": "Card Icons",

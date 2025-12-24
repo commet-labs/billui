@@ -1,4 +1,26 @@
 export type {
+  BillingAddressInputField,
+  BillingAddressInputProps,
+  BillingAddressLabelProps,
+  BillingAddressProps,
+  BillingAddressRowProps,
+} from "./billing-address";
+export {
+  BillingAddress,
+  BillingAddressField,
+  BillingAddressInput,
+  BillingAddressLabel,
+  BillingAddressRow,
+  BillingAddressSelect,
+  BillingAddressSelectContent,
+  BillingAddressSelectItem,
+  BillingAddressSelectTrigger,
+  BillingAddressSelectValue,
+  billingAddressRowVariants,
+  billingAddressVariants,
+  billingAutocomplete,
+} from "./billing-address";
+export type {
   CardBrand as CardInputBrand,
   CardCvcInputProps,
   CardExpiryInputProps,

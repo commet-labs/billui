@@ -1,0 +1,123 @@
+---
+title: Billing Address
+description: Composable address form fields with correct autocomplete attributes for optimal browser autofill.
+---
+
+import {
+  BillingAddress,
+  BillingAddressField,
+  BillingAddressRow,
+  BillingAddressLabel,
+  BillingAddressInput,
+  BillingAddressSelect,
+  BillingAddressSelectTrigger,
+  BillingAddressSelectContent,
+  BillingAddressSelectItem,
+  BillingAddressSelectValue,
+} from "@/registry/ui";
+
+<ComponentPreview component="billing-address" example="preview" code={`<BillingAddress>
+  <BillingAddressField>
+    <BillingAddressLabel htmlFor="name">Full Name</BillingAddressLabel>
+    <BillingAddressInput id="name" name="name" field="name" placeholder="Name" />
+  </BillingAddressField>
+  <BillingAddressField>
+    <BillingAddressLabel htmlFor="country">Country Or Region</BillingAddressLabel>
+    <BillingAddressSelect name="country">
+      <BillingAddressSelectTrigger id="country">
+        <BillingAddressSelectValue placeholder="Select country" />
+      </BillingAddressSelectTrigger>
+      <BillingAddressSelectContent>
+        <BillingAddressSelectItem value="US">United States</BillingAddressSelectItem>
+        <BillingAddressSelectItem value="CA">Canada</BillingAddressSelectItem>
+        <BillingAddressSelectItem value="GB">United Kingdom</BillingAddressSelectItem>
+        <BillingAddressSelectItem value="AR">Argentina</BillingAddressSelectItem>
+      </BillingAddressSelectContent>
+    </BillingAddressSelect>
+  </BillingAddressField>
+  <BillingAddressField>
+    <BillingAddressLabel htmlFor="line1">Address Line 1</BillingAddressLabel>
+    <BillingAddressInput id="line1" name="line1" field="line1" placeholder="Street address" />
+  </BillingAddressField>
+  <BillingAddressField>
+    <BillingAddressLabel htmlFor="line2">Address Line 2</BillingAddressLabel>
+    <BillingAddressInput id="line2" name="line2" field="line2" placeholder="Apt, suite, etc. (optional)" />
+  </BillingAddressField>
+  <BillingAddressField>
+    <BillingAddressLabel htmlFor="city">City</BillingAddressLabel>
+    <BillingAddressInput id="city" name="city" field="city" placeholder="City" />
+  </BillingAddressField>
+  <BillingAddressRow>
+    <BillingAddressField>
+      <BillingAddressLabel htmlFor="state">State</BillingAddressLabel>
+      <BillingAddressSelect name="state">
+        <BillingAddressSelectTrigger id="state">
+          <BillingAddressSelectValue placeholder="Select state" />
+        </BillingAddressSelectTrigger>
+        <BillingAddressSelectContent>
+          <BillingAddressSelectItem value="NY">New York</BillingAddressSelectItem>
+          <BillingAddressSelectItem value="CA">California</BillingAddressSelectItem>
+          <BillingAddressSelectItem value="TX">Texas</BillingAddressSelectItem>
+        </BillingAddressSelectContent>
+      </BillingAddressSelect>
+    </BillingAddressField>
+    <BillingAddressField>
+      <BillingAddressLabel htmlFor="postal">ZIP Code</BillingAddressLabel>
+      <BillingAddressInput id="postal" name="postal" field="postalCode" placeholder="ZIP code" />
+    </BillingAddressField>
+  </BillingAddressRow>
+</BillingAddress>`}>
+  <div className="w-full max-w-md">
+    <BillingAddress>
+      <BillingAddressField>
+        <BillingAddressLabel htmlFor="name">Full Name</BillingAddressLabel>
+        <BillingAddressInput id="name" name="name" field="name" placeholder="Name" />
+      </BillingAddressField>
+      <BillingAddressField>
+        <BillingAddressLabel htmlFor="country">Country Or Region</BillingAddressLabel>
+        <BillingAddressSelect name="country">
+          <BillingAddressSelectTrigger id="country">
+            <BillingAddressSelectValue placeholder="Select country" />
+          </BillingAddressSelectTrigger>
+          <BillingAddressSelectContent>
+            <BillingAddressSelectItem value="US">United States</BillingAddressSelectItem>
+            <BillingAddressSelectItem value="CA">Canada</BillingAddressSelectItem>
+            <BillingAddressSelectItem value="GB">United Kingdom</BillingAddressSelectItem>
+            <BillingAddressSelectItem value="AR">Argentina</BillingAddressSelectItem>
+          </BillingAddressSelectContent>
+        </BillingAddressSelect>
+      </BillingAddressField>
+      <BillingAddressField>
+        <BillingAddressLabel htmlFor="line1">Address Line 1</BillingAddressLabel>
+        <BillingAddressInput id="line1" name="line1" field="line1" placeholder="Street address" />
+      </BillingAddressField>
+      <BillingAddressField>
+        <BillingAddressLabel htmlFor="line2">Address Line 2</BillingAddressLabel>
+        <BillingAddressInput id="line2" name="line2" field="line2" placeholder="Apt, suite, etc. (optional)" />
+      </BillingAddressField>
+      <BillingAddressField>
+        <BillingAddressLabel htmlFor="city">City</BillingAddressLabel>
+        <BillingAddressInput id="city" name="city" field="city" placeholder="City" />
+      </BillingAddressField>
+      <BillingAddressRow>
+        <BillingAddressField>
+          <BillingAddressLabel htmlFor="state">State</BillingAddressLabel>
+          <BillingAddressSelect name="state">
+            <BillingAddressSelectTrigger id="state">
+              <BillingAddressSelectValue placeholder="Select state" />
+            </BillingAddressSelectTrigger>
+            <BillingAddressSelectContent>
+              <BillingAddressSelectItem value="NY">New York</BillingAddressSelectItem>
+              <BillingAddressSelectItem value="CA">California</BillingAddressSelectItem>
+              <BillingAddressSelectItem value="TX">Texas</BillingAddressSelectItem>
+            </BillingAddressSelectContent>
+          </BillingAddressSelect>
+        </BillingAddressField>
+        <BillingAddressField>
+          <BillingAddressLabel htmlFor="postal">ZIP Code</BillingAddressLabel>
+          <BillingAddressInput id="postal" name="postal" field="postalCode" placeholder="ZIP code" />
+        </BillingAddressField>
+      </BillingAddressRow>
+    </BillingAddress>
+  </div>
+</ComponentPreview>
