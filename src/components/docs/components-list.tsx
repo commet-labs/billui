@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { registryIndex } from "@/registry/registry";
+import registryJson from "../../../registry.json";
 
 export function ComponentsList() {
-  const components = registryIndex.items;
+  const components = registryJson.items;
 
   const getComponentPath = (name: string) => {
     if (name.startsWith("animated-")) {
