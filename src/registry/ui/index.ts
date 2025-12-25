@@ -10,8 +10,7 @@ export {
   BillingAddressCountry,
   BillingAddressInput,
   BillingAddressState,
-  billingAutocomplete,
-  useBillingAddressContext,
+  billingFieldConfig,
 } from "./billing-address";
 export type { ICountry, IState } from "./billing-address-data";
 export { COUNTRIES, getStatesForCountry } from "./billing-address-data";

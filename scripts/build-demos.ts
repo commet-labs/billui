@@ -44,9 +44,10 @@ const registry: Record<string, RegistryItem> = Object.fromEntries(
 const componentExports: Record<string, string[]> = {
   "billing-address": [
     "BillingAddress",
-    "BillingAddressField",
-    "BillingAddressRow",
-    "billingAutocomplete",
+    "BillingAddressInput",
+    "BillingAddressCountry",
+    "BillingAddressState",
+    "billingFieldConfig",
   ],
   "card-input": [
     "CardInputGroup",

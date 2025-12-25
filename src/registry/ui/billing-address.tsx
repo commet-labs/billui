@@ -16,10 +16,6 @@ import {
   type IState,
 } from "./billing-address-data";
 
-// ============================================================================
-// Controlled/Uncontrolled helper hook
-// ============================================================================
-
 function useControllableState<T>(
   controlledValue: T | undefined,
   defaultValue: T,
@@ -42,10 +38,6 @@ function useControllableState<T>(
   return [value, setValue];
 }
 
-// ============================================================================
-// Context
-// ============================================================================
-
 interface BillingAddressContextValue {
   countryCode: string;
   setCountryCode: (code: string) => void;
@@ -64,10 +56,6 @@ function useBillingAddressContext() {
   }
   return context;
 }
-
-// ============================================================================
-// Root Component
-// ============================================================================
 
 interface BillingAddressProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, "defaultValue"> {
@@ -122,10 +110,6 @@ const BillingAddress = React.forwardRef<HTMLDivElement, BillingAddressProps>(
 );
 BillingAddress.displayName = "BillingAddress";
 
-// ============================================================================
-// Input - with correct autocomplete values and unified onValueChange API
-// ============================================================================
-
 /**
  * Configuration for billing address fields.
  * Ensures proper browser autofill, accessibility, and UX.
@@ -156,15 +140,6 @@ const billingFieldConfig = {
     inputMode: "text" as const,
     spellCheck: false, // Disabled per UI guidelines for codes
   },
-} as const;
-
-/** @deprecated Use billingFieldConfig instead */
-const billingAutocomplete = {
-  name: "billing name",
-  line1: "billing address-line1",
-  line2: "billing address-line2",
-  city: "billing address-level2",
-  postalCode: "billing postal-code",
 } as const;
 
 type BillingAddressInputField = keyof typeof billingFieldConfig;
@@ -242,10 +217,6 @@ const BillingAddressInput = React.forwardRef<
 );
 BillingAddressInput.displayName = "BillingAddressInput";
 
-// ============================================================================
-// Country Select
-// ============================================================================
-
 interface BillingAddressCountryProps {
   /** Placeholder text */
   placeholder?: string;
@@ -307,10 +278,6 @@ const BillingAddressCountry = React.forwardRef<
   },
 );
 BillingAddressCountry.displayName = "BillingAddressCountry";
-
-// ============================================================================
-// State - Select when states available, Input otherwise
-// ============================================================================
 
 interface BillingAddressStateProps {
   /** Placeholder text */
@@ -435,19 +402,12 @@ const BillingAddressState = React.forwardRef<
 );
 BillingAddressState.displayName = "BillingAddressState";
 
-// ============================================================================
-// Exports
-// ============================================================================
-
 export {
   BillingAddress,
   BillingAddressInput,
   BillingAddressCountry,
   BillingAddressState,
   billingFieldConfig,
-  billingAutocomplete,
-  useBillingAddressContext,
-  useControllableState,
 };
 
 export type {
