@@ -17,6 +17,32 @@ import {
 } from "./billing-address-data";
 
 // ============================================================================
+// Controlled/Uncontrolled helper hook
+// ============================================================================
+
+function useControllableState<T>(
+  controlledValue: T | undefined,
+  defaultValue: T,
+  onChange?: (value: T) => void,
+): [T, (value: T) => void] {
+  const [internalValue, setInternalValue] = React.useState(defaultValue);
+  const isControlled = controlledValue !== undefined;
+  const value = isControlled ? controlledValue : internalValue;
+
+  const setValue = React.useCallback(
+    (newValue: T) => {
+      if (!isControlled) {
+        setInternalValue(newValue);
+      }
+      onChange?.(newValue);
+    },
+    [isControlled, onChange],
+  );
+
+  return [value, setValue];
+}
+
+// ============================================================================
 // Context
 // ============================================================================
 
@@ -40,52 +66,49 @@ function useBillingAddressContext() {
 }
 
 // ============================================================================
-// Controlled/Uncontrolled helper hook
-// ============================================================================
-
-function useControllableState<T>(
-  value: T | undefined,
-  defaultValue: T,
-  onChange?: (value: T) => void,
-): [T, (value: T) => void] {
-  const [internalValue, setInternalValue] = React.useState(defaultValue);
-  const isControlled = value !== undefined;
-  const currentValue = isControlled ? value : internalValue;
-
-  const setValue = React.useCallback(
-    (newValue: T) => {
-      if (!isControlled) {
-        setInternalValue(newValue);
-      }
-      onChange?.(newValue);
-    },
-    [isControlled, onChange],
-  );
-
-  return [currentValue, setValue];
-}
-
-// ============================================================================
 // Root Component
 // ============================================================================
 
-interface BillingAddressProps extends React.HTMLAttributes<HTMLDivElement> {
-  /** Default country code (ISO 3166-1 alpha-2) */
+interface BillingAddressProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "defaultValue"> {
+  /** Controlled country code (ISO 3166-1 alpha-2) */
+  country?: string;
+  /** Default country code for uncontrolled mode */
   defaultCountry?: string;
+  /** Callback when country changes */
+  onCountryChange?: (code: string) => void;
 }
 
 const BillingAddress = React.forwardRef<HTMLDivElement, BillingAddressProps>(
-  ({ className, defaultCountry = "US", children, ...props }, ref) => {
-    const [countryCode, setCountryCode] = React.useState(defaultCountry);
+  (
+    {
+      className,
+      country,
+      defaultCountry = "US",
+      onCountryChange,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const [countryCode, setCountryCode] = useControllableState(
+      country,
+      defaultCountry,
+      onCountryChange,
+    );
+
     const states = React.useMemo(
       () => getStatesForCountry(countryCode),
       [countryCode],
     );
 
+    const contextValue = React.useMemo(
+      () => ({ countryCode, setCountryCode, states }),
+      [countryCode, setCountryCode, states],
+    );
+
     return (
-      <BillingAddressContext.Provider
-        value={{ countryCode, setCountryCode, states }}
-      >
+      <BillingAddressContext.Provider value={contextValue}>
         <div
           ref={ref}
           className={cn("flex flex-col gap-4", className)}
@@ -100,12 +123,12 @@ const BillingAddress = React.forwardRef<HTMLDivElement, BillingAddressProps>(
 BillingAddress.displayName = "BillingAddress";
 
 // ============================================================================
-// Input - with correct autocomplete values
+// Input - with correct autocomplete values and unified onValueChange API
 // ============================================================================
 
 /**
  * Configuration for billing address fields.
- * These ensure proper browser autofill behavior and accessibility.
+ * Ensures proper browser autofill, accessibility, and UX.
  */
 const billingFieldConfig = {
   name: {
@@ -131,7 +154,7 @@ const billingFieldConfig = {
   postalCode: {
     autocomplete: "billing postal-code",
     inputMode: "text" as const,
-    spellCheck: false, // Disable spellcheck for codes per UI guidelines
+    spellCheck: false, // Disabled per UI guidelines for codes
   },
 } as const;
 
@@ -149,53 +172,93 @@ type BillingAddressInputField = keyof typeof billingFieldConfig;
 interface BillingAddressInputProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof Input>,
-    "autoComplete" | "inputMode" | "spellCheck"
+    | "autoComplete"
+    | "inputMode"
+    | "spellCheck"
+    | "value"
+    | "defaultValue"
+    | "onChange"
   > {
-  /** Address field type - sets the correct autocomplete value */
+  /** Address field type - automatically sets autocomplete, inputMode, and spellCheck */
   field: BillingAddressInputField;
+  /** Controlled value */
+  value?: string;
+  /** Default value for uncontrolled mode */
+  defaultValue?: string;
+  /** Callback fired when value changes */
+  onValueChange?: (value: string) => void;
+  /** Trim whitespace on blur (default: true) */
+  trimOnBlur?: boolean;
 }
 
 const BillingAddressInput = React.forwardRef<
   HTMLInputElement,
   BillingAddressInputProps
->(({ field, className, ...props }, ref) => {
-  const config = billingFieldConfig[field];
-  return (
-    <Input
-      ref={ref}
-      autoComplete={config.autocomplete}
-      inputMode={config.inputMode}
-      spellCheck={config.spellCheck}
-      className={cn("w-full", className)}
-      {...props}
-    />
-  );
-});
+>(
+  (
+    {
+      field,
+      className,
+      value,
+      defaultValue = "",
+      onValueChange,
+      trimOnBlur = true,
+      onBlur,
+      ...props
+    },
+    ref,
+  ) => {
+    const config = billingFieldConfig[field];
+    const [currentValue, setValue] = useControllableState(
+      value,
+      defaultValue,
+      onValueChange,
+    );
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      if (trimOnBlur) {
+        const trimmed = currentValue.trim();
+        if (trimmed !== currentValue) {
+          setValue(trimmed);
+        }
+      }
+      onBlur?.(e);
+    };
+
+    return (
+      <Input
+        ref={ref}
+        value={currentValue}
+        onChange={(e) => setValue(e.target.value)}
+        onBlur={handleBlur}
+        autoComplete={config.autocomplete}
+        inputMode={config.inputMode}
+        spellCheck={config.spellCheck}
+        className={cn("w-full", className)}
+        {...props}
+      />
+    );
+  },
+);
 BillingAddressInput.displayName = "BillingAddressInput";
 
 // ============================================================================
-// Country Select - includes all countries, updates context
+// Country Select
 // ============================================================================
 
-interface BillingAddressCountryProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof Select>,
-    "value" | "onValueChange" | "defaultValue"
-  > {
-  /** Placeholder text for the select */
+interface BillingAddressCountryProps {
+  /** Placeholder text */
   placeholder?: string;
-  /** Additional class name for the trigger */
+  /** Additional class name */
   className?: string;
-  /** Controlled value */
-  value?: string;
-  /** Default value for uncontrolled mode */
-  defaultValue?: string;
   /** Callback fired when country changes */
   onValueChange?: (value: string) => void;
   /** Name attribute for form submission */
   name?: string;
   /** ID attribute */
   id?: string;
+  /** Whether the select is disabled */
+  disabled?: boolean;
 }
 
 const BillingAddressCountry = React.forwardRef<
@@ -206,36 +269,27 @@ const BillingAddressCountry = React.forwardRef<
     {
       placeholder = "Select country…",
       className,
-      value,
-      defaultValue,
       onValueChange,
       name,
       id,
-      ...props
+      disabled,
     },
     ref,
   ) => {
     const { countryCode, setCountryCode } = useBillingAddressContext();
 
-    // Support controlled mode: if value is provided, use it instead of context
-    const isControlled = value !== undefined;
-    const currentValue = isControlled ? value : countryCode;
-
     const handleValueChange = (newValue: string) => {
-      // Always update context (for state sync)
       setCountryCode(newValue);
-      // Notify parent
       onValueChange?.(newValue);
     };
 
     return (
       <>
-        {/* Hidden input for native form submission */}
-        {name && <input type="hidden" name={name} value={currentValue} />}
+        {name && <input type="hidden" name={name} value={countryCode} />}
         <Select
-          value={currentValue}
+          value={countryCode}
           onValueChange={handleValueChange}
-          {...props}
+          disabled={disabled}
         >
           <SelectTrigger ref={ref} id={id} className={cn("w-full", className)}>
             <SelectValue placeholder={placeholder} />
@@ -273,10 +327,21 @@ interface BillingAddressStateProps {
   name?: string;
   /** ID attribute */
   id?: string;
+  /** Whether the input/select is disabled */
+  disabled?: boolean;
+  /** Trim whitespace on blur for input mode (default: true) */
+  trimOnBlur?: boolean;
 }
 
+/**
+ * Renders a Select when states are available for the country,
+ * otherwise renders an Input for free-form entry.
+ *
+ * Note: Ref points to a wrapper div with `display: contents` for consistent typing.
+ * Use `ref.current?.querySelector('input, button')` if you need the inner element.
+ */
 const BillingAddressState = React.forwardRef<
-  HTMLButtonElement | HTMLInputElement,
+  HTMLDivElement,
   BillingAddressStateProps
 >(
   (
@@ -288,19 +353,19 @@ const BillingAddressState = React.forwardRef<
       onValueChange,
       name,
       id,
+      disabled,
+      trimOnBlur = true,
     },
     ref,
   ) => {
     const { states, countryCode } = useBillingAddressContext();
 
-    // Use controllable state pattern
     const [currentValue, setValue] = useControllableState(
       value,
       defaultValue,
       onValueChange,
     );
 
-    // Track if we're controlled to handle country change differently
     const isControlled = value !== undefined;
 
     // Reset state when country changes
@@ -308,45 +373,52 @@ const BillingAddressState = React.forwardRef<
     React.useEffect(() => {
       if (prevCountryRef.current !== countryCode) {
         prevCountryRef.current = countryCode;
-        // Always notify parent and reset internal state
-        // For controlled: parent decides what to do
-        // For uncontrolled: we reset and notify
         if (!isControlled) {
           setValue("");
         } else {
-          // Still notify parent so they can react
           onValueChange?.("");
         }
       }
     }, [countryCode, isControlled, setValue, onValueChange]);
 
-    // No states available - render as input
+    const handleInputBlur = () => {
+      if (trimOnBlur) {
+        const trimmed = currentValue.trim();
+        if (trimmed !== currentValue) {
+          setValue(trimmed);
+        }
+      }
+    };
+
+    // No states available → free-form input
     if (states.length === 0) {
       return (
-        <Input
-          ref={ref as React.Ref<HTMLInputElement>}
-          id={id}
-          name={name}
-          value={currentValue}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder={placeholder}
-          autoComplete="billing address-level1"
-          className={cn("w-full", className)}
-        />
+        <div ref={ref} className="contents">
+          <Input
+            id={id}
+            name={name}
+            value={currentValue}
+            onChange={(e) => setValue(e.target.value)}
+            onBlur={handleInputBlur}
+            placeholder={placeholder}
+            autoComplete="billing address-level1"
+            disabled={disabled}
+            className={cn("w-full", className)}
+          />
+        </div>
       );
     }
 
-    // States available - render as select with hidden input for form submission
+    // States available → select dropdown
     return (
-      <>
-        {/* Hidden input for native form submission (Select doesn't submit natively) */}
+      <div ref={ref} className="contents">
         {name && <input type="hidden" name={name} value={currentValue} />}
-        <Select value={currentValue} onValueChange={setValue}>
-          <SelectTrigger
-            ref={ref as React.Ref<HTMLButtonElement>}
-            id={id}
-            className={cn("w-full", className)}
-          >
+        <Select
+          value={currentValue}
+          onValueChange={setValue}
+          disabled={disabled}
+        >
+          <SelectTrigger id={id} className={cn("w-full", className)}>
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
           <SelectContent>
@@ -357,7 +429,7 @@ const BillingAddressState = React.forwardRef<
             ))}
           </SelectContent>
         </Select>
-      </>
+      </div>
     );
   },
 );
