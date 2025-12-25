@@ -40,6 +40,32 @@ function useBillingAddressContext() {
 }
 
 // ============================================================================
+// Controlled/Uncontrolled helper hook
+// ============================================================================
+
+function useControllableState<T>(
+  value: T | undefined,
+  defaultValue: T,
+  onChange?: (value: T) => void,
+): [T, (value: T) => void] {
+  const [internalValue, setInternalValue] = React.useState(defaultValue);
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : internalValue;
+
+  const setValue = React.useCallback(
+    (newValue: T) => {
+      if (!isControlled) {
+        setInternalValue(newValue);
+      }
+      onChange?.(newValue);
+    },
+    [isControlled, onChange],
+  );
+
+  return [currentValue, setValue];
+}
+
+// ============================================================================
 // Root Component
 // ============================================================================
 
@@ -117,112 +143,184 @@ BillingAddressInput.displayName = "BillingAddressInput";
 interface BillingAddressCountryProps
   extends Omit<
     React.ComponentPropsWithoutRef<typeof Select>,
-    "value" | "onValueChange"
+    "value" | "onValueChange" | "defaultValue"
   > {
   /** Placeholder text for the select */
   placeholder?: string;
   /** Additional class name for the trigger */
   className?: string;
+  /** Controlled value */
+  value?: string;
+  /** Default value for uncontrolled mode */
+  defaultValue?: string;
   /** Callback fired when country changes */
   onValueChange?: (value: string) => void;
+  /** Name attribute for form submission */
+  name?: string;
+  /** ID attribute */
+  id?: string;
 }
 
 const BillingAddressCountry = React.forwardRef<
   HTMLButtonElement,
   BillingAddressCountryProps
->(({ placeholder = "Select country", className, onValueChange, ...props }, ref) => {
-  const { countryCode, setCountryCode } = useBillingAddressContext();
+>(
+  (
+    {
+      placeholder = "Select country",
+      className,
+      value,
+      defaultValue,
+      onValueChange,
+      name,
+      id,
+      ...props
+    },
+    ref,
+  ) => {
+    const { countryCode, setCountryCode } = useBillingAddressContext();
 
-  const handleValueChange = (newValue: string) => {
-    setCountryCode(newValue);
-    onValueChange?.(newValue);
-  };
+    // Support controlled mode: if value is provided, use it instead of context
+    const isControlled = value !== undefined;
+    const currentValue = isControlled ? value : countryCode;
 
-  return (
-    <Select value={countryCode} onValueChange={handleValueChange} {...props}>
-      <SelectTrigger ref={ref} className={cn("w-full", className)}>
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        {COUNTRIES.map((country) => (
-          <SelectItem key={country.isoCode} value={country.isoCode}>
-            {country.name}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
-});
+    const handleValueChange = (newValue: string) => {
+      // Always update context (for state sync)
+      setCountryCode(newValue);
+      // Notify parent
+      onValueChange?.(newValue);
+    };
+
+    return (
+      <>
+        {/* Hidden input for native form submission */}
+        {name && <input type="hidden" name={name} value={currentValue} />}
+        <Select
+          value={currentValue}
+          onValueChange={handleValueChange}
+          {...props}
+        >
+          <SelectTrigger ref={ref} id={id} className={cn("w-full", className)}>
+            <SelectValue placeholder={placeholder} />
+          </SelectTrigger>
+          <SelectContent>
+            {COUNTRIES.map((country) => (
+              <SelectItem key={country.isoCode} value={country.isoCode}>
+                {country.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </>
+    );
+  },
+);
 BillingAddressCountry.displayName = "BillingAddressCountry";
 
 // ============================================================================
-// State Select - includes states from context, updates automatically
+// State - Select when states available, Input otherwise
 // ============================================================================
 
-interface BillingAddressStateProps
-  extends Omit<
-    React.ComponentPropsWithoutRef<typeof Select>,
-    "onValueChange"
-  > {
-  /** Placeholder text for the select */
+interface BillingAddressStateProps {
+  /** Placeholder text */
   placeholder?: string;
-  /** Additional class name for the trigger */
+  /** Additional class name */
   className?: string;
+  /** Controlled value */
+  value?: string;
+  /** Default value for uncontrolled mode */
+  defaultValue?: string;
   /** Callback fired when state changes */
   onValueChange?: (value: string) => void;
+  /** Name attribute for form submission */
+  name?: string;
+  /** ID attribute */
+  id?: string;
 }
 
 const BillingAddressState = React.forwardRef<
-  HTMLButtonElement,
+  HTMLButtonElement | HTMLInputElement,
   BillingAddressStateProps
 >(
   (
-    { placeholder = "Select state", className, value, onValueChange, ...props },
+    {
+      placeholder = "State / Province",
+      className,
+      value,
+      defaultValue = "",
+      onValueChange,
+      name,
+      id,
+    },
     ref,
   ) => {
     const { states, countryCode } = useBillingAddressContext();
-    const [internalValue, setInternalValue] = React.useState<string>("");
+
+    // Use controllable state pattern
+    const [currentValue, setValue] = useControllableState(
+      value,
+      defaultValue,
+      onValueChange,
+    );
+
+    // Track if we're controlled to handle country change differently
+    const isControlled = value !== undefined;
 
     // Reset state when country changes
     const prevCountryRef = React.useRef(countryCode);
     React.useEffect(() => {
       if (prevCountryRef.current !== countryCode) {
-        setInternalValue("");
         prevCountryRef.current = countryCode;
+        // Always notify parent and reset internal state
+        // For controlled: parent decides what to do
+        // For uncontrolled: we reset and notify
+        if (!isControlled) {
+          setValue("");
+        } else {
+          // Still notify parent so they can react
+          onValueChange?.("");
+        }
       }
-    }, [countryCode]);
+    }, [countryCode, isControlled, setValue, onValueChange]);
 
-    const currentValue = value ?? internalValue;
-
-    const handleValueChange = (newValue: string) => {
-      if (value === undefined) {
-        setInternalValue(newValue);
-      }
-      onValueChange?.(newValue);
-    };
-
-    // Don't render if no states available
+    // No states available - render as input
     if (states.length === 0) {
-      return null;
+      return (
+        <Input
+          ref={ref as React.Ref<HTMLInputElement>}
+          id={id}
+          name={name}
+          value={currentValue}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder={placeholder}
+          autoComplete="billing address-level1"
+          className={cn("w-full", className)}
+        />
+      );
     }
 
+    // States available - render as select with hidden input for form submission
     return (
-      <Select
-        value={currentValue}
-        onValueChange={handleValueChange}
-        {...props}
-      >
-        <SelectTrigger ref={ref} className={cn("w-full", className)}>
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-        <SelectContent>
-          {states.map((state) => (
-            <SelectItem key={state.isoCode} value={state.isoCode}>
-              {state.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <>
+        {/* Hidden input for native form submission (Select doesn't submit natively) */}
+        {name && <input type="hidden" name={name} value={currentValue} />}
+        <Select value={currentValue} onValueChange={setValue}>
+          <SelectTrigger
+            ref={ref as React.Ref<HTMLButtonElement>}
+            id={id}
+            className={cn("w-full", className)}
+          >
+            <SelectValue placeholder={placeholder} />
+          </SelectTrigger>
+          <SelectContent>
+            {states.map((state) => (
+              <SelectItem key={state.isoCode} value={state.isoCode}>
+                {state.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </>
     );
   },
 );
@@ -239,6 +337,7 @@ export {
   BillingAddressState,
   billingAutocomplete,
   useBillingAddressContext,
+  useControllableState,
 };
 
 export type {

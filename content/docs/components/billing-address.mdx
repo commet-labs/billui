@@ -18,7 +18,7 @@ import {
   </div>
   <div className="flex flex-col gap-1.5">
     <Label htmlFor="country">Country</Label>
-    <BillingAddressCountry />
+    <BillingAddressCountry id="country" name="country" />
   </div>
   <div className="flex flex-col gap-1.5">
     <Label htmlFor="line1">Address</Label>
@@ -35,7 +35,7 @@ import {
   <div className="grid grid-cols-2 gap-3">
     <div className="flex flex-col gap-1.5">
       <Label htmlFor="state">State</Label>
-      <BillingAddressState name="state" />
+      <BillingAddressState id="state" name="state" />
     </div>
     <div className="flex flex-col gap-1.5">
       <Label htmlFor="postal">ZIP Code</Label>
@@ -51,7 +51,7 @@ import {
       </div>
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="country">Country</Label>
-        <BillingAddressCountry />
+        <BillingAddressCountry id="country" name="country" />
       </div>
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="line1">Address</Label>
@@ -68,7 +68,7 @@ import {
       <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="state">State</Label>
-          <BillingAddressState name="state" />
+          <BillingAddressState id="state" name="state" />
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="postal">ZIP Code</Label>
@@ -94,22 +94,22 @@ import {
 ```tsx
 <BillingAddress defaultCountry="US">
   <Label>Country</Label>
-  <BillingAddressCountry />
+  <BillingAddressCountry name="country" />
   
   <Label>Address</Label>
-  <BillingAddressInput field="line1" placeholder="Street address" />
+  <BillingAddressInput field="line1" name="line1" placeholder="Street address" />
   
   <Label>City</Label>
-  <BillingAddressInput field="city" placeholder="City" />
+  <BillingAddressInput field="city" name="city" placeholder="City" />
   
   <div className="grid grid-cols-2 gap-3">
     <div>
       <Label>State</Label>
-      <BillingAddressState />
+      <BillingAddressState name="state" />
     </div>
     <div>
       <Label>ZIP</Label>
-      <BillingAddressInput field="postalCode" placeholder="ZIP" />
+      <BillingAddressInput field="postalCode" name="postal" placeholder="ZIP" />
     </div>
   </div>
 </BillingAddress>
@@ -132,6 +132,7 @@ Input with correct `autocomplete` value based on field type.
 | Prop | Type | Description |
 |------|------|-------------|
 | `field` | `"name" \| "line1" \| "line2" \| "city" \| "postalCode"` | Sets the correct autocomplete value |
+| `name` | `string` | Name attribute for form submission |
 
 ### BillingAddressCountry
 
@@ -140,20 +141,95 @@ Select with all countries included. Automatically updates context when changed.
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `placeholder` | `string` | `"Select country"` | Placeholder text |
+| `value` | `string` | - | Controlled value |
+| `defaultValue` | `string` | - | Default value for uncontrolled mode |
 | `onValueChange` | `(value: string) => void` | - | Callback when country changes |
+| `name` | `string` | - | Name attribute for form submission |
 
 ### BillingAddressState
 
-Select with states for the selected country. Automatically syncs with country selection and hides when no states are available.
+Select with states for the selected country. Renders as input when no states are available for the country.
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `placeholder` | `string` | `"Select state"` | Placeholder text |
+| `placeholder` | `string` | `"State / Province"` | Placeholder text |
+| `value` | `string` | - | Controlled value |
+| `defaultValue` | `string` | `""` | Default value for uncontrolled mode |
 | `onValueChange` | `(value: string) => void` | - | Callback when state changes |
+| `name` | `string` | - | Name attribute for form submission |
+
+## Form Integration
+
+### With Server Actions (useActionState)
+
+The components include hidden inputs for native form submission:
+
+```tsx
+"use server";
+
+async function updateBilling(prevState: any, formData: FormData) {
+  const country = formData.get("country");
+  const state = formData.get("state");
+  const line1 = formData.get("line1");
+  // ... process billing address
+}
+```
+
+```tsx
+"use client";
+
+import { useActionState } from "react";
+
+function BillingForm() {
+  const [state, formAction] = useActionState(updateBilling, null);
+  
+  return (
+    <form action={formAction}>
+      <BillingAddress>
+        <BillingAddressCountry name="country" />
+        <BillingAddressInput field="line1" name="line1" />
+        <BillingAddressInput field="city" name="city" />
+        <BillingAddressState name="state" />
+        <BillingAddressInput field="postalCode" name="postal" />
+      </BillingAddress>
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+### With Controlled State
+
+For real-time validation or conditional UI:
+
+```tsx
+function ControlledBillingForm() {
+  const [country, setCountry] = useState("US");
+  const [state, setState] = useState("");
+  
+  const showTaxMessage = state === "CA";
+  
+  return (
+    <BillingAddress>
+      <BillingAddressCountry 
+        value={country} 
+        onValueChange={setCountry} 
+      />
+      <BillingAddressState 
+        value={state} 
+        onValueChange={setState} 
+      />
+      {showTaxMessage && <p>California sales tax applies</p>}
+    </BillingAddress>
+  );
+}
+```
 
 ## Features
 
 - **Correct autocomplete values** - Browser autofill works correctly for billing addresses
 - **Country/State sync** - States update automatically when country changes
+- **Native form submission** - Works with `<form action={}>` and `useActionState`
+- **Controlled & Uncontrolled** - Use either pattern based on your needs
 - **Composable layout** - Use your own divs, grids, and spacing
 - **Uses shadcn components** - `Label`, layouts, etc. from your existing components
