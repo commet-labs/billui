@@ -79,103 +79,64 @@ import {
   </div>
 </ComponentPreview>
 
-## Usage
+## Installation
 
-```tsx
-import { Label } from "@/components/ui/label";
-import {
-  BillingAddress,
-  BillingAddressInput,
-  BillingAddressCountry,
-  BillingAddressState,
-} from "@/registry/ui";
+<Tabs items={["CLI", "Manual"]}>
+  <Tab value="CLI">
+```bash
+npx shadcn@latest add "https://billui.com/r/billing-address.json"
+```
+  </Tab>
+  <Tab value="Manual">
+
+```tsx title="components/ui/billing-address.tsx"
+"use client";
+
+import * as React from "react";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+import { COUNTRIES, getStatesForCountry, type IState } from "./billing-address-data";
+
+// ... component code
 ```
 
-```tsx
-<BillingAddress defaultCountry="US">
-  <Label>Country</Label>
+  </Tab>
+</Tabs>
+
+## Examples
+
+### Minimal Form
+
+A compact version with only essential fields.
+
+<ComponentPreview component="billing-address" example="basic" code={`<BillingAddress defaultCountry="US">
   <BillingAddressCountry name="country" />
-  
-  <Label>Address</Label>
   <BillingAddressInput field="line1" name="line1" placeholder="Street address" />
-  
-  <Label>City</Label>
-  <BillingAddressInput field="city" name="city" placeholder="City" />
-  
   <div className="grid grid-cols-2 gap-3">
-    <div>
-      <Label>State</Label>
-      <BillingAddressState name="state" />
-    </div>
-    <div>
-      <Label>ZIP</Label>
-      <BillingAddressInput field="postalCode" name="postal" placeholder="ZIP" />
-    </div>
+    <BillingAddressInput field="city" name="city" placeholder="City" />
+    <BillingAddressState name="state" />
   </div>
-</BillingAddress>
-```
+  <BillingAddressInput field="postalCode" name="postal" placeholder="ZIP code" />
+</BillingAddress>`}>
+  <div className="w-full max-w-md">
+    <BillingAddress defaultCountry="US">
+      <BillingAddressCountry name="country" />
+      <BillingAddressInput field="line1" name="line1" placeholder="Street address" />
+      <div className="grid grid-cols-2 gap-3">
+        <BillingAddressInput field="city" name="city" placeholder="City" />
+        <BillingAddressState name="state" />
+      </div>
+      <BillingAddressInput field="postalCode" name="postal" placeholder="ZIP code" />
+    </BillingAddress>
+  </div>
+</ComponentPreview>
 
-## Components
+### With Server Actions
 
-### BillingAddress
+The `name` prop enables native form submission—works with `useActionState` and Server Actions.
 
-Root component that provides context for country/state synchronization.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `defaultCountry` | `string` | `"US"` | Default country code (ISO 3166-1 alpha-2) |
-
-### BillingAddressInput
-
-Input with correct `autocomplete` value based on field type.
-
-| Prop | Type | Description |
-|------|------|-------------|
-| `field` | `"name" \| "line1" \| "line2" \| "city" \| "postalCode"` | Sets the correct autocomplete value |
-| `name` | `string` | Name attribute for form submission |
-
-### BillingAddressCountry
-
-Select with all countries included. Automatically updates context when changed.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `placeholder` | `string` | `"Select country"` | Placeholder text |
-| `value` | `string` | - | Controlled value |
-| `defaultValue` | `string` | - | Default value for uncontrolled mode |
-| `onValueChange` | `(value: string) => void` | - | Callback when country changes |
-| `name` | `string` | - | Name attribute for form submission |
-
-### BillingAddressState
-
-Select with states for the selected country. Renders as input when no states are available for the country.
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `placeholder` | `string` | `"State / Province"` | Placeholder text |
-| `value` | `string` | - | Controlled value |
-| `defaultValue` | `string` | `""` | Default value for uncontrolled mode |
-| `onValueChange` | `(value: string) => void` | - | Callback when state changes |
-| `name` | `string` | - | Name attribute for form submission |
-
-## Form Integration
-
-### With Server Actions (useActionState)
-
-The components include hidden inputs for native form submission:
-
-```tsx
-"use server";
-
-async function updateBilling(prevState: any, formData: FormData) {
-  const country = formData.get("country");
-  const state = formData.get("state");
-  const line1 = formData.get("line1");
-  // ... process billing address
-}
-```
-
-```tsx
+```tsx title="billing-form.tsx"
 "use client";
 
 import { useActionState } from "react";
@@ -187,10 +148,10 @@ function BillingForm() {
     <form action={formAction}>
       <BillingAddress>
         <BillingAddressCountry name="country" />
-        <BillingAddressInput field="line1" name="line1" />
-        <BillingAddressInput field="city" name="city" />
+        <BillingAddressInput field="line1" name="line1" placeholder="Address" />
+        <BillingAddressInput field="city" name="city" placeholder="City" />
         <BillingAddressState name="state" />
-        <BillingAddressInput field="postalCode" name="postal" />
+        <BillingAddressInput field="postalCode" name="postal" placeholder="ZIP" />
       </BillingAddress>
       <button type="submit">Save</button>
     </form>
@@ -198,9 +159,9 @@ function BillingForm() {
 }
 ```
 
-### With Controlled State
+### Controlled State
 
-For real-time validation or conditional UI:
+For real-time validation or conditional UI.
 
 ```tsx
 function ControlledBillingForm() {
@@ -210,26 +171,61 @@ function ControlledBillingForm() {
   const showTaxMessage = state === "CA";
   
   return (
-    <BillingAddress>
-      <BillingAddressCountry 
-        value={country} 
-        onValueChange={setCountry} 
-      />
-      <BillingAddressState 
-        value={state} 
-        onValueChange={setState} 
-      />
+    <BillingAddress country={country} onCountryChange={setCountry}>
+      <BillingAddressCountry />
+      <BillingAddressState value={state} onValueChange={setState} />
       {showTaxMessage && <p>California sales tax applies</p>}
     </BillingAddress>
   );
 }
 ```
 
-## Features
+## API Reference
 
-- **Correct autocomplete values** - Browser autofill works correctly for billing addresses
-- **Country/State sync** - States update automatically when country changes
-- **Native form submission** - Works with `<form action={}>` and `useActionState`
-- **Controlled & Uncontrolled** - Use either pattern based on your needs
-- **Composable layout** - Use your own divs, grids, and spacing
-- **Uses shadcn components** - `Label`, layouts, etc. from your existing components
+### BillingAddress
+
+Root component that provides country/state synchronization context.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `defaultCountry` | `string` | `"US"` |
+| `country` | `string` | — |
+| `onCountryChange` | `(code: string) => void` | — |
+
+### BillingAddressInput
+
+Input with correct `autocomplete`, `inputMode`, and `spellCheck` based on field type.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `field` | `"name" \| "line1" \| "line2" \| "city" \| "postalCode"` | — |
+| `name` | `string` | — |
+| `value` | `string` | — |
+| `defaultValue` | `string` | `""` |
+| `onValueChange` | `(value: string) => void` | — |
+| `trimOnBlur` | `boolean` | `true` |
+
+### BillingAddressCountry
+
+Select with all countries. Syncs with root context.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `name` | `string` | — |
+| `onValueChange` | `(value: string) => void` | — |
+| `placeholder` | `string` | `"Select country…"` |
+| `disabled` | `boolean` | `false` |
+
+### BillingAddressState
+
+Select when states exist for the country, Input otherwise. Resets when country changes.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `name` | `string` | — |
+| `value` | `string` | — |
+| `defaultValue` | `string` | `""` |
+| `onValueChange` | `(value: string) => void` | — |
+| `placeholder` | `string` | `"State / Province…"` |
+| `trimOnBlur` | `boolean` | `true` |
+| `disabled` | `boolean` | `false` |
