@@ -104,9 +104,38 @@ BillingAddress.displayName = "BillingAddress";
 // ============================================================================
 
 /**
- * Autocomplete values for billing address fields.
- * These ensure proper browser autofill behavior.
+ * Configuration for billing address fields.
+ * These ensure proper browser autofill behavior and accessibility.
  */
+const billingFieldConfig = {
+  name: {
+    autocomplete: "billing name",
+    inputMode: "text" as const,
+    spellCheck: true,
+  },
+  line1: {
+    autocomplete: "billing address-line1",
+    inputMode: "text" as const,
+    spellCheck: true,
+  },
+  line2: {
+    autocomplete: "billing address-line2",
+    inputMode: "text" as const,
+    spellCheck: true,
+  },
+  city: {
+    autocomplete: "billing address-level2",
+    inputMode: "text" as const,
+    spellCheck: true,
+  },
+  postalCode: {
+    autocomplete: "billing postal-code",
+    inputMode: "text" as const,
+    spellCheck: false, // Disable spellcheck for codes per UI guidelines
+  },
+} as const;
+
+/** @deprecated Use billingFieldConfig instead */
 const billingAutocomplete = {
   name: "billing name",
   line1: "billing address-line1",
@@ -115,10 +144,13 @@ const billingAutocomplete = {
   postalCode: "billing postal-code",
 } as const;
 
-type BillingAddressInputField = keyof typeof billingAutocomplete;
+type BillingAddressInputField = keyof typeof billingFieldConfig;
 
 interface BillingAddressInputProps
-  extends Omit<React.ComponentPropsWithoutRef<typeof Input>, "autoComplete"> {
+  extends Omit<
+    React.ComponentPropsWithoutRef<typeof Input>,
+    "autoComplete" | "inputMode" | "spellCheck"
+  > {
   /** Address field type - sets the correct autocomplete value */
   field: BillingAddressInputField;
 }
@@ -126,14 +158,19 @@ interface BillingAddressInputProps
 const BillingAddressInput = React.forwardRef<
   HTMLInputElement,
   BillingAddressInputProps
->(({ field, className, ...props }, ref) => (
-  <Input
-    ref={ref}
-    autoComplete={billingAutocomplete[field]}
-    className={cn("w-full", className)}
-    {...props}
-  />
-));
+>(({ field, className, ...props }, ref) => {
+  const config = billingFieldConfig[field];
+  return (
+    <Input
+      ref={ref}
+      autoComplete={config.autocomplete}
+      inputMode={config.inputMode}
+      spellCheck={config.spellCheck}
+      className={cn("w-full", className)}
+      {...props}
+    />
+  );
+});
 BillingAddressInput.displayName = "BillingAddressInput";
 
 // ============================================================================
@@ -167,7 +204,7 @@ const BillingAddressCountry = React.forwardRef<
 >(
   (
     {
-      placeholder = "Select country",
+      placeholder = "Select country…",
       className,
       value,
       defaultValue,
@@ -244,7 +281,7 @@ const BillingAddressState = React.forwardRef<
 >(
   (
     {
-      placeholder = "State / Province",
+      placeholder = "State / Province…",
       className,
       value,
       defaultValue = "",
@@ -335,6 +372,7 @@ export {
   BillingAddressInput,
   BillingAddressCountry,
   BillingAddressState,
+  billingFieldConfig,
   billingAutocomplete,
   useBillingAddressContext,
   useControllableState,
