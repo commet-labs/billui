@@ -281,11 +281,80 @@ async function findMdxFile(componentName: string): Promise<string | null> {
   return null;
 }
 
+async function buildComponentsBundle() {
+  console.log("📦 Building components bundle (ui + lib only)...\n");
+
+  const files: Array<{
+    path: string;
+    content: string;
+    type: string;
+    target: string;
+  }> = [];
+
+  const dependencies = new Set<string>();
+  const registryDependencies = new Set<string>();
+
+  // Only include registry:ui and registry:lib items (not blocks)
+  const items = registryJson.items.filter(
+    (item) => item.type === "registry:ui" || item.type === "registry:lib",
+  );
+
+  for (const item of items) {
+    if (item.dependencies) {
+      for (const dep of item.dependencies) {
+        dependencies.add(dep);
+      }
+    }
+    if (item.registryDependencies) {
+      for (const dep of item.registryDependencies) {
+        // Skip billui dependencies (they're included directly)
+        if (!dep.includes("billui.com")) {
+          registryDependencies.add(dep);
+        }
+      }
+    }
+
+    for (const file of item.files) {
+      const filePath = path.join(ROOT, file.path);
+      try {
+        const content = await fs.readFile(filePath, "utf-8");
+        files.push({
+          path: file.path,
+          content,
+          type: file.type,
+          target: file.target,
+        });
+      } catch {
+        console.log(`  ⚠ Could not read ${file.path}`);
+      }
+    }
+  }
+
+  const bundle = {
+    $schema: "https://ui.shadcn.com/schema/registry-item.json",
+    name: "billui",
+    type: "registry:block",
+    description:
+      "All BillUI components and utilities for billing UIs: address forms, card inputs, payment methods, plans, invoices, usage cards, and pricing tables.",
+    dependencies: Array.from(dependencies),
+    registryDependencies: Array.from(registryDependencies),
+    files,
+    categories: ["billing"],
+  };
+
+  const outputPath = path.join(OUTPUT_DIR, "billui-all.json");
+  await fs.writeFile(outputPath, JSON.stringify(bundle, null, 2));
+  console.log(`  ✓ billui-all.json (${files.length} files)\n`);
+}
+
 async function buildDemos() {
   console.log("🔨 Building demo blocks...\n");
 
   // Ensure output directory exists
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
+
+  // Build components bundle first
+  await buildComponentsBundle();
 
   let totalDemos = 0;
 
