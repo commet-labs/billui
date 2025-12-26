@@ -164,8 +164,26 @@ const componentExports: Record<string, string[]> = {
   ],
 };
 
+// Shadcn components that might be used in example code
+const shadcnComponents: Record<string, string> = {
+  Label: "label",
+  Button: "button",
+  Input: "input",
+  Badge: "badge",
+};
+
 function generateDemoPage(componentName: string, exampleCode: string): string {
   const exports = componentExports[componentName] || [];
+
+  // Detect shadcn components used in the example code
+  const shadcnImports: string[] = [];
+  for (const [component, file] of Object.entries(shadcnComponents)) {
+    if (exampleCode.includes(`<${component}`)) {
+      shadcnImports.push(
+        `import { ${component} } from "@/components/ui/${file}";`,
+      );
+    }
+  }
 
   let importStatement: string;
   if (componentName === "plan-group") {
@@ -196,7 +214,10 @@ function generateDemoPage(componentName: string, exampleCode: string): string {
     importStatement = `import { ${componentName} } from "@/components/ui/${componentName}";`;
   }
 
-  return `${importStatement}
+  // Combine shadcn imports with component imports
+  const allImports = [...shadcnImports, importStatement].join("\n");
+
+  return `${allImports}
 
 export default function Page() {
   return (
