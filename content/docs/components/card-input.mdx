@@ -124,11 +124,11 @@ Use each input component separately for custom layouts with individual labels an
 
 ### With PaymentForm
 
-Combine with `PaymentForm` components for a complete checkout experience. Use `variant="unstyled"` when the child component has its own styling (like `CardInputGroup`, Stripe Elements, etc.).
+Combine with `PaymentForm` components for a complete checkout experience.
 
 <ComponentPreview component="card-input" example="with-form" code={`<PaymentForm>
   <PaymentFormSection>
-    <PaymentFormField label="Card details" variant="unstyled">
+    <PaymentFormField label="Card details">
       <CardInputGroup>
         <CardNumberInput />
         <CardExpiryInput />
@@ -143,7 +143,7 @@ Combine with `PaymentForm` components for a complete checkout experience. Use `v
   <div className="w-full max-w-md">
     <PaymentForm>
       <PaymentFormSection>
-        <PaymentFormField label="Card details" variant="unstyled">
+        <PaymentFormField label="Card details">
           <CardInputGroup>
             <CardNumberInput />
             <CardExpiryInput />

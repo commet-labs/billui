@@ -74,7 +74,6 @@ export {
   PaymentFormSection,
   PaymentFormSubmit,
   PaymentFormTitle,
-  paymentFormFieldVariants,
   paymentFormSectionVariants,
 } from "./payment-form";
 export type {

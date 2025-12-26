@@ -80,33 +80,10 @@ const PaymentFormDescription = React.forwardRef<
 ));
 PaymentFormDescription.displayName = "PaymentFormDescription";
 
-const paymentFormFieldVariants = cva("", {
-  variants: {
-    variant: {
-      /** For simple inputs without their own container styling */
-      default:
-        "rounded-lg border bg-background transition-all border-input focus-within:ring-2 focus-within:ring-ring focus-within:border-ring px-3 py-2.5",
-      /** Error state for default variant */
-      error:
-        "rounded-lg border bg-background transition-all border-destructive focus-within:ring-2 focus-within:ring-destructive px-3 py-2.5",
-      /**
-       * For components with their own styling (CardInputGroup, Stripe Elements, etc.)
-       * Only renders label + children, no wrapper styles
-       */
-      unstyled: "",
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
-
-interface PaymentFormFieldProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof paymentFormFieldVariants> {
+interface PaymentFormFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Label text displayed above the field */
   label?: string;
-  /** HTML for attribute for the label. Use "" for group inputs like CardInputGroup */
+  /** HTML for attribute for the label */
   htmlFor?: string;
   /** Field name for generating IDs */
   name?: string;
@@ -132,7 +109,6 @@ const PaymentFormField = React.forwardRef<
       description,
       required,
       children,
-      variant,
       ...props
     },
     ref,
@@ -143,18 +119,12 @@ const PaymentFormField = React.forwardRef<
     const descriptionId = `${fieldId}-description`;
     const hasError = !!error;
 
-    // Determine effective variant
-    const effectiveVariant =
-      hasError && variant !== "unstyled" ? "error" : variant;
-
     // htmlFor prop allows explicit control:
     // - undefined: use auto-generated fieldId (default)
     // - empty string "": no htmlFor (for group labels like CardInputGroup)
     // - string value: use that value
     const labelFor =
       htmlFor === "" ? undefined : htmlFor !== undefined ? htmlFor : fieldId;
-
-    const fieldStyles = paymentFormFieldVariants({ variant: effectiveVariant });
 
     return (
       <div
@@ -175,11 +145,7 @@ const PaymentFormField = React.forwardRef<
             )}
           </label>
         )}
-        {variant === "unstyled" ? (
-          children
-        ) : (
-          <div className={fieldStyles}>{children}</div>
-        )}
+        {children}
         {description && !hasError && (
           <p id={descriptionId} className="text-sm text-muted-foreground">
             {description}
@@ -298,7 +264,6 @@ export {
   PaymentFormSubmit,
   PaymentFormDivider,
   paymentFormSectionVariants,
-  paymentFormFieldVariants,
 };
 
 export type {

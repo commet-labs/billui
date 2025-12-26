@@ -12,6 +12,7 @@
     "components/pricing-table",
     "components/card-input",
     "components/billing-address",
+    "components/payment-form",
     "---Animated---",
     "animated/animated-usage-card"
   ]
