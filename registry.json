@@ -4,12 +4,25 @@
   "homepage": "https://billui.com",
   "items": [
     {
+      "name": "use-controllable-state",
+      "type": "registry:lib",
+      "title": "useControllableState",
+      "description": "Hook for components that support both controlled and uncontrolled modes.",
+      "files": [
+        {
+          "path": "src/lib/use-controllable-state.ts",
+          "type": "registry:lib",
+          "target": "lib/use-controllable-state.ts"
+        }
+      ]
+    },
+    {
       "name": "billing-address",
       "type": "registry:ui",
       "title": "Billing Address",
       "description": "Composable address form fields with correct autocomplete attributes for browser autofill.",
       "dependencies": ["class-variance-authority", "country-state-city"],
-      "registryDependencies": ["input", "label", "select"],
+      "registryDependencies": ["input", "label", "select", "https://billui.com/r/use-controllable-state.json"],
       "files": [
         {
           "path": "src/registry/ui/billing-address.tsx",
@@ -43,7 +56,7 @@
       "title": "Card Input",
       "description": "Native formatted card inputs with auto-formatting, brand detection, and masking for demos and custom PSPs.",
       "dependencies": ["lucide-react"],
-      "registryDependencies": ["https://billui.com/r/card-icons.json"],
+      "registryDependencies": ["https://billui.com/r/card-icons.json", "https://billui.com/r/use-controllable-state.json"],
       "files": [
         {
           "path": "src/registry/ui/card-input.tsx",
