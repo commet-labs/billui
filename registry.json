@@ -63,7 +63,7 @@
       "name": "card-input",
       "type": "registry:ui",
       "title": "Card Input",
-      "description": "Native formatted card inputs with auto-formatting, brand detection, and masking for demos and custom PSPs.",
+      "description": "Native formatted card inputs with auto-formatting, brand detection, and masking.",
       "dependencies": ["lucide-react"],
       "registryDependencies": ["https://billui.com/r/card-icons.json", "https://billui.com/r/use-controllable-state.json"],
       "files": [
