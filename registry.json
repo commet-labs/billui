@@ -17,22 +17,31 @@
       ]
     },
     {
+      "name": "billing-address-data",
+      "type": "registry:lib",
+      "title": "Billing Address Data",
+      "description": "Country and state data utilities for billing address forms.",
+      "dependencies": ["country-state-city"],
+      "files": [
+        {
+          "path": "src/lib/billing-address-data.ts",
+          "type": "registry:lib",
+          "target": "lib/billing-address-data.ts"
+        }
+      ]
+    },
+    {
       "name": "billing-address",
       "type": "registry:ui",
       "title": "Billing Address",
       "description": "Composable address form fields with correct autocomplete attributes for browser autofill.",
-      "dependencies": ["class-variance-authority", "country-state-city"],
-      "registryDependencies": ["input", "label", "select", "https://billui.com/r/use-controllable-state.json"],
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["input", "label", "select", "https://billui.com/r/use-controllable-state.json", "https://billui.com/r/billing-address-data.json"],
       "files": [
         {
           "path": "src/registry/ui/billing-address.tsx",
           "type": "registry:ui",
           "target": "components/ui/billing-address.tsx"
-        },
-        {
-          "path": "src/registry/ui/billing-address-data.ts",
-          "type": "registry:ui",
-          "target": "components/ui/billing-address-data.ts"
         }
       ]
     },

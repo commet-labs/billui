@@ -9,13 +9,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
-import { useControllableState } from "@/lib/use-controllable-state";
 import {
   COUNTRIES,
   getStatesForCountry,
   type IState,
-} from "./billing-address-data";
+} from "@/lib/billing-address-data";
+import { useControllableState } from "@/lib/use-controllable-state";
+import { cn } from "@/lib/utils";
 
 interface BillingAddressContextValue {
   countryCode: string;

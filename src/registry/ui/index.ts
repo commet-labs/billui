@@ -1,3 +1,5 @@
+export type { ICountry, IState } from "@/lib/billing-address-data";
+export { COUNTRIES, getStatesForCountry } from "@/lib/billing-address-data";
 export type {
   BillingAddressCountryProps,
   BillingAddressInputField,
@@ -12,8 +14,6 @@ export {
   BillingAddressState,
   billingFieldConfig,
 } from "./billing-address";
-export type { ICountry, IState } from "./billing-address-data";
-export { COUNTRIES, getStatesForCountry } from "./billing-address-data";
 export type {
   CardBrand as CardInputBrand,
   CardCvcInputProps,
