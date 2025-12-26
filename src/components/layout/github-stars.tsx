@@ -17,11 +17,11 @@ export function GitHubStars({ owner, repo, className }: GitHubStarsProps) {
     const fetchStars = async () => {
       try {
         const response = await fetch(
-          `https://api.github.com/repos/${owner}/${repo}`,
+          `/api/github-stars?owner=${owner}&repo=${repo}`,
         );
         if (response.ok) {
           const data = await response.json();
-          setStars(data.stargazers_count);
+          setStars(data.stars);
         }
       } catch (error) {
         console.error("Failed to fetch GitHub stars:", error);
