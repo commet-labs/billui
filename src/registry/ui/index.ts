@@ -27,11 +27,6 @@ export {
   CardExpiryInput,
   CardInputGroup,
   CardNumberInput,
-  detectCardBrand,
-  formatCardNumber,
-  formatExpiry,
-  getCardMaxLength,
-  getCvcMaxLength,
 } from "./card-input";
 export type {
   InvoiceCardActionProps,

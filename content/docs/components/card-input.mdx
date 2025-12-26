@@ -175,9 +175,11 @@ Card number input with automatic formatting, brand detection, and Luhn validatio
 | Prop | Type | Default |
 | --- | --- | --- |
 | `value` | `string` | — |
-| `onChange` | `(value: string) => void` | — |
+| `defaultValue` | `string` | `""` |
+| `onValueChange` | `(value: string) => void` | — |
 | `onBrandChange` | `(brand: CardBrand) => void` | — |
 | `onValidationChange` | `(validation: { isValid: boolean; isComplete: boolean }) => void` | — |
+| `disabled` | `boolean` | `false` |
 
 ### CardExpiryInput
 
@@ -186,8 +188,10 @@ Expiry date input with MM/YY formatting and expiration validation.
 | Prop | Type | Default |
 | --- | --- | --- |
 | `value` | `string` | — |
-| `onChange` | `(value: string) => void` | — |
+| `defaultValue` | `string` | `""` |
+| `onValueChange` | `(value: string) => void` | — |
 | `onValidationChange` | `(validation: { isValid: boolean; isComplete: boolean; isExpired: boolean }) => void` | — |
+| `disabled` | `boolean` | `false` |
 
 ### CardCvcInput
 
@@ -196,7 +200,9 @@ CVC/CVV input that adapts to card brand (3 digits for most cards, 4 for Amex). W
 | Prop | Type | Default |
 | --- | --- | --- |
 | `value` | `string` | — |
-| `onChange` | `(value: string) => void` | — |
+| `defaultValue` | `string` | `""` |
+| `onValueChange` | `(value: string) => void` | — |
+| `disabled` | `boolean` | `false` |
 
 ### CardBrand
 
@@ -213,18 +219,3 @@ type CardBrand =
   | "unionpay"
   | "unknown";
 ```
-
-### Utility Functions
-
-The component exports several utility functions for custom implementations:
-
-| Function | Description |
-| --- | --- |
-| `detectCardBrand(cardNumber: string)` | Returns the card brand based on the card number prefix |
-| `validateLuhn(cardNumber: string)` | Validates a card number using the Luhn algorithm |
-| `validateCardNumber(cardNumber: string)` | Returns `{ isValid, isComplete, brand }` for a card number |
-| `validateExpiry(expiry: string)` | Returns `{ isValid, isComplete, isExpired }` for an expiry date |
-| `formatCardNumber(value: string, brand: CardBrand)` | Formats a card number with proper spacing |
-| `formatExpiry(value: string)` | Formats an expiry date as MM/YY |
-| `getCardMaxLength(brand: CardBrand)` | Returns max digits for a card brand (15 for Amex, 16 for others) |
-| `getCvcMaxLength(brand: CardBrand)` | Returns CVC length for a card brand (4 for Amex, 3 for others) |

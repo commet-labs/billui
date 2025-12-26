@@ -4,7 +4,28 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { type CardBrand, CardBrandIcons } from "./card-icons";
 
-// Context to share card brand between components in a CardInputGroup
+function useControllableState<T>(
+  controlledValue: T | undefined,
+  defaultValue: T,
+  onChange?: (value: T) => void,
+): [T, (value: T) => void] {
+  const [internalValue, setInternalValue] = React.useState(defaultValue);
+  const isControlled = controlledValue !== undefined;
+  const value = isControlled ? controlledValue : internalValue;
+
+  const setValue = React.useCallback(
+    (newValue: T) => {
+      if (!isControlled) {
+        setInternalValue(newValue);
+      }
+      onChange?.(newValue);
+    },
+    [isControlled, onChange],
+  );
+
+  return [value, setValue];
+}
+
 interface CardInputContextValue {
   brand: CardBrand;
   setBrand: (brand: CardBrand) => void;
@@ -197,12 +218,14 @@ CardInputGroup.displayName = "CardInputGroup";
 interface CardNumberInputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    "onChange" | "value"
+    "onChange" | "value" | "defaultValue"
   > {
-  /** The current value of the input */
+  /** The current value (controlled) */
   value?: string;
+  /** The default value (uncontrolled) */
+  defaultValue?: string;
   /** Callback fired when the value changes */
-  onChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
   /** Callback fired when the card brand is detected */
   onBrandChange?: (brand: CardBrand) => void;
   /** Callback fired when validation state changes */
@@ -221,11 +244,13 @@ const CardNumberInput = React.forwardRef<
       className,
       id,
       name,
-      value: controlledValue,
-      onChange,
+      value,
+      defaultValue = "",
+      onValueChange,
       onBrandChange,
       onValidationChange,
       placeholder = "1234 1234 1234 1234",
+      disabled,
       ...props
     },
     ref,
@@ -235,8 +260,13 @@ const CardNumberInput = React.forwardRef<
     const inputId = id ?? generatedId;
     const errorId = `${inputId}-error`;
     const inputName = name ?? "cc-number";
-    const isControlled = controlledValue !== undefined;
-    const [internalValue, setInternalValue] = React.useState("");
+
+    const [currentValue, setValue] = useControllableState(
+      value,
+      defaultValue,
+      onValueChange,
+    );
+
     const [internalBrand, setInternalBrand] =
       React.useState<CardBrand>("unknown");
     const [validationState, setValidationState] = React.useState<{
@@ -248,7 +278,6 @@ const CardNumberInput = React.forwardRef<
     const brand = context?.brand ?? internalBrand;
     const BrandIcon = CardBrandIcons[brand];
 
-    const value = isControlled ? controlledValue : internalValue;
     const hasError = validationState.isComplete && !validationState.isValid;
     const isValidComplete =
       validationState.isComplete && validationState.isValid;
@@ -275,11 +304,7 @@ const CardNumberInput = React.forwardRef<
         isComplete: validation.isComplete,
       });
 
-      if (isControlled) {
-        onChange?.(formatted);
-      } else {
-        setInternalValue(formatted);
-      }
+      setValue(formatted);
     };
 
     return (
@@ -296,12 +321,14 @@ const CardNumberInput = React.forwardRef<
           type="text"
           inputMode="numeric"
           autoComplete="cc-number"
-          value={value}
+          value={currentValue}
           onChange={handleChange}
           placeholder={placeholder}
+          disabled={disabled}
           className={cn(
             "h-10 w-full border-0 bg-transparent px-3 pr-18 text-sm outline-none placeholder:text-muted-foreground",
             hasError && "text-destructive",
+            disabled && "cursor-not-allowed opacity-50",
           )}
           aria-label="Card number"
           aria-invalid={hasError}
@@ -366,12 +393,14 @@ CardNumberInput.displayName = "CardNumberInput";
 interface CardExpiryInputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    "onChange" | "value"
+    "onChange" | "value" | "defaultValue"
   > {
-  /** The current value of the input */
+  /** The current value (controlled) */
   value?: string;
+  /** The default value (uncontrolled) */
+  defaultValue?: string;
   /** Callback fired when the value changes */
-  onChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
   /** Callback fired when validation state changes */
   onValidationChange?: (validation: {
     isValid: boolean;
@@ -389,10 +418,12 @@ const CardExpiryInput = React.forwardRef<
       className,
       id,
       name,
-      value: controlledValue,
-      onChange,
+      value,
+      defaultValue = "",
+      onValueChange,
       onValidationChange,
       placeholder = "MM/YY",
+      disabled,
       ...props
     },
     ref,
@@ -402,8 +433,13 @@ const CardExpiryInput = React.forwardRef<
     const inputId = id ?? generatedId;
     const errorId = `${inputId}-error`;
     const inputName = name ?? "cc-exp";
-    const isControlled = controlledValue !== undefined;
-    const [internalValue, setInternalValue] = React.useState("");
+
+    const [currentValue, setValue] = useControllableState(
+      value,
+      defaultValue,
+      onValueChange,
+    );
+
     const [validationState, setValidationState] = React.useState<{
       isComplete: boolean;
       isValid: boolean;
@@ -413,7 +449,6 @@ const CardExpiryInput = React.forwardRef<
     // When inside CardInputGroup, center text; otherwise left-align
     const isGrouped = context !== null;
 
-    const value = isControlled ? controlledValue : internalValue;
     const hasError = validationState.isComplete && !validationState.isValid;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -423,11 +458,7 @@ const CardExpiryInput = React.forwardRef<
       setValidationState(validation);
       onValidationChange?.(validation);
 
-      if (isControlled) {
-        onChange?.(formatted);
-      } else {
-        setInternalValue(formatted);
-      }
+      setValue(formatted);
     };
 
     return (
@@ -439,14 +470,16 @@ const CardExpiryInput = React.forwardRef<
           type="text"
           inputMode="numeric"
           autoComplete="cc-exp"
-          value={value}
+          value={currentValue}
           onChange={handleChange}
           placeholder={placeholder}
           maxLength={5}
+          disabled={disabled}
           className={cn(
             "h-10 border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
             isGrouped ? "w-20 text-center" : "w-full",
             hasError && "text-destructive",
+            disabled && "cursor-not-allowed opacity-50",
             className,
           )}
           aria-label="Expiration date"
@@ -503,43 +536,51 @@ CardExpiryInput.displayName = "CardExpiryInput";
 interface CardCvcInputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLInputElement>,
-    "onChange" | "value"
+    "onChange" | "value" | "defaultValue"
   > {
-  /** The current value of the input */
+  /** The current value (controlled) */
   value?: string;
+  /** The default value (uncontrolled) */
+  defaultValue?: string;
   /** Callback fired when the value changes */
-  onChange?: (value: string) => void;
+  onValueChange?: (value: string) => void;
 }
 
 const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
   (
-    { className, id, name, value: controlledValue, onChange, ...props },
+    {
+      className,
+      id,
+      name,
+      value,
+      defaultValue = "",
+      onValueChange,
+      disabled,
+      ...props
+    },
     ref,
   ) => {
     const context = useCardInputContext();
     const generatedId = React.useId();
     const inputId = id ?? generatedId;
     const inputName = name ?? "cc-csc";
-    const isControlled = controlledValue !== undefined;
-    const [internalValue, setInternalValue] = React.useState("");
 
     // Get brand from context (auto-detected from card number)
     const brand = context?.brand ?? "unknown";
     const maxLength = getCvcMaxLength(brand);
 
+    const [currentValue, setCurrentValue] = useControllableState(
+      value,
+      defaultValue,
+      onValueChange,
+    );
+
     // When inside CardInputGroup, center text; otherwise left-align
     const isGrouped = context !== null;
 
-    const value = isControlled ? controlledValue : internalValue;
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const rawValue = e.target.value.replace(/\D/g, "").slice(0, maxLength);
-
-      if (isControlled) {
-        onChange?.(rawValue);
-      } else {
-        setInternalValue(rawValue);
-      }
+      setCurrentValue(rawValue);
     };
 
     return (
@@ -551,13 +592,15 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
           type="text"
           inputMode="numeric"
           autoComplete="cc-csc"
-          value={value}
+          value={currentValue}
           onChange={handleChange}
-          placeholder={brand === "amex" ? "CVVC" : "CVC"}
+          placeholder={brand === "amex" ? "CVV" : "CVC"}
           maxLength={maxLength}
+          disabled={disabled}
           className={cn(
             "h-10 border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
             isGrouped ? "w-16 text-center" : "w-full",
+            disabled && "cursor-not-allowed opacity-50",
             className,
           )}
           aria-label="Security code"
@@ -575,15 +618,6 @@ export {
   CardExpiryInput,
   CardCvcInput,
   CardBrandIcons,
-  detectCardBrand,
-  validateLuhn,
-  validateCardNumber,
-  validateExpiry,
-  isCardNumberComplete,
-  formatCardNumber,
-  formatExpiry,
-  getCardMaxLength,
-  getCvcMaxLength,
 };
 
 export type {
