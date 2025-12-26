@@ -10,33 +10,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { useControllableState } from "@/lib/use-controllable-state";
 import {
   COUNTRIES,
   getStatesForCountry,
   type IState,
 } from "./billing-address-data";
-
-function useControllableState<T>(
-  controlledValue: T | undefined,
-  defaultValue: T,
-  onChange?: (value: T) => void,
-): [T, (value: T) => void] {
-  const [internalValue, setInternalValue] = React.useState(defaultValue);
-  const isControlled = controlledValue !== undefined;
-  const value = isControlled ? controlledValue : internalValue;
-
-  const setValue = React.useCallback(
-    (newValue: T) => {
-      if (!isControlled) {
-        setInternalValue(newValue);
-      }
-      onChange?.(newValue);
-    },
-    [isControlled, onChange],
-  );
-
-  return [value, setValue];
-}
 
 interface BillingAddressContextValue {
   countryCode: string;
