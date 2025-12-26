@@ -51,27 +51,6 @@ export {
   statusConfig,
 } from "./invoice-card";
 export type {
-  PaymentFormDividerProps,
-  PaymentFormFieldProps,
-  PaymentFormProps,
-  PaymentFormRowProps,
-  PaymentFormSectionProps,
-  PaymentFormSubmitProps,
-} from "./payment-form";
-export {
-  PaymentForm,
-  PaymentFormDescription,
-  PaymentFormDivider,
-  PaymentFormField,
-  PaymentFormFooter,
-  PaymentFormHeader,
-  PaymentFormRow,
-  PaymentFormSection,
-  PaymentFormSubmit,
-  PaymentFormTitle,
-  paymentFormSectionVariants,
-} from "./payment-form";
-export type {
   CardBrand,
   PaymentMethodActionProps,
   PaymentMethodBadgeProps,

@@ -8,11 +8,6 @@ import {
   CardNumberInput,
   CardExpiryInput,
   CardCvcInput,
-  PaymentForm,
-  PaymentFormSection,
-  PaymentFormField,
-  PaymentFormFooter,
-  PaymentFormSubmit,
 } from "@/registry/ui";
 
 <ComponentPreview component="card-input" example="preview" code={`<CardInputGroup>
@@ -119,42 +114,6 @@ Use each input component separately for custom layouts with individual labels an
         </div>
       </div>
     </div>
-  </div>
-</ComponentPreview>
-
-### With PaymentForm
-
-Combine with `PaymentForm` components for a complete checkout experience.
-
-<ComponentPreview component="card-input" example="with-form" code={`<PaymentForm>
-  <PaymentFormSection>
-    <PaymentFormField label="Card details">
-      <CardInputGroup>
-        <CardNumberInput />
-        <CardExpiryInput />
-        <CardCvcInput />
-      </CardInputGroup>
-    </PaymentFormField>
-  </PaymentFormSection>
-  <PaymentFormFooter>
-    <PaymentFormSubmit>Pay $99.00</PaymentFormSubmit>
-  </PaymentFormFooter>
-</PaymentForm>`}>
-  <div className="w-full max-w-md">
-    <PaymentForm>
-      <PaymentFormSection>
-        <PaymentFormField label="Card details">
-          <CardInputGroup>
-            <CardNumberInput />
-            <CardExpiryInput />
-            <CardCvcInput />
-          </CardInputGroup>
-        </PaymentFormField>
-      </PaymentFormSection>
-      <PaymentFormFooter>
-        <PaymentFormSubmit>Pay $99.00</PaymentFormSubmit>
-      </PaymentFormFooter>
-    </PaymentForm>
   </div>
 </ComponentPreview>
 

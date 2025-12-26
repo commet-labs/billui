@@ -75,21 +75,6 @@
       ]
     },
     {
-      "name": "payment-form",
-      "type": "registry:ui",
-      "title": "Payment Form",
-      "description": "A composable, provider-agnostic payment form wrapper for Stripe, Braintree, or native inputs.",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": ["button"],
-      "files": [
-        {
-          "path": "src/registry/ui/payment-form.tsx",
-          "type": "registry:ui",
-          "target": "components/ui/payment-form.tsx"
-        }
-      ]
-    },
-    {
       "name": "plan-card",
       "type": "registry:ui",
       "title": "Plan Card",
