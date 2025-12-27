@@ -49,10 +49,18 @@ export async function generateMetadata(
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
+  const url = `https://billui.com${page.url}`;
+
   return {
     title: page.data.title,
     description: page.data.description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
+      title: page.data.title,
+      description: page.data.description,
+      url,
       images: getPageImage(page).url,
     },
   };

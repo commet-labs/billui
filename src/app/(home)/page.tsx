@@ -1,7 +1,4 @@
-"use client";
-
 import { ArrowRight, CreditCard, Receipt, Sparkles, Star } from "lucide-react";
-import { motion } from "motion/react";
 import Link from "next/link";
 import {
   BillingAddress,
@@ -62,19 +59,14 @@ import {
   UsageCardSummary,
   UsageCardTotal,
 } from "@/registry/ui";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const stagger = {
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
+import {
+  AnimatedFadeUp,
+  AnimatedHero,
+  AnimatedSection,
+  AnimatedSectionScale,
+  AnimatedStaggerSection,
+  AnimatedStats,
+} from "./animated";
 
 export default function HomePage() {
   return (
@@ -88,36 +80,26 @@ export default function HomePage() {
           <div className="absolute top-[5%] right-[15%] w-[300px] h-[300px] bg-linear-to-bl from-blue-500/10 to-transparent rounded-full blur-3xl" />
         </div>
 
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={stagger}
-          className="flex flex-col items-center"
-        >
+        <AnimatedHero className="flex flex-col items-center">
           {/* Title */}
-          <motion.h1
-            variants={fadeUp}
-            className="max-w-4xl text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl bg-linear-to-b from-foreground to-foreground/70 bg-clip-text text-transparent"
-          >
-            Build billing pages
-            <br />
-            <span className="text-primary">in minutes</span>
-          </motion.h1>
+          <AnimatedFadeUp>
+            <h1 className="max-w-4xl text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl bg-linear-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
+              Build billing pages
+              <br />
+              <span className="text-primary">in minutes</span>
+            </h1>
+          </AnimatedFadeUp>
 
           {/* Description */}
-          <motion.p
-            variants={fadeUp}
-            className="max-w-xl mt-8 text-lg text-muted-foreground leading-relaxed"
-          >
-            Drop-in React components for payment forms, pricing tables,
-            invoices, and usage tracking. Copy, paste, ship.
-          </motion.p>
+          <AnimatedFadeUp>
+            <p className="max-w-xl mt-8 text-lg text-muted-foreground leading-relaxed">
+              Drop-in React components for payment forms, pricing tables,
+              invoices, and usage tracking. Copy, paste, ship.
+            </p>
+          </AnimatedFadeUp>
 
           {/* CTA Buttons */}
-          <motion.div
-            variants={fadeUp}
-            className="flex flex-wrap items-center justify-center gap-4 mt-10"
-          >
+          <AnimatedFadeUp className="flex flex-wrap items-center justify-center gap-4 mt-10">
             <Link
               href="/docs/components"
               className="group inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all hover:gap-3"
@@ -134,19 +116,13 @@ export default function HomePage() {
               <Star className="w-4 h-4" />
               Star on GitHub
             </a>
-          </motion.div>
-        </motion.div>
+          </AnimatedFadeUp>
+        </AnimatedHero>
       </section>
 
       {/* Hero Component - THE star of the show */}
       <section className="px-4 pb-32">
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-lg mx-auto"
-        >
+        <AnimatedSectionScale className="max-w-lg mx-auto">
           <div className="relative">
             {/* Glow effect */}
             <div className="absolute -inset-4 bg-linear-to-r from-primary/20 via-violet-500/20 to-blue-500/20 rounded-3xl blur-2xl opacity-60" />
@@ -194,54 +170,28 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </AnimatedSectionScale>
       </section>
 
       {/* Social proof / stats */}
       <section className="px-4 pb-32">
         <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
-          >
-            {[
+          <AnimatedStats
+            stats={[
               { value: "10+", label: "Components" },
               { value: "100%", label: "TypeScript" },
               { value: "A11y", label: "Accessible" },
               { value: "MIT", label: "Licensed" },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <div className="text-3xl font-bold text-foreground">
-                  {stat.value}
-                </div>
-                <div className="text-sm text-muted-foreground mt-1">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+            ]}
+          />
         </div>
       </section>
 
       {/* Payment Methods Section */}
       <section className="px-4 pb-32">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="grid lg:grid-cols-2 gap-16 items-center"
-          >
-            <motion.div variants={fadeUp} className="space-y-6">
+          <AnimatedStaggerSection className="grid lg:grid-cols-2 gap-16 items-center">
+            <AnimatedFadeUp className="space-y-6">
               <div className="inline-flex items-center gap-2 text-sm text-primary font-medium">
                 <CreditCard className="w-4 h-4" />
                 Payment Methods
@@ -263,9 +213,9 @@ export default function HomePage() {
                 View documentation
                 <ArrowRight className="w-4 h-4" />
               </Link>
-            </motion.div>
+            </AnimatedFadeUp>
 
-            <motion.div variants={fadeUp} className="space-y-3">
+            <AnimatedFadeUp className="space-y-3">
               <PaymentMethod variant="selected">
                 <PaymentMethodIcon brand="visa" />
                 <PaymentMethodDetails>
@@ -290,50 +240,33 @@ export default function HomePage() {
                   <PaymentMethodExpiry month={1} year={2023} expired />
                 </PaymentMethodDetails>
               </PaymentMethod>
-            </motion.div>
-          </motion.div>
+            </AnimatedFadeUp>
+          </AnimatedStaggerSection>
         </div>
       </section>
 
       {/* Pricing Section */}
       <section className="px-4 pb-32">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="text-center mb-16"
-          >
-            <motion.div
-              variants={fadeUp}
-              className="inline-flex items-center gap-2 text-sm text-primary font-medium mb-4"
-            >
+          <AnimatedStaggerSection className="text-center mb-16">
+            <AnimatedFadeUp className="inline-flex items-center gap-2 text-sm text-primary font-medium mb-4">
               <Sparkles className="w-4 h-4" />
               Pricing Components
-            </motion.div>
-            <motion.h2
-              variants={fadeUp}
-              className="text-4xl font-bold tracking-tight mb-4"
-            >
-              Pricing that converts
-            </motion.h2>
-            <motion.p
-              variants={fadeUp}
-              className="text-lg text-muted-foreground max-w-2xl mx-auto"
-            >
-              Plan cards, comparison tables, and billing period toggles.
-              Everything you need for a high-converting pricing page.
-            </motion.p>
-          </motion.div>
+            </AnimatedFadeUp>
+            <AnimatedFadeUp>
+              <h2 className="text-4xl font-bold tracking-tight mb-4">
+                Pricing that converts
+              </h2>
+            </AnimatedFadeUp>
+            <AnimatedFadeUp>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Plan cards, comparison tables, and billing period toggles.
+                Everything you need for a high-converting pricing page.
+              </p>
+            </AnimatedFadeUp>
+          </AnimatedStaggerSection>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="grid md:grid-cols-3 gap-6"
-          >
+          <AnimatedSection className="grid md:grid-cols-3 gap-6">
             <PlanCard>
               <PlanCardHeader>
                 <PlanCardTitle>Starter</PlanCardTitle>
@@ -387,22 +320,16 @@ export default function HomePage() {
               </PlanCardFeatures>
               <PlanCardAction variant="outline">Contact Sales</PlanCardAction>
             </PlanCard>
-          </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Usage & Invoices Section */}
       <section className="px-4 pb-32">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="grid lg:grid-cols-2 gap-16 items-start"
-          >
+          <AnimatedStaggerSection className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Usage */}
-            <motion.div variants={fadeUp} className="space-y-6">
+            <AnimatedFadeUp className="space-y-6">
               <div className="inline-flex items-center gap-2 text-sm text-primary font-medium">
                 <Sparkles className="w-4 h-4" />
                 Usage Tracking
@@ -448,10 +375,10 @@ export default function HomePage() {
                 </UsageCardList>
                 <UsageCardTotal amount={156.42} />
               </UsageCard>
-            </motion.div>
+            </AnimatedFadeUp>
 
             {/* Invoices */}
-            <motion.div variants={fadeUp} className="space-y-6">
+            <AnimatedFadeUp className="space-y-6">
               <div className="inline-flex items-center gap-2 text-sm text-primary font-medium">
                 <Receipt className="w-4 h-4" />
                 Invoice History
@@ -509,42 +436,29 @@ export default function HomePage() {
                   <InvoiceCardAmount amount={99} />
                 </InvoiceCard>
               </div>
-            </motion.div>
-          </motion.div>
+            </AnimatedFadeUp>
+          </AnimatedStaggerSection>
         </div>
       </section>
 
       {/* Pricing Table Section */}
       <section className="px-4 pb-32">
         <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="text-center mb-16"
-          >
-            <motion.h2
-              variants={fadeUp}
-              className="text-4xl font-bold tracking-tight mb-4"
-            >
-              Compare every feature
-            </motion.h2>
-            <motion.p
-              variants={fadeUp}
-              className="text-lg text-muted-foreground max-w-2xl mx-auto"
-            >
-              Full-featured comparison tables with checkmarks, partial
-              indicators, and highlighted columns.
-            </motion.p>
-          </motion.div>
+          <AnimatedStaggerSection className="text-center mb-16">
+            <AnimatedFadeUp>
+              <h2 className="text-4xl font-bold tracking-tight mb-4">
+                Compare every feature
+              </h2>
+            </AnimatedFadeUp>
+            <AnimatedFadeUp>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Full-featured comparison tables with checkmarks, partial
+                indicators, and highlighted columns.
+              </p>
+            </AnimatedFadeUp>
+          </AnimatedStaggerSection>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <AnimatedSection>
             <PricingTable>
               <PricingTableHeader columns={4}>
                 <PricingTableSpacer />
@@ -613,41 +527,28 @@ export default function HomePage() {
                 </PricingTableRow>
               </PricingTableBody>
             </PricingTable>
-          </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Usage Meters Section */}
       <section className="px-4 pb-32">
         <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="text-center mb-16"
-          >
-            <motion.h2
-              variants={fadeUp}
-              className="text-4xl font-bold tracking-tight mb-4"
-            >
-              Resource meters that pop
-            </motion.h2>
-            <motion.p
-              variants={fadeUp}
-              className="text-lg text-muted-foreground max-w-2xl mx-auto"
-            >
-              Color-coded progress bars that turn amber at 80% and red at 95%.
-              Your users will never be surprised by overages.
-            </motion.p>
-          </motion.div>
+          <AnimatedStaggerSection className="text-center mb-16">
+            <AnimatedFadeUp>
+              <h2 className="text-4xl font-bold tracking-tight mb-4">
+                Resource meters that pop
+              </h2>
+            </AnimatedFadeUp>
+            <AnimatedFadeUp>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Color-coded progress bars that turn amber at 80% and red at 95%.
+                Your users will never be surprised by overages.
+              </p>
+            </AnimatedFadeUp>
+          </AnimatedStaggerSection>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+          <AnimatedSection>
             <UsageCard>
               <UsageCardMeter
                 label="API Requests"
@@ -671,7 +572,7 @@ export default function HomePage() {
                 showPercentage
               />
             </UsageCard>
-          </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 

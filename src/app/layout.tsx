@@ -11,10 +11,11 @@ const geist = Geist({
 export const metadata: Metadata = {
   metadataBase: new URL("https://billui.com"),
   title: {
-    default: "billui",
+    default: "billui - Beautiful billing UI components",
     template: "%s | billui",
   },
-  description: "Beautiful billing UI components for your Next.js app.",
+  description:
+    "Beautiful, accessible billing UI components for your Next.js app. Payment forms, pricing tables, invoices, usage cards, and more. Built with React and shadcn/ui.",
   keywords: [
     "billing components",
     "React",
@@ -24,9 +25,25 @@ export const metadata: Metadata = {
     "invoice components",
     "pricing table",
     "shadcn",
+    "shadcn/ui",
+    "billing UI",
+    "payment form",
+    "credit card input",
+    "usage tracking",
+    "subscription billing",
+    "SaaS billing",
+    "Stripe UI",
+    "React components",
+    "TypeScript",
+    "Tailwind CSS",
   ],
   authors: [{ name: "0xDecker", url: "https://x.com/0xDecker" }],
   creator: "0xDecker",
+  publisher: "billui",
+  category: "Technology",
+  alternates: {
+    canonical: "https://billui.com",
+  },
   robots: {
     index: true,
     follow: true,
@@ -39,8 +56,9 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "billui",
-    description: "Beautiful billing UI components for your Next.js app.",
+    title: "billui - Beautiful billing UI components",
+    description:
+      "Beautiful, accessible billing UI components for your Next.js app. Payment forms, pricing tables, invoices, usage cards, and more.",
     url: "https://billui.com",
     siteName: "billui",
     images: [
@@ -48,7 +66,7 @@ export const metadata: Metadata = {
         url: "/billui-banner.png",
         width: 1200,
         height: 630,
-        alt: "billui - Billing UI Components",
+        alt: "billui - Beautiful billing UI components for React",
       },
     ],
     locale: "en_US",
@@ -56,13 +74,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "billui",
-    description: "Beautiful billing UI components for your Next.js app.",
+    title: "billui - Beautiful billing UI components",
+    description:
+      "Beautiful, accessible billing UI components for your Next.js app. Payment forms, pricing tables, invoices, and more.",
     images: ["/billui-banner.png"],
     creator: "@0xDecker",
+    site: "@0xDecker",
   },
   icons: {
     icon: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 };
 
