@@ -20,41 +20,7 @@ import {
   UsageCardTotal,
 } from "@/registry/ui";
 
-<ComponentPreview component="usage-card" example="preview" code={`<UsageCard>
-  <UsageCardHeader>
-    <UsageCardPeriod daysRemaining={12} />
-    <UsageCardAction>Buy Credits</UsageCardAction>
-  </UsageCardHeader>
-  <UsageCardSummary>
-    <UsageCardLabels>
-      <UsageCardLabel label="Credits Used" amount={347} limit={500} currency="" />
-      <UsageCardLabel label="Remaining" amount={153} currency="" align="right" />
-    </UsageCardLabels>
-    <UsageCardProgress value={347} max={500} />
-  </UsageCardSummary>
-  <UsageCardList collapsible dividers={false}>
-    <UsageCardItem highlighted>
-      <UsageCardItemLabel>Image Generation</UsageCardItemLabel>
-      <UsageCardItemValue>120 credits</UsageCardItemValue>
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Video Generation</UsageCardItemLabel>
-      <UsageCardItemValue>85 credits</UsageCardItemValue>
-    </UsageCardItem>
-    <UsageCardItem highlighted>
-      <UsageCardItemLabel>Upscaling (4x)</UsageCardItemLabel>
-      <UsageCardItemValue>62 credits</UsageCardItemValue>
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Background Removal</UsageCardItemLabel>
-      <UsageCardItemValue>45 credits</UsageCardItemValue>
-    </UsageCardItem>
-    <UsageCardItem highlighted>
-      <UsageCardItemLabel>Style Transfer</UsageCardItemLabel>
-      <UsageCardItemValue>35 credits</UsageCardItemValue>
-    </UsageCardItem>
-  </UsageCardList>
-</UsageCard>`}>
+<ComponentPreview component="usage-card" example="preview">
   <div className="w-full max-w-xl">
     <UsageCard>
       <UsageCardHeader>
@@ -126,27 +92,7 @@ import { Progress } from "@/components/ui/progress";
 
 Simple usage card with progress bar and itemized list.
 
-<ComponentPreview component="usage-card" example="basic" code={`<UsageCard>
-  <UsageCardHeader>
-    <UsageCardPeriod daysRemaining={14} />
-  </UsageCardHeader>
-  <UsageCardSummary>
-    <UsageCardLabels>
-      <UsageCardLabel label="Used" amount={12.50} limit={20} />
-    </UsageCardLabels>
-    <UsageCardProgress value={12.50} max={20} />
-  </UsageCardSummary>
-  <UsageCardList>
-    <UsageCardItem>
-      <UsageCardItemLabel>API Calls</UsageCardItemLabel>
-      <UsageCardItemValue amount={8.50} />
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Storage</UsageCardItemLabel>
-      <UsageCardItemValue amount={4.00} />
-    </UsageCardItem>
-  </UsageCardList>
-</UsageCard>`}>
+<ComponentPreview component="usage-card" example="basic">
   <div className="w-full max-w-md">
     <UsageCard>
       <UsageCardHeader>
@@ -176,19 +122,7 @@ Simple usage card with progress bar and itemized list.
 
 Use `variant="elevated"` to add a shadow for more visual prominence.
 
-<ComponentPreview component="usage-card" example="elevated" code={`<UsageCard variant="elevated">
-  <UsageCardHeader>
-    <UsageCardPeriod daysRemaining={7} />
-    <UsageCardAction>Upgrade</UsageCardAction>
-  </UsageCardHeader>
-  <UsageCardSummary>
-    <UsageCardLabels>
-      <UsageCardLabel label="Credits Used" amount={18.50} limit={20} />
-      <UsageCardLabel label="On-Demand" amount={0} align="right" />
-    </UsageCardLabels>
-    <UsageCardProgress value={18.50} max={20} />
-  </UsageCardSummary>
-</UsageCard>`}>
+<ComponentPreview component="usage-card" example="elevated">
   <div className="w-full max-w-md">
     <UsageCard variant="elevated">
       <UsageCardHeader>
@@ -210,17 +144,7 @@ Use `variant="elevated"` to add a shadow for more visual prominence.
 
 Use `UsageCardMeter` to show individual resource usage with visual progress bars.
 
-<ComponentPreview component="usage-card" example="meters" code={`<UsageCard>
-  <UsageCardHeader>
-    <UsageCardPeriod daysRemaining={5} />
-    <UsageCardAction>Manage</UsageCardAction>
-  </UsageCardHeader>
-  <div className="divide-y divide-border">
-    <UsageCardMeter used={8500} limit={10000} label="API Requests" unit="req" showPercentage />
-    <UsageCardMeter used={4.2} limit={5} label="Storage" unit="GB" showPercentage />
-    <UsageCardMeter used={950} limit={1000} label="Bandwidth" unit="GB" showPercentage />
-  </div>
-</UsageCard>`}>
+<ComponentPreview component="usage-card" example="meters">
   <div className="w-full max-w-md">
     <UsageCard>
       <UsageCardHeader>
@@ -240,29 +164,7 @@ Use `UsageCardMeter` to show individual resource usage with visual progress bars
 
 Enable `collapsible` on `UsageCardList` to show a preview with expand/collapse functionality.
 
-<ComponentPreview component="usage-card" example="collapsible" code={`<UsageCard>
-  <UsageCardHeader>
-    <UsageCardPeriod daysRemaining={3} />
-  </UsageCardHeader>
-  <UsageCardList collapsible>
-    <UsageCardItem>
-      <UsageCardItemLabel>Build Minutes</UsageCardItemLabel>
-      <UsageCardItemValue amount={4.02} />
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Edge Invocations</UsageCardItemLabel>
-      <UsageCardItemValue amount={0.65} />
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Function Calls</UsageCardItemLabel>
-      <UsageCardItemValue amount={0.60} />
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Bandwidth</UsageCardItemLabel>
-      <UsageCardItemValue amount={0.34} />
-    </UsageCardItem>
-  </UsageCardList>
-</UsageCard>`}>
+<ComponentPreview component="usage-card" example="collapsible">
   <div className="w-full max-w-md">
     <UsageCard>
       <UsageCardHeader>
@@ -294,26 +196,7 @@ Enable `collapsible` on `UsageCardList` to show a preview with expand/collapse f
 
 Use `highlighted` prop on items to create zebra striping.
 
-<ComponentPreview component="usage-card" example="highlighted" code={`<UsageCard>
-  <UsageCardList dividers={false}>
-    <UsageCardItem highlighted>
-      <UsageCardItemLabel>Compute</UsageCardItemLabel>
-      <UsageCardItemValue amount={12.50} />
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Storage</UsageCardItemLabel>
-      <UsageCardItemValue amount={5.00} />
-    </UsageCardItem>
-    <UsageCardItem highlighted>
-      <UsageCardItemLabel>Bandwidth</UsageCardItemLabel>
-      <UsageCardItemValue amount={2.50} />
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Functions</UsageCardItemLabel>
-      <UsageCardItemValue amount={1.25} />
-    </UsageCardItem>
-  </UsageCardList>
-</UsageCard>`}>
+<ComponentPreview component="usage-card" example="highlighted">
   <div className="w-full max-w-md">
     <UsageCard>
       <UsageCardList dividers={false}>
@@ -342,26 +225,7 @@ Use `highlighted` prop on items to create zebra striping.
 
 Add a `UsageCardTotal` at the bottom to show the sum of all charges.
 
-<ComponentPreview component="usage-card" example="total" code={`<UsageCard>
-  <UsageCardHeader>
-    <UsageCardPeriod daysRemaining={2} />
-  </UsageCardHeader>
-  <UsageCardList>
-    <UsageCardItem>
-      <UsageCardItemLabel>Pro Plan</UsageCardItemLabel>
-      <UsageCardItemValue amount={29.00} />
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Extra Seats (3)</UsageCardItemLabel>
-      <UsageCardItemValue amount={45.00} />
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Storage Add-on</UsageCardItemLabel>
-      <UsageCardItemValue amount={10.00} />
-    </UsageCardItem>
-  </UsageCardList>
-  <UsageCardTotal amount={84.00} />
-</UsageCard>`}>
+<ComponentPreview component="usage-card" example="total">
   <div className="w-full max-w-md">
     <UsageCard>
       <UsageCardHeader>
@@ -390,19 +254,7 @@ Add a `UsageCardTotal` at the bottom to show the sum of all charges.
 
 The progress bar turns red when usage exceeds the limit.
 
-<ComponentPreview component="usage-card" example="overage" code={`<UsageCard>
-  <UsageCardHeader>
-    <UsageCardPeriod>Billing cycle exceeded</UsageCardPeriod>
-    <UsageCardAction>Add Credits</UsageCardAction>
-  </UsageCardHeader>
-  <UsageCardSummary>
-    <UsageCardLabels>
-      <UsageCardLabel label="Used" amount={28.50} limit={20} />
-      <UsageCardLabel label="Overage" amount={8.50} align="right" />
-    </UsageCardLabels>
-    <UsageCardProgress value={28.50} max={20} />
-  </UsageCardSummary>
-</UsageCard>`}>
+<ComponentPreview component="usage-card" example="overage">
   <div className="w-full max-w-md">
     <UsageCard>
       <UsageCardHeader>
@@ -424,26 +276,7 @@ The progress bar turns red when usage exceeds the limit.
 
 Display amounts in different currencies.
 
-<ComponentPreview component="usage-card" example="currency" code={`<UsageCard>
-  <UsageCardSummary>
-    <UsageCardLabels>
-      <UsageCardLabel label="Créditos Usados" amount={15.00} limit={50} currency="€" />
-      <UsageCardLabel label="Adicional" amount={0} currency="€" align="right" />
-    </UsageCardLabels>
-    <UsageCardProgress value={15} max={50} />
-  </UsageCardSummary>
-  <UsageCardList>
-    <UsageCardItem>
-      <UsageCardItemLabel>Almacenamiento</UsageCardItemLabel>
-      <UsageCardItemValue amount={10.00} currency="€" />
-    </UsageCardItem>
-    <UsageCardItem>
-      <UsageCardItemLabel>Transferencia</UsageCardItemLabel>
-      <UsageCardItemValue amount={5.00} currency="€" />
-    </UsageCardItem>
-  </UsageCardList>
-  <UsageCardTotal amount={15.00} currency="€" />
-</UsageCard>`}>
+<ComponentPreview component="usage-card" example="currency">
   <div className="w-full max-w-md">
     <UsageCard>
       <UsageCardSummary>
@@ -472,17 +305,7 @@ Display amounts in different currencies.
 
 Pass custom children to `UsageCardPeriod` for custom text.
 
-<ComponentPreview component="usage-card" example="custom-period" code={`<UsageCard>
-  <UsageCardHeader>
-    <UsageCardPeriod>Jan 1 - Jan 31, 2024</UsageCardPeriod>
-    <UsageCardAction>View History</UsageCardAction>
-  </UsageCardHeader>
-  <UsageCardSummary>
-    <UsageCardLabels>
-      <UsageCardLabel label="Total Used" amount={45.00} />
-    </UsageCardLabels>
-  </UsageCardSummary>
-</UsageCard>`}>
+<ComponentPreview component="usage-card" example="custom-period">
   <div className="w-full max-w-md">
     <UsageCard>
       <UsageCardHeader>

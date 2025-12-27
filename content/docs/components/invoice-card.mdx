@@ -16,50 +16,7 @@ import {
   InvoiceCardAction,
 } from "@/registry/ui";
 
-<ComponentPreview component="invoice-card" example="preview" code={`<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
-      <InvoiceCardStatus status="paid" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-01-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={29} />
-  <InvoiceCardActions>
-    <InvoiceCardAction action="download" />
-  </InvoiceCardActions>
-</InvoiceCard>
-
-<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-002</InvoiceCardNumber>
-      <InvoiceCardStatus status="pending" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-02-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={29} />
-  <InvoiceCardActions>
-    <InvoiceCardAction action="view" />
-  </InvoiceCardActions>
-</InvoiceCard>
-
-<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-003</InvoiceCardNumber>
-      <InvoiceCardStatus status="failed" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-03-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={49} />
-  <InvoiceCardActions>
-    <InvoiceCardAction action="view" />
-  </InvoiceCardActions>
-</InvoiceCard>`}>
+<ComponentPreview component="invoice-card" example="preview">
   <div className="w-full max-w-lg space-y-3">
     <InvoiceCard>
       <InvoiceCardIcon />
@@ -166,17 +123,7 @@ InvoiceCard.displayName = "InvoiceCard";
 
 ### Pending Status
 
-<ComponentPreview component="invoice-card" example="pending" code={`<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-002</InvoiceCardNumber>
-      <InvoiceCardStatus status="pending" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-02-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={49} />
-</InvoiceCard>`}>
+<ComponentPreview component="invoice-card" example="pending">
   <div className="w-full max-w-lg">
     <InvoiceCard>
       <InvoiceCardIcon />
@@ -194,17 +141,7 @@ InvoiceCard.displayName = "InvoiceCard";
 
 ### Failed Status
 
-<ComponentPreview component="invoice-card" example="failed" code={`<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-003</InvoiceCardNumber>
-      <InvoiceCardStatus status="failed" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-03-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={99} />
-</InvoiceCard>`}>
+<ComponentPreview component="invoice-card" example="failed">
   <div className="w-full max-w-lg">
     <InvoiceCard>
       <InvoiceCardIcon />
@@ -222,17 +159,7 @@ InvoiceCard.displayName = "InvoiceCard";
 
 ### Refunded Status
 
-<ComponentPreview component="invoice-card" example="refunded" code={`<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-004</InvoiceCardNumber>
-      <InvoiceCardStatus status="refunded" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-04-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={29} />
-</InvoiceCard>`}>
+<ComponentPreview component="invoice-card" example="refunded">
   <div className="w-full max-w-lg">
     <InvoiceCard>
       <InvoiceCardIcon />
@@ -250,17 +177,7 @@ InvoiceCard.displayName = "InvoiceCard";
 
 ### Draft Status
 
-<ComponentPreview component="invoice-card" example="draft" code={`<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-005</InvoiceCardNumber>
-      <InvoiceCardStatus status="draft" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-05-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={149} />
-</InvoiceCard>`}>
+<ComponentPreview component="invoice-card" example="draft">
   <div className="w-full max-w-lg">
     <InvoiceCard>
       <InvoiceCardIcon />
@@ -280,17 +197,7 @@ InvoiceCard.displayName = "InvoiceCard";
 
 Use the `compact` variant for denser layouts.
 
-<ComponentPreview component="invoice-card" example="compact" code={`<InvoiceCard variant="compact">
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
-      <InvoiceCardStatus status="paid" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-01-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={29} />
-</InvoiceCard>`}>
+<ComponentPreview component="invoice-card" example="compact">
   <div className="w-full max-w-lg">
     <InvoiceCard variant="compact">
       <InvoiceCardIcon />
@@ -310,17 +217,7 @@ Use the `compact` variant for denser layouts.
 
 Use the `format="long"` prop for more detailed date display.
 
-<ComponentPreview component="invoice-card" example="long-date" code={`<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
-      <InvoiceCardStatus status="paid" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-01-15" format="long" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={29} />
-</InvoiceCard>`}>
+<ComponentPreview component="invoice-card" example="long-date">
   <div className="w-full max-w-lg">
     <InvoiceCard>
       <InvoiceCardIcon />
@@ -340,21 +237,7 @@ Use the `format="long"` prop for more detailed date display.
 
 Include download or view action buttons.
 
-<ComponentPreview component="invoice-card" example="actions" code={`<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
-      <InvoiceCardStatus status="paid" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-01-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={29} />
-  <InvoiceCardActions>
-    <InvoiceCardAction action="download" />
-    <InvoiceCardAction action="view" />
-  </InvoiceCardActions>
-</InvoiceCard>`}>
+<ComponentPreview component="invoice-card" example="actions">
   <div className="w-full max-w-lg">
     <InvoiceCard>
       <InvoiceCardIcon />
@@ -378,17 +261,7 @@ Include download or view action buttons.
 
 Display amounts in different currencies.
 
-<ComponentPreview component="invoice-card" example="currency" code={`<InvoiceCard>
-  <InvoiceCardIcon />
-  <InvoiceCardContent>
-    <InvoiceCardHeader>
-      <InvoiceCardNumber>INV-2024-001</InvoiceCardNumber>
-      <InvoiceCardStatus status="paid" />
-    </InvoiceCardHeader>
-    <InvoiceCardDate date="2024-01-15" />
-  </InvoiceCardContent>
-  <InvoiceCardAmount amount={29} currency="€" />
-</InvoiceCard>`}>
+<ComponentPreview component="invoice-card" example="currency">
   <div className="w-full max-w-lg">
     <InvoiceCard>
       <InvoiceCardIcon />

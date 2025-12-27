@@ -14,18 +14,7 @@ import {
   PaymentMethodAction,
 } from "@/registry/ui";
 
-<ComponentPreview component="payment-method" example="preview" code={`<PaymentMethod>
-  <PaymentMethodIcon brand="visa" />
-  <PaymentMethodDetails>
-    <PaymentMethodNumber last4="4242" />
-    <PaymentMethodExpiry month={12} year={2026} />
-  </PaymentMethodDetails>
-  <PaymentMethodBadge>Default</PaymentMethodBadge>
-  <PaymentMethodActions>
-    <PaymentMethodAction action="edit" />
-    <PaymentMethodAction action="delete" />
-  </PaymentMethodActions>
-</PaymentMethod>`}>
+<ComponentPreview component="payment-method" example="preview">
   <div className="w-full max-w-md">
     <PaymentMethod>
       <PaymentMethodIcon brand="visa" />
@@ -72,29 +61,7 @@ import { Button } from "@/components/ui/button";
 
 Each card brand displays with its official logo.
 
-<ComponentPreview component="payment-method" example="brands" code={`<PaymentMethod>
-  <PaymentMethodIcon brand="visa" />
-  <PaymentMethodDetails>
-    <PaymentMethodNumber last4="4242" />
-    <PaymentMethodExpiry month={12} year={2026} />
-  </PaymentMethodDetails>
-</PaymentMethod>
-
-<PaymentMethod>
-  <PaymentMethodIcon brand="mastercard" />
-  <PaymentMethodDetails>
-    <PaymentMethodNumber last4="5555" />
-    <PaymentMethodExpiry month={8} year={2025} />
-  </PaymentMethodDetails>
-</PaymentMethod>
-
-<PaymentMethod>
-  <PaymentMethodIcon brand="amex" />
-  <PaymentMethodDetails>
-    <PaymentMethodNumber last4="0001" />
-    <PaymentMethodExpiry month={3} year={2027} />
-  </PaymentMethodDetails>
-</PaymentMethod>`}>
+<ComponentPreview component="payment-method" example="brands">
   <div className="flex w-full flex-col gap-4 max-w-md">
     <PaymentMethod>
       <PaymentMethodIcon brand="visa" />
@@ -124,22 +91,7 @@ Each card brand displays with its official logo.
 
 Use the `selected` variant to highlight the active payment method.
 
-<ComponentPreview component="payment-method" example="selected" code={`<PaymentMethod variant="selected">
-  <PaymentMethodIcon brand="visa" />
-  <PaymentMethodDetails>
-    <PaymentMethodNumber last4="4242" />
-    <PaymentMethodExpiry month={12} year={2026} />
-  </PaymentMethodDetails>
-  <PaymentMethodBadge>Default</PaymentMethodBadge>
-</PaymentMethod>
-
-<PaymentMethod>
-  <PaymentMethodIcon brand="mastercard" />
-  <PaymentMethodDetails>
-    <PaymentMethodNumber last4="5555" />
-    <PaymentMethodExpiry month={8} year={2025} />
-  </PaymentMethodDetails>
-</PaymentMethod>`}>
+<ComponentPreview component="payment-method" example="selected">
   <div className="flex w-full flex-col gap-4 max-w-md">
     <PaymentMethod variant="selected">
       <PaymentMethodIcon brand="visa" />
@@ -163,17 +115,7 @@ Use the `selected` variant to highlight the active payment method.
 
 Show expired cards with visual indication.
 
-<ComponentPreview component="payment-method" example="expired" code={`<PaymentMethod>
-  <PaymentMethodIcon brand="visa" />
-  <PaymentMethodDetails>
-    <PaymentMethodNumber last4="1234" />
-    <PaymentMethodExpiry month={1} year={2023} expired />
-  </PaymentMethodDetails>
-  <PaymentMethodActions>
-    <PaymentMethodAction action="edit" />
-    <PaymentMethodAction action="delete" />
-  </PaymentMethodActions>
-</PaymentMethod>`}>
+<ComponentPreview component="payment-method" example="expired">
   <div className="w-full max-w-md">
     <PaymentMethod>
       <PaymentMethodIcon brand="visa" />
@@ -193,18 +135,7 @@ Show expired cards with visual indication.
 
 Include edit, delete, or more options buttons.
 
-<ComponentPreview component="payment-method" example="actions" code={`<PaymentMethod>
-  <PaymentMethodIcon brand="mastercard" />
-  <PaymentMethodDetails>
-    <PaymentMethodNumber last4="8888" />
-    <PaymentMethodExpiry month={6} year={2028} />
-  </PaymentMethodDetails>
-  <PaymentMethodActions>
-    <PaymentMethodAction action="edit" />
-    <PaymentMethodAction action="delete" />
-    <PaymentMethodAction action="more" />
-  </PaymentMethodActions>
-</PaymentMethod>`}>
+<ComponentPreview component="payment-method" example="actions">
   <div className="w-full max-w-md">
     <PaymentMethod>
       <PaymentMethodIcon brand="mastercard" />
@@ -264,4 +195,3 @@ Action button for the payment method.
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `action` | `"edit" \| "delete" \| "more"` | `"more"` | Type of action |
-

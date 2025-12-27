@@ -22,50 +22,7 @@ import {
   PlanCardAction,
 } from "@/registry/ui";
 
-<ComponentPreview component="plan-group" example="preview" code={`<PlanGroup>
-  <PlanGroupHeader>
-    <PlanGroupTitle>Simple, transparent pricing</PlanGroupTitle>
-    <PlanGroupDescription>
-      Choose the plan that works best for you. All plans include a 14-day free trial.
-    </PlanGroupDescription>
-    <PlanGroupToggle yearDiscount="Save 20%" />
-  </PlanGroupHeader>
-  <PlanGroupContent>
-    <PlanCard>
-      <PlanCardHeader>
-        <PlanCardTitle>Free</PlanCardTitle>
-        <PlanCardDescription>For individuals</PlanCardDescription>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={0} yearlyAmount={0} />
-      <PlanCardFeatures>
-        <PlanCardFeature included>Up to 3 projects</PlanCardFeature>
-        <PlanCardFeature included>Basic analytics</PlanCardFeature>
-        <PlanCardFeature included>Community support</PlanCardFeature>
-        <PlanCardFeature included={false}>Custom integrations</PlanCardFeature>
-        <PlanCardFeature included={false}>Priority support</PlanCardFeature>
-      </PlanCardFeatures>
-      <PlanCardAction variant="outline">Get Started</PlanCardAction>
-    </PlanCard>
-    <PlanCard variant="highlighted">
-      <PlanCardHeader>
-        <div className="flex items-center justify-between">
-          <PlanCardTitle>Pro</PlanCardTitle>
-          <PlanCardBadge>Most Popular</PlanCardBadge>
-        </div>
-        <PlanCardDescription>For growing teams</PlanCardDescription>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={29} yearlyAmount={278} originalMonthlyAmount={49} originalYearlyAmount={470} />
-      <PlanCardFeatures>
-        <PlanCardFeature included>Unlimited projects</PlanCardFeature>
-        <PlanCardFeature included>Advanced analytics</PlanCardFeature>
-        <PlanCardFeature included>Priority support</PlanCardFeature>
-        <PlanCardFeature included>Custom integrations</PlanCardFeature>
-        <PlanCardFeature included>Dedicated manager</PlanCardFeature>
-      </PlanCardFeatures>
-      <PlanCardAction>Get Started</PlanCardAction>
-    </PlanCard>
-  </PlanGroupContent>
-</PlanGroup>`}>
+<ComponentPreview component="plan-group" example="preview">
   <PlanGroup>
     <PlanGroupHeader>
       <PlanGroupTitle>Simple, transparent pricing</PlanGroupTitle>
@@ -143,39 +100,7 @@ import { PlanCardPrice } from "./plan-card";
 
 Use `layout="horizontal"` on `PlanCard` combined with `layout="vertical"` on `PlanGroupContent` to create a row-style pricing list.
 
-<ComponentPreview component="plan-group" example="horizontal" code={`<PlanGroup>
-  <PlanGroupHeader>
-    <PlanGroupTitle>Compare plans</PlanGroupTitle>
-    <PlanGroupToggle />
-  </PlanGroupHeader>
-  <PlanGroupContent layout="vertical">
-    <PlanCard layout="horizontal" className="min-w-[500px] grid grid-cols-[1fr_auto] gap-x-8 gap-y-3">
-      <div className="flex items-center gap-2">
-        <PlanCardTitle>Basic</PlanCardTitle>
-      </div>
-      <PlanPrice monthlyAmount={9} yearlyAmount={90} className="my-0 justify-self-end" />
-      <PlanCardFeatures>
-        <PlanCardFeature included>5 projects</PlanCardFeature>
-        <PlanCardFeature included>Basic analytics</PlanCardFeature>
-        <PlanCardFeature included={false}>Priority support</PlanCardFeature>
-      </PlanCardFeatures>
-      <PlanCardAction variant="outline" className="mt-0 w-auto self-end justify-self-end">Select</PlanCardAction>
-    </PlanCard>
-    <PlanCard layout="horizontal" variant="highlighted" className="min-w-[500px] grid grid-cols-[1fr_auto] gap-x-8 gap-y-3">
-      <div className="flex items-center gap-2">
-        <PlanCardTitle>Pro</PlanCardTitle>
-        <PlanCardBadge>Popular</PlanCardBadge>
-      </div>
-      <PlanPrice monthlyAmount={29} yearlyAmount={290} className="my-0 justify-self-end" />
-      <PlanCardFeatures>
-        <PlanCardFeature included>Unlimited projects</PlanCardFeature>
-        <PlanCardFeature included>Advanced analytics</PlanCardFeature>
-        <PlanCardFeature included>Priority support</PlanCardFeature>
-      </PlanCardFeatures>
-      <PlanCardAction className="mt-0 w-auto self-end justify-self-end">Select</PlanCardAction>
-    </PlanCard>
-  </PlanGroupContent>
-</PlanGroup>`}>
+<ComponentPreview component="plan-group" example="horizontal">
   <PlanGroup>
     <PlanGroupHeader>
       <PlanGroupTitle>Compare plans</PlanGroupTitle>
@@ -215,41 +140,7 @@ Use `layout="horizontal"` on `PlanCard` combined with `layout="vertical"` on `Pl
 
 Set `defaultPeriod="year"` to show yearly prices by default.
 
-<ComponentPreview component="plan-group" example="yearly" code={`<PlanGroup defaultPeriod="year">
-  <PlanGroupHeader>
-    <PlanGroupTitle>Annual pricing</PlanGroupTitle>
-    <PlanGroupDescription>Save more with yearly billing</PlanGroupDescription>
-    <PlanGroupToggle yearDiscount="Save 20%" />
-  </PlanGroupHeader>
-  <PlanGroupContent>
-    <PlanCard>
-      <PlanCardHeader>
-        <PlanCardTitle>Hobby</PlanCardTitle>
-        <PlanCardDescription>For side projects</PlanCardDescription>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={5} yearlyAmount={48} />
-      <PlanCardFeatures>
-        <PlanCardFeature included>3 projects</PlanCardFeature>
-        <PlanCardFeature included>Community support</PlanCardFeature>
-      </PlanCardFeatures>
-      <PlanCardAction variant="outline">Start Free</PlanCardAction>
-    </PlanCard>
-    <PlanCard variant="highlighted">
-      <PlanCardHeader>
-        <PlanCardBadge>Best Value</PlanCardBadge>
-        <PlanCardTitle>Team</PlanCardTitle>
-        <PlanCardDescription>For small teams</PlanCardDescription>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={15} yearlyAmount={144} originalMonthlyAmount={20} originalYearlyAmount={192} />
-      <PlanCardFeatures>
-        <PlanCardFeature included>Unlimited projects</PlanCardFeature>
-        <PlanCardFeature included>Team collaboration</PlanCardFeature>
-        <PlanCardFeature included>Priority support</PlanCardFeature>
-      </PlanCardFeatures>
-      <PlanCardAction>Subscribe Now</PlanCardAction>
-    </PlanCard>
-  </PlanGroupContent>
-</PlanGroup>`}>
+<ComponentPreview component="plan-group" example="yearly">
   <PlanGroup defaultPeriod="year">
     <PlanGroupHeader>
       <PlanGroupTitle>Annual pricing</PlanGroupTitle>
@@ -291,39 +182,7 @@ Set `defaultPeriod="year"` to show yearly prices by default.
 
 Customize the toggle labels with `monthLabel` and `yearLabel`.
 
-<ComponentPreview component="plan-group" example="custom-labels" code={`<PlanGroup>
-  <PlanGroupHeader>
-    <PlanGroupTitle>Flexible billing</PlanGroupTitle>
-    <PlanGroupToggle monthLabel="Pay Monthly" yearLabel="Pay Annually" yearDiscount="-17%" />
-  </PlanGroupHeader>
-  <PlanGroupContent>
-    <PlanCard>
-      <PlanCardHeader>
-        <PlanCardTitle>Solo</PlanCardTitle>
-        <PlanCardDescription>For freelancers</PlanCardDescription>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={12} yearlyAmount={120} />
-      <PlanCardFeatures>
-        <PlanCardFeature included>10 projects</PlanCardFeature>
-        <PlanCardFeature included>Email support</PlanCardFeature>
-      </PlanCardFeatures>
-      <PlanCardAction variant="outline">Get Started</PlanCardAction>
-    </PlanCard>
-    <PlanCard variant="highlighted">
-      <PlanCardHeader>
-        <PlanCardTitle>Agency</PlanCardTitle>
-        <PlanCardDescription>For creative agencies</PlanCardDescription>
-      </PlanCardHeader>
-      <PlanPrice monthlyAmount={49} yearlyAmount={490} />
-      <PlanCardFeatures>
-        <PlanCardFeature included>Unlimited projects</PlanCardFeature>
-        <PlanCardFeature included>White-label reports</PlanCardFeature>
-        <PlanCardFeature included>24/7 support</PlanCardFeature>
-      </PlanCardFeatures>
-      <PlanCardAction>Get Started</PlanCardAction>
-    </PlanCard>
-  </PlanGroupContent>
-</PlanGroup>`}>
+<ComponentPreview component="plan-group" example="custom-labels">
   <PlanGroup>
     <PlanGroupHeader>
       <PlanGroupTitle>Flexible billing</PlanGroupTitle>
@@ -363,35 +222,7 @@ Customize the toggle labels with `monthLabel` and `yearLabel`.
 
 You can use PlanGroup without a header for simpler use cases.
 
-<ComponentPreview component="plan-group" example="no-header" code={`<PlanGroup>
-  <PlanGroupContent>
-    <PlanCard>
-      <PlanCardHeader>
-        <PlanCardTitle>Monthly</PlanCardTitle>
-        <PlanCardDescription>Flexible billing</PlanCardDescription>
-      </PlanCardHeader>
-      <PlanCardPrice amount={29} period="month" />
-      <PlanCardFeatures>
-        <PlanCardFeature included>All features</PlanCardFeature>
-        <PlanCardFeature included>Cancel anytime</PlanCardFeature>
-      </PlanCardFeatures>
-      <PlanCardAction variant="outline">Subscribe</PlanCardAction>
-    </PlanCard>
-    <PlanCard variant="highlighted">
-      <PlanCardHeader>
-        <PlanCardBadge>Save $70</PlanCardBadge>
-        <PlanCardTitle>Annual</PlanCardTitle>
-        <PlanCardDescription>Best value</PlanCardDescription>
-      </PlanCardHeader>
-      <PlanCardPrice amount={278} period="year" />
-      <PlanCardFeatures>
-        <PlanCardFeature included>All features</PlanCardFeature>
-        <PlanCardFeature included>2 months free</PlanCardFeature>
-      </PlanCardFeatures>
-      <PlanCardAction>Subscribe</PlanCardAction>
-    </PlanCard>
-  </PlanGroupContent>
-</PlanGroup>`}>
+<ComponentPreview component="plan-group" example="no-header">
   <PlanGroup>
     <PlanGroupContent>
       <PlanCard>
@@ -484,4 +315,3 @@ Hook to access the billing period state from child components.
 ```tsx
 const { period, setPeriod } = usePlanGroup();
 ```
-

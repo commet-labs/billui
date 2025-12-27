@@ -11,38 +11,7 @@ import {
   BillingAddressState,
 } from "@/registry/ui";
 
-<ComponentPreview component="billing-address" example="preview" code={`<BillingAddress defaultCountry="US">
-  <div className="flex flex-col gap-1.5">
-    <Label htmlFor="name">Full Name</Label>
-    <BillingAddressInput id="name" name="name" field="name" placeholder="Name" />
-  </div>
-  <div className="flex flex-col gap-1.5">
-    <Label htmlFor="country">Country</Label>
-    <BillingAddressCountry id="country" name="country" />
-  </div>
-  <div className="flex flex-col gap-1.5">
-    <Label htmlFor="line1">Address</Label>
-    <BillingAddressInput id="line1" name="line1" field="line1" placeholder="Street address" />
-  </div>
-  <div className="flex flex-col gap-1.5">
-    <Label htmlFor="line2">Apartment, suite, etc.</Label>
-    <BillingAddressInput id="line2" name="line2" field="line2" placeholder="Apt, suite, etc. (optional)" />
-  </div>
-  <div className="flex flex-col gap-1.5">
-    <Label htmlFor="city">City</Label>
-    <BillingAddressInput id="city" name="city" field="city" placeholder="City" />
-  </div>
-  <div className="grid grid-cols-2 gap-3">
-    <div className="flex flex-col gap-1.5">
-      <Label htmlFor="state">State</Label>
-      <BillingAddressState id="state" name="state" />
-    </div>
-    <div className="flex flex-col gap-1.5">
-      <Label htmlFor="postal">ZIP Code</Label>
-      <BillingAddressInput id="postal" name="postal" field="postalCode" placeholder="ZIP code" />
-    </div>
-  </div>
-</BillingAddress>`}>
+<ComponentPreview component="billing-address" example="preview">
   <div className="w-full max-w-md">
     <BillingAddress defaultCountry="US">
       <div className="flex flex-col gap-1.5">
@@ -110,15 +79,7 @@ import { COUNTRIES, getStatesForCountry, type IState } from "./billing-address-d
 
 A compact version with only essential fields.
 
-<ComponentPreview component="billing-address" example="basic" code={`<BillingAddress defaultCountry="US">
-  <BillingAddressCountry name="country" />
-  <BillingAddressInput field="line1" name="line1" placeholder="Street address" />
-  <div className="grid grid-cols-2 gap-3">
-    <BillingAddressInput field="city" name="city" placeholder="City" />
-    <BillingAddressState name="state" />
-  </div>
-  <BillingAddressInput field="postalCode" name="postal" placeholder="ZIP code" />
-</BillingAddress>`}>
+<ComponentPreview component="billing-address" example="basic">
   <div className="w-full max-w-md">
     <BillingAddress defaultCountry="US">
       <BillingAddressCountry name="country" />
