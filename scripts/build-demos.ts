@@ -1,8 +1,9 @@
 /**
  * Build script for generating static demo block JSONs from MDX files.
  *
- * Extracts ALL <ComponentPreview example="..." code={...}> from each component's MDX
- * and generates static registry:block JSON files.
+ * Extracts ALL <ComponentPreview example="...">children</ComponentPreview> from each
+ * component's MDX and generates static registry:block JSON files.
+ * The children JSX is used as the demo code (same approach as remark-component-preview).
  *
  * Run with: pnpm build:demos
  */
@@ -223,8 +224,8 @@ function extractAllExamplesFromMdx(
 ): ExtractedExample[] {
   const examples: ExtractedExample[] = [];
 
-  // Match <ComponentPreview component="X" example="Y" ... code={`...`}>
-  // Handles various attribute orderings
+  // Match <ComponentPreview component="X" example="Y">...children...</ComponentPreview>
+  // We extract the children as the code (same as remark-component-preview plugin)
   const regex = /<ComponentPreview[^>]*>/g;
   let match: RegExpExecArray | null;
 
@@ -241,14 +242,21 @@ function extractAllExamplesFromMdx(
 
     const exampleId = exampleMatch[1];
 
-    // Find the code prop - need to look after the tag start
-    const startPos = match.index;
-    const codeMatch = content.slice(startPos).match(/code=\{\`([\s\S]*?)\`\}/);
-    if (!codeMatch) continue;
+    // Find the closing tag and extract children
+    const startPos = match.index + tag.length;
+    const closingTag = "</ComponentPreview>";
+    const endPos = content.indexOf(closingTag, startPos);
+
+    if (endPos === -1) continue;
+
+    // Extract children content (the JSX between opening and closing tags)
+    const childrenCode = content.slice(startPos, endPos).trim();
+
+    if (!childrenCode) continue;
 
     examples.push({
       example: exampleId,
-      code: codeMatch[1].trim(),
+      code: childrenCode,
     });
   }
 
