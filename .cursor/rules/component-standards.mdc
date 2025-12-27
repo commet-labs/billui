@@ -1,0 +1,286 @@
+---
+alwaysApply: true
+---
+
+# Component Development Standards
+
+Standards for building high-quality, accessible, and developer-friendly React components.
+
+## Design Philosophy
+
+### Pit of Success
+Make the right thing easy and the wrong thing hard. Developers should fall into correct usage by default.
+
+```tsx
+// ✅ Good: field prop auto-configures everything
+<BillingAddressInput field="postalCode" />
+// Automatically sets: autocomplete, inputMode, spellCheck
+
+// ❌ Bad: Developer must remember all attributes
+<Input 
+  autoComplete="billing postal-code"
+  inputMode="text"
+  spellCheck={false}
+/>
+```
+
+### Don't Over-Engineer
+- Only add features that solve real problems
+- If a prop is rarely used, question if it belongs
+- Prefer composition over configuration
+- No backwards-compatibility shims—just change the code
+
+## API Design
+
+### Unified Callback Pattern
+Use `onValueChange` with raw values, not React events. Consistent across all input types.
+
+```tsx
+// ✅ Unified API
+onValueChange?: (value: string) => void
+
+// ❌ Inconsistent
+onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void  // for Input
+onValueChange?: (value: string) => void  // for Select
+```
+
+### Controlled/Uncontrolled Support
+Always support both patterns using `useControllableState`:
+
+```tsx
+interface Props {
+  value?: string;           // Controlled
+  defaultValue?: string;    // Uncontrolled default
+  onValueChange?: (value: string) => void;
+}
+
+const [currentValue, setValue] = useControllableState(
+  value,
+  defaultValue,
+  onValueChange,
+);
+```
+
+> **Note:** While components support both patterns, ui-guidelines recommends preferring uncontrolled for performance. Support controlled for cases that genuinely need it (real-time validation, conditional UI).
+
+### Form Submission
+Components MUST work with both paradigms:
+
+**Legacy (handleSubmit + controlled state)**
+```tsx
+const [country, setCountry] = useState("US");
+
+const handleSubmit = (e: FormEvent) => {
+  e.preventDefault();
+  await saveAddress({ country }); // Use state directly
+};
+
+<form onSubmit={handleSubmit}>
+  <BillingAddressCountry value={country} onValueChange={setCountry} />
+</form>
+```
+
+**Modern (Server Actions + formData)**
+```tsx
+async function saveAddress(formData: FormData) {
+  "use server";
+  const country = formData.get("country"); // Get from FormData
+}
+
+<form action={saveAddress}>
+  <BillingAddressCountry name="country" />
+</form>
+```
+
+**Implementation:** Select components need hidden inputs (they don't submit natively):
+
+```tsx
+{name && <input type="hidden" name={name} value={currentValue} />}
+<Select value={currentValue} onValueChange={setValue}>
+  ...
+</Select>
+```
+
+### Prop Naming
+- `value` / `defaultValue` — controlled/uncontrolled value
+- `onValueChange` — value changed callback
+- `name` — form submission name
+- `disabled` — disabled state
+- `placeholder` — placeholder with ellipsis (`"Select country…"`)
+
+## Accessibility
+
+Follows [ui-guidelines](./ui-guidelines.mdc) for full accessibility rules. Key requirements below.
+
+### Autocomplete
+Set correct `autocomplete` values for browser autofill:
+
+```tsx
+const billingFieldConfig = {
+  name: { autocomplete: "billing name" },
+  line1: { autocomplete: "billing address-line1" },
+  city: { autocomplete: "billing address-level2" },
+  postalCode: { autocomplete: "billing postal-code" },
+};
+```
+
+### Input Configuration
+Auto-configure based on field type:
+
+| Field Type | spellCheck | inputMode |
+|------------|------------|-----------|
+| name, address | `true` | `"text"` |
+| email | `false` | `"email"` |
+| postalCode | `false` | `"text"` |
+| phone | `false` | `"tel"` |
+
+### Placeholders
+- MUST end with ellipsis (`…`) per UI guidelines
+- Show example format when helpful (`"+1 (123) 456-7890"`)
+
+## UX Behaviors
+
+### Trim on Blur
+Automatically trim whitespace on blur for text inputs:
+
+```tsx
+const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  if (trimOnBlur) {
+    const trimmed = currentValue.trim();
+    if (trimmed !== currentValue) {
+      setValue(trimmed);
+    }
+  }
+  onBlur?.(e);
+};
+```
+
+### Context for Related Components
+Use React Context when components need to communicate:
+
+```tsx
+// Parent provides context
+<BillingAddressContext.Provider value={{ countryCode, setCountryCode, states }}>
+  {children}
+</BillingAddressContext.Provider>
+
+// Children consume context
+const { states } = useBillingAddressContext();
+```
+
+### Reset Related State
+When parent state changes, reset dependent state:
+
+```tsx
+// Reset state when country changes
+const prevCountryRef = React.useRef(countryCode);
+React.useEffect(() => {
+  if (prevCountryRef.current !== countryCode) {
+    prevCountryRef.current = countryCode;
+    setValue("");
+  }
+}, [countryCode]);
+```
+
+## Code Organization
+
+### File Structure
+Keep related components in one file if under ~500 lines. Split if larger.
+
+### No Section Comments
+Don't use decorative comment blocks:
+
+```tsx
+// ❌ Bad
+// ============================================================================
+// Context
+// ============================================================================
+
+// ✅ Good: Just the code, properly organized
+interface BillingAddressContextValue { ... }
+```
+
+### Export Only Public API
+Keep internal utilities private:
+
+```tsx
+// ✅ Export only what consumers need
+export {
+  BillingAddress,
+  BillingAddressInput,
+  BillingAddressCountry,
+  BillingAddressState,
+  billingFieldConfig,  // Useful for consumers
+};
+
+// ❌ Don't export internal hooks
+// useControllableState — internal implementation
+// useBillingAddressContext — internal implementation
+```
+
+### No Deprecated Exports
+Remove deprecated code instead of marking it:
+
+```tsx
+// ❌ Bad: Keeping deprecated exports
+/** @deprecated Use billingFieldConfig instead */
+const billingAutocomplete = { ... }
+
+// ✅ Good: Just remove it
+```
+
+## Component Checklist
+
+Before shipping a component, verify:
+
+**Functionality**
+- [ ] Works uncontrolled (just add `name` prop)
+- [ ] Works controlled (`value` + `onValueChange`)
+- [ ] Works with legacy forms (`handleSubmit` + state)
+- [ ] Works with Server Actions (`formData.get(name)`)
+- [ ] Forwards `ref` correctly
+- [ ] Supports `disabled` state
+
+**Accessibility**
+- [ ] Correct `autocomplete` attributes
+- [ ] Placeholders end with `…`
+- [ ] `spellCheck={false}` for codes/emails
+- [ ] Icon-only buttons have `aria-label`
+- [ ] Decorative elements have `aria-hidden`
+- [ ] Uses native semantics (`button`, `a`, `label`) before ARIA
+- [ ] Status not conveyed by color alone
+
+**UX**
+- [ ] Trims whitespace on blur
+
+**Code Quality**
+- [ ] No unnecessary exports
+- [ ] TypeScript types exported
+
+## Documentation Standards
+
+### Structure
+1. **Preview** — Full visual example showing final result
+2. **Installation** — CLI and Manual tabs
+3. **Examples** — Only examples that add real value (different use cases, not small variants)
+4. **API Reference** — Clean tables (Prop | Type | Default)
+
+### Examples That Add Value
+- Different layouts or compositions
+- Integration patterns (Server Actions, controlled state)
+- Meaningfully different variants
+
+### Examples That Don't Add Value
+- Same component with different placeholder text
+- Same component with different data
+- Tiny prop variations
+
+### API Tables
+Use 3 columns, no descriptions (code should be self-documenting):
+
+```md
+| Prop | Type | Default |
+| --- | --- | --- |
+| `field` | `"name" \| "line1" \| "city"` | — |
+| `trimOnBlur` | `boolean` | `true` |
+```

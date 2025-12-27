@@ -57,6 +57,9 @@ importers:
       fumadocs-mdx:
         specifier: 14.1.1
         version: 14.1.1(fumadocs-core@16.2.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.3))(next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zod@4.2.1))(next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3)
+      fumadocs-registry:
+        specifier: ^0.1.0
+        version: 0.1.0(fumadocs-mdx@14.1.1(fumadocs-core@16.2.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.3))(next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zod@4.2.1))(next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3))
       fumadocs-ui:
         specifier: 16.2.5
         version: 16.2.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.3))(next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)(zod@4.2.1)
@@ -1436,6 +1439,15 @@ packages:
       react:
         optional: true
       vite:
+        optional: true
+
+  fumadocs-registry@0.1.0:
+    resolution: {integrity: sha512-hk5Q/Bz0ca0V8U54CkNzsDHb4k9kmxkl9FvF5ATsFH1aN2DmsaAeUQ68Mhs3aK0AHZRMMEV3v59H8kjy4N+QIA==}
+    hasBin: true
+    peerDependencies:
+      fumadocs-mdx: '>=14.0.0'
+    peerDependenciesMeta:
+      fumadocs-mdx:
         optional: true
 
   fumadocs-ui@16.2.5:
@@ -3242,6 +3254,12 @@ snapshots:
       react: 19.2.3
     transitivePeerDependencies:
       - supports-color
+
+  fumadocs-registry@0.1.0(fumadocs-mdx@14.1.1(fumadocs-core@16.2.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.3))(next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zod@4.2.1))(next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3)):
+    dependencies:
+      picocolors: 1.1.1
+    optionalDependencies:
+      fumadocs-mdx: 14.1.1(fumadocs-core@16.2.5(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.3))(next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(zod@4.2.1))(next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react@19.2.3)
 
   fumadocs-ui@16.2.5(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(lucide-react@0.556.0(react@19.2.3))(next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(tailwindcss@4.1.18)(zod@4.2.1):
     dependencies:

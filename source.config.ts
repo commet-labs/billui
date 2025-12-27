@@ -4,7 +4,7 @@ import {
   frontmatterSchema,
   metaSchema,
 } from "fumadocs-mdx/config";
-import { remarkComponentPreview } from "./src/lib/remark-component-preview";
+import { remarkComponentPreview } from "fumadocs-registry/remark";
 
 // You can customise Zod schemas for frontmatter and `meta.json` here
 // see https://fumadocs.dev/docs/mdx/collections
