@@ -30,7 +30,7 @@
     "country-state-city": "^3.2.1",
     "fumadocs-core": "16.2.5",
     "fumadocs-mdx": "14.1.1",
-    "fumadocs-registry": "0.3.0",
+    "fumadocs-registry": "0.3.2",
     "fumadocs-ui": "16.2.5",
     "lucide-react": "^0.556.0",
     "motion": "^12.23.26",
