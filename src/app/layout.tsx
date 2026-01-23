@@ -91,17 +91,6 @@ export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={geist.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        <a
-          href="https://commet.co/producthunt"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="sticky top-0 z-50 flex items-center justify-center gap-2 bg-linear-to-r from-orange-500 to-orange-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:from-orange-600 hover:to-orange-700"
-        >
-          <span>We're live on Product Hunt!</span>
-          <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">
-            Support us →
-          </span>
-        </a>
         <RootProvider>{children}</RootProvider>
         <Analytics />
       </body>
