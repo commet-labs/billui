@@ -3,6 +3,7 @@ import "./global.css";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { AnnouncementBar } from "@/components/announcement-bar";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -91,6 +92,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={geist.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
+        <AnnouncementBar />
         <RootProvider>{children}</RootProvider>
         <Analytics />
       </body>
