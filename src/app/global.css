@@ -39,6 +39,23 @@
   --sidebar-accent-foreground: oklch(0.28 0.028 52);
   --sidebar-border: oklch(0.89 0.017 62);
   --sidebar-ring: oklch(0.2 0.018 52);
+
+  --color-fd-background: var(--background);
+  --color-fd-foreground: var(--foreground);
+  --color-fd-card: var(--muted);
+  --color-fd-card-foreground: var(--foreground);
+  --color-fd-popover: var(--background);
+  --color-fd-popover-foreground: var(--foreground);
+  --color-fd-primary: var(--primary);
+  --color-fd-primary-foreground: var(--primary-foreground);
+  --color-fd-secondary: var(--secondary);
+  --color-fd-secondary-foreground: var(--secondary-foreground);
+  --color-fd-muted: var(--muted);
+  --color-fd-muted-foreground: var(--muted-foreground);
+  --color-fd-accent: var(--accent);
+  --color-fd-accent-foreground: var(--accent-foreground);
+  --color-fd-border: var(--border);
+  --color-fd-ring: var(--ring);
 }
 
 @theme inline {
@@ -114,6 +131,23 @@
   --sidebar-accent-foreground: oklch(0.93 0.01 75);
   --sidebar-border: oklch(0.28 0.015 55);
   --sidebar-ring: oklch(0.6 0.12 50);
+
+  --color-fd-background: var(--background);
+  --color-fd-foreground: var(--foreground);
+  --color-fd-card: oklch(0.19 0.015 55);
+  --color-fd-card-foreground: var(--foreground);
+  --color-fd-popover: var(--sidebar);
+  --color-fd-popover-foreground: var(--foreground);
+  --color-fd-primary: var(--primary);
+  --color-fd-primary-foreground: var(--primary-foreground);
+  --color-fd-secondary: var(--secondary);
+  --color-fd-secondary-foreground: var(--foreground);
+  --color-fd-muted: var(--muted);
+  --color-fd-muted-foreground: var(--muted-foreground);
+  --color-fd-accent: var(--accent);
+  --color-fd-accent-foreground: var(--foreground);
+  --color-fd-border: var(--border);
+  --color-fd-ring: var(--ring);
 }
 
 @layer base {

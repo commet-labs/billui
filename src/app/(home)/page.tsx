@@ -76,8 +76,8 @@ export default function HomePage() {
         {/* Gradient orbs */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-linear-to-b from-primary/8 via-primary/4 to-transparent rounded-full blur-3xl" />
-          <div className="absolute top-[10%] left-[20%] w-[400px] h-[400px] bg-linear-to-br from-violet-500/10 to-transparent rounded-full blur-3xl" />
-          <div className="absolute top-[5%] right-[15%] w-[300px] h-[300px] bg-linear-to-bl from-blue-500/10 to-transparent rounded-full blur-3xl" />
+          <div className="absolute top-[10%] left-[20%] w-[400px] h-[400px] bg-linear-to-br from-primary/6 to-transparent rounded-full blur-3xl" />
+          <div className="absolute top-[5%] right-[15%] w-[300px] h-[300px] bg-linear-to-bl from-primary/5 to-transparent rounded-full blur-3xl" />
         </div>
 
         <AnimatedHero className="flex flex-col items-center">
@@ -125,7 +125,7 @@ export default function HomePage() {
         <AnimatedSectionScale className="max-w-lg mx-auto">
           <div className="relative">
             {/* Glow effect */}
-            <div className="absolute -inset-4 bg-linear-to-r from-primary/20 via-violet-500/20 to-blue-500/20 rounded-3xl blur-2xl opacity-60" />
+            <div className="absolute -inset-4 bg-linear-to-r from-primary/20 via-primary/15 to-primary/10 rounded-3xl blur-2xl opacity-60" />
 
             {/* Card */}
             <div className="relative rounded-2xl border bg-card p-8">
