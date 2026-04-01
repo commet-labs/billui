@@ -1,5 +1,5 @@
 import type { I18nConfig } from "fumadocs-core/i18n";
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { GitHubStars } from "./github-stars";
 import type { LinkItemType } from "./link-item";
 
@@ -7,7 +7,7 @@ export interface NavOptions {
   enabled: boolean;
   component: ReactNode;
 
-  title?: ReactNode;
+  title?: ReactNode | ((props: ComponentProps<"a">) => ReactNode);
 
   /**
    * Redirect url of title

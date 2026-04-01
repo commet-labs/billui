@@ -152,7 +152,7 @@ export function DocsLayout({
                 href={nav.url ?? "/"}
                 className="inline-flex text-[0.9375rem] items-center gap-2.5 font-medium me-auto"
               >
-                {nav.title}
+                {typeof nav.title === "function" ? nav.title({}) : nav.title}
               </Link>
               {nav.children}
               {collapsible && (
@@ -291,7 +291,9 @@ export function DocsLayout({
                     href={nav.url ?? "/"}
                     className="inline-flex items-center gap-2.5 font-semibold"
                   >
-                    {nav.title}
+                    {typeof nav.title === "function"
+                      ? nav.title({})
+                      : nav.title}
                   </Link>
                   <div className="flex-1">{nav.children}</div>
                   {searchToggle.enabled !== false &&

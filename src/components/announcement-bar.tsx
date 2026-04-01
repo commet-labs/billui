@@ -2,7 +2,7 @@
 
 import { track } from "@vercel/analytics";
 import { ArrowRight, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "billui-announcement-dismissed";
 

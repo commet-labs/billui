@@ -80,7 +80,7 @@ export function Header({
         href={nav.url ?? "/"}
         className="inline-flex items-center gap-2.5 font-semibold"
       >
-        {nav.title}
+        {typeof nav.title === "function" ? nav.title({}) : nav.title}
       </Link>
       {nav.children}
       <ul className="flex flex-row items-center gap-2 px-6 max-sm:hidden">
