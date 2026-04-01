@@ -198,17 +198,17 @@ function HeaderNavigationMenu({
       <header
         id="nd-nav"
         {...props}
-        className={cn("sticky h-14 top-0 z-40", props.className)}
+        className={cn("sticky h-0 top-0 z-50", props.className)}
       >
         <div
           className={cn(
-            "backdrop-blur-lg border-b transition-colors *:mx-auto *:max-w-(--fd-layout-width)",
-            value.length > 0 && "max-lg:shadow-lg max-lg:rounded-b-2xl",
-            (!isTransparent || value.length > 0) && "bg-fd-background/80",
+            "backdrop-blur-sm border-b transition-colors *:mx-auto *:max-w-(--fd-layout-width)",
+            value.length > 0 && "max-lg:shadow-lg",
+            (!isTransparent || value.length > 0) && "bg-background/80",
           )}
         >
           <NavigationMenuList
-            className="flex h-14 w-full items-center px-4"
+            className="flex h-12 w-full items-center px-4"
             asChild
           >
             <nav>{props.children}</nav>

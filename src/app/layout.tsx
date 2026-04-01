@@ -2,11 +2,11 @@ import { RootProvider } from "fumadocs-ui/provider/next";
 import "./global.css";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
-import { AnnouncementBar } from "@/components/announcement-bar";
+import { IBM_Plex_Mono } from "next/font/google";
 
-const geist = Geist({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -90,11 +90,12 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={geist.className} suppressHydrationWarning>
+    <html lang="en" className={ibmPlexMono.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        <AnnouncementBar />
-        <RootProvider>{children}</RootProvider>
-        <Analytics />
+        <RootProvider>
+          {children}
+          <Analytics />
+        </RootProvider>
       </body>
     </html>
   );

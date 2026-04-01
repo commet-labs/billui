@@ -5,8 +5,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Sharp corners globally */
+@theme {
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-full: 0px;
+}
+
 /* Commet Warm — shared brand palette (OKLCH with warm amber undertone) */
 :root {
+  --fd-radius: 0px;
   --background: oklch(0.98 0.012 65);
   --foreground: oklch(0.17 0.018 52);
   --card: oklch(0.98 0.012 65);
@@ -25,7 +37,6 @@
   --border: oklch(0.89 0.017 62);
   --input: oklch(0.89 0.017 62);
   --ring: oklch(0.2 0.018 52);
-  --radius: 1;
   --chart-1: oklch(0.6 0.16 45);
   --chart-2: oklch(0.6 0.1 175);
   --chart-3: oklch(0.75 0.15 80);
@@ -56,16 +67,10 @@
   --color-fd-accent-foreground: var(--accent-foreground);
   --color-fd-border: var(--border);
   --color-fd-ring: var(--ring);
+  --color-fd-overlay: oklch(0.17 0.018 52 / 0.2);
 }
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -148,6 +153,38 @@
   --color-fd-accent-foreground: var(--foreground);
   --color-fd-border: var(--border);
   --color-fd-ring: var(--ring);
+  --color-fd-overlay: oklch(0.155 0.015 55 / 0.2);
+}
+
+/* Match header height across all layouts */
+#nd-nav nav,
+#nd-subnav {
+  height: 3rem; /* h-12 */
+}
+
+/* Consistent max-width and padding across all layouts */
+#nd-subnav [data-header-body] {
+  max-width: 1536px; /* 2xl */
+  margin-inline: auto;
+  padding-inline: 1rem; /* px-4 */
+  width: 100%;
+}
+
+#nd-page {
+  max-width: 1536px;
+  margin-inline: auto;
+}
+
+/* Override fumadocs neutral sidebar pure-gray HSL with warm OKLCH */
+.dark #nd-sidebar {
+  --color-fd-muted: oklch(0.24 0.015 55);
+  --color-fd-secondary: oklch(0.24 0.015 55);
+  --color-fd-muted-foreground: oklch(0.65 0.015 60);
+}
+
+/* Steps bullet - sharp square with visible number */
+.fd-step::before {
+  border-radius: 0;
 }
 
 @layer base {
