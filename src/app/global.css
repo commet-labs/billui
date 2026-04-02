@@ -170,7 +170,6 @@
   width: 100%;
 }
 
-
 /* Override fumadocs neutral sidebar pure-gray HSL with warm OKLCH */
 .dark #nd-sidebar {
   --color-fd-muted: oklch(0.24 0.015 55);
