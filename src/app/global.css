@@ -170,10 +170,6 @@
   width: 100%;
 }
 
-#nd-page {
-  max-width: 1536px;
-  margin-inline: auto;
-}
 
 /* Override fumadocs neutral sidebar pure-gray HSL with warm OKLCH */
 .dark #nd-sidebar {
