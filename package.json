@@ -28,16 +28,16 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "country-state-city": "^3.2.1",
-    "fumadocs-core": "16.4.8",
-    "fumadocs-mdx": "14.2.6",
+    "fumadocs-core": "16.10.7",
+    "fumadocs-mdx": "14.3.2",
     "fumadocs-registry": "0.3.2",
-    "fumadocs-ui": "16.4.8",
-    "lucide-react": "^0.556.0",
+    "fumadocs-ui": "16.10.7",
+    "lucide-react": "^0.577.0",
     "motion": "^12.23.26",
-    "next": "16.1.6",
+    "next": "16.2.10",
     "next-themes": "^0.4.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
     "scroll-into-view-if-needed": "^3.1.0",
     "shiki": "^3.20.0",
     "tailwind-merge": "^3.4.0"
@@ -48,7 +48,7 @@
     "@types/mdast": "^4.0.4",
     "@types/mdx": "^2.0.13",
     "@types/node": "^24.10.2",
-    "@types/react": "19.2.7",
+    "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "mdast-util-mdx-jsx": "^3.2.0",
     "postcss": "^8.5.6",
@@ -62,7 +62,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@types/react": "19.2.7",
+      "@types/react": "19.2.17",
       "@types/react-dom": "19.2.3"
     }
   }
