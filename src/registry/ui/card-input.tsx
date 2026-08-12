@@ -75,8 +75,7 @@ function validateLuhn(cardNumber: string): boolean {
 
 function isCardNumberComplete(cardNumber: string, brand: CardBrand): boolean {
   const number = cardNumber.replace(/\s/g, "");
-  const maxLength = getCardMaxLength(brand);
-  return number.length === maxLength;
+  return getCardLengths(brand).includes(number.length);
 }
 
 function validateCardNumber(cardNumber: string): {
@@ -91,13 +90,31 @@ function validateCardNumber(cardNumber: string): {
   return { isValid, isComplete, brand };
 }
 
-function getCardMaxLength(brand: CardBrand): number {
-  // Amex has 15 digits, others have 16
-  return brand === "amex" ? 15 : 16;
+// Accepted PAN lengths per brand, ascending. A brand can have several valid
+// lengths (Visa is 13, 16 or 19; Diners is 14, 16 or 19), so a single fixed
+// rule rejects real cards. `unknown` covers the ISO/IEC 7812 range.
+const CARD_NUMBER_LENGTHS: Record<CardBrand, number[]> = {
+  visa: [13, 16, 19],
+  mastercard: [16],
+  amex: [15],
+  discover: [16, 19],
+  diners: [14, 16, 19],
+  jcb: [16, 17, 18, 19],
+  unionpay: [16, 17, 18, 19],
+  unknown: [12, 13, 14, 15, 16, 17, 18, 19],
+};
+
+function getCardLengths(brand: CardBrand): number[] {
+  return CARD_NUMBER_LENGTHS[brand];
 }
 
-function getCvcMaxLength(brand: CardBrand): number {
-  // Amex has 4-digit CVC, others have 3
+function getCardMaxLength(brand: CardBrand): number {
+  const lengths = getCardLengths(brand);
+  return lengths[lengths.length - 1];
+}
+
+function getCvcLength(brand: CardBrand): number {
+  // Amex has a 4-digit CVC, others have 3
   return brand === "amex" ? 4 : 3;
 }
 
@@ -523,6 +540,11 @@ interface CardCvcInputProps
   defaultValue?: string;
   /** Callback fired when the value changes */
   onValueChange?: (value: string) => void;
+  /** Callback fired when validation state changes */
+  onValidationChange?: (validation: {
+    isValid: boolean;
+    isComplete: boolean;
+  }) => void;
 }
 
 const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
@@ -534,6 +556,7 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
       value,
       defaultValue = "",
       onValueChange,
+      onValidationChange,
       disabled,
       ...props
     },
@@ -542,11 +565,12 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
     const context = useCardInputContext();
     const generatedId = React.useId();
     const inputId = id ?? generatedId;
+    const errorId = `${inputId}-error`;
     const inputName = name ?? "cc-csc";
 
     // Get brand from context (auto-detected from card number)
     const brand = context?.brand ?? "unknown";
-    const maxLength = getCvcMaxLength(brand);
+    const requiredLength = getCvcLength(brand);
 
     const [currentValue, setCurrentValue] = useControllableState(
       value,
@@ -557,8 +581,22 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
     // When inside CardInputGroup, center text; otherwise left-align
     const isGrouped = context !== null;
 
+    // The code must match the brand length exactly. When the brand switches
+    // (Amex needs 4, others need 3), a code of the wrong length is flagged
+    // rather than dropped without notice.
+    const digits = currentValue.replace(/\D/g, "");
+    const isComplete = digits.length >= requiredLength;
+    const isValid = digits.length === requiredLength;
+    const hasError = isComplete && !isValid;
+
+    React.useEffect(() => {
+      onValidationChange?.({ isValid, isComplete });
+    }, [isValid, isComplete, onValidationChange]);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const rawValue = e.target.value.replace(/\D/g, "").slice(0, maxLength);
+      const rawValue = e.target.value
+        .replace(/\D/g, "")
+        .slice(0, requiredLength);
       setCurrentValue(rawValue);
     };
 
@@ -574,17 +612,25 @@ const CardCvcInput = React.forwardRef<HTMLInputElement, CardCvcInputProps>(
           value={currentValue}
           onChange={handleChange}
           placeholder={brand === "amex" ? "CVV" : "CVC"}
-          maxLength={maxLength}
+          maxLength={requiredLength}
           disabled={disabled}
           className={cn(
             "h-10 border-0 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground",
+            hasError && "text-destructive",
             isGrouped ? "w-16 text-center" : "w-full",
             disabled && "cursor-not-allowed opacity-50",
             className,
           )}
           aria-label="Security code"
+          aria-invalid={hasError}
+          aria-describedby={hasError ? errorId : undefined}
           {...props}
         />
+        {hasError && (
+          <span id={errorId} className="sr-only">
+            Invalid security code
+          </span>
+        )}
       </div>
     );
   },
