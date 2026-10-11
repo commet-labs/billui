@@ -6,6 +6,10 @@ Please take a moment to review this document before submitting your first pull r
 
 If you need any help, feel free to open an issue.
 
+## Start with an issue
+
+We review pull requests only for issues a maintainer has approved. Open an issue first; if we agree on the change, a maintainer assigns it to you, and you can then open a pull request that references it with `Closes #<issue number>`. Pull requests without a referenced issue assigned to their author are closed automatically.
+
 ## About this repository
 
 This is a Next.js application that serves as both the documentation site and the component registry.
