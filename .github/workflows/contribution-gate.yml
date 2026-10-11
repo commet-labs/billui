@@ -1,0 +1,13 @@
+name: Contribution gate
+
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions:
+  pull-requests: write
+  issues: read
+
+jobs:
+  contribution-gate:
+    uses: commet-labs/.github/.github/workflows/contribution-gate.yml@main
